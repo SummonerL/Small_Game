@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 128838447}
   m_Layer: 0
   m_Name: CameraManager
-  m_TagString: Untagged
+  m_TagString: CameraManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,6 +180,7 @@ MonoBehaviour:
   leftCamera: {fileID: 0}
   rightCamera: {fileID: 0}
   cameras: []
+  activeCamera: {fileID: 0}
   cameraIndex: 0
 --- !u!1001 &193168969
 PrefabInstance:
@@ -5981,6 +5982,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5d4b12acac914884c84f3770a15d5cc6, type: 2}
+    - target: {fileID: 4457619757853774306, guid: eb768cd15d77bce4a8669a1cc0b6dcfc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5653519914247303419, guid: eb768cd15d77bce4a8669a1cc0b6dcfc, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.69483924
@@ -6640,7 +6645,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5b1f5f4f6492fa44d8772653768ec3e5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -6658,6 +6663,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef4974df8642cee49b495c18a05bb1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2044112913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044112909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93516320367cd34db7d30f9b58d119f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCharacterController: {fileID: 0}
+  playerAnimationController: {fileID: 0}
+  cameraManager: {fileID: 0}
+  activeCameraTransform: {fileID: 0}
+  walkingSpeed: 0.6
+  turnSmoothTime: 0.1
+--- !u!143 &2044112914
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044112909}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.95
+  m_Radius: 0.25
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.95, z: 0}
 --- !u!1 &2061497704
 GameObject:
   m_ObjectHideFlags: 0

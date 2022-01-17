@@ -10,6 +10,7 @@ public class CameraManager : MonoBehaviour
     public Camera leftCamera;
     public Camera rightCamera;
     public List<Camera> cameras = new List<Camera> ();
+    public Camera activeCamera;
 
     public int cameraIndex;
 
@@ -30,6 +31,7 @@ public class CameraManager : MonoBehaviour
         closeCamera.enabled = false;
         leftCamera.enabled = false;
         rightCamera.enabled = false;
+        activeCamera = defaultCamera;
 
         cameraIndex = 0;
     }
@@ -46,6 +48,7 @@ public class CameraManager : MonoBehaviour
                 cameraIndex++;
 
             cameras[cameraIndex].enabled = true;
+            activeCamera = cameras[cameraIndex];
         }
     }
 }

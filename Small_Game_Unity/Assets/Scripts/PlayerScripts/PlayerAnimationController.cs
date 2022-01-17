@@ -7,9 +7,6 @@ public class PlayerAnimationController : MonoBehaviour
 {
 
     Animator playerAnimator;
-
-    // track animation parameters
-    float playerSpeed;
     
     // Start is called before the first frame update
     void Start()
