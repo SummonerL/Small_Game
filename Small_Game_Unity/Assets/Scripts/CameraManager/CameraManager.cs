@@ -39,7 +39,7 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Keyboard_Tab") || Input.GetButtonDown("Joystick_Button_Up"))
         {
             cameras[cameraIndex].enabled = false;
             if (cameraIndex == cameras.Count - 1) 
