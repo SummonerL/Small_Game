@@ -1,0 +1,28 @@
+Walk Speed - Animation Sync Formula
+
+.39 Meters Front Foot
+-.02 Meters Toe Back = 
+-----------------------
+.418 Mtrs per stride
+
+Divide by number of frames it took (20) for that stride
+----------------
+0.0209 per frame
+
+Multiply by framerate
+-----------------------
+* 24 (framerate)
+-----------------------
+.5016 meters per second
+
+Formula is...
+.5016 : <desired speed> = 1 : X
+Desired speed literally being what we want to set the playerSpeed to
+X being the animation speed
+
+For example
+.5016 : .75 = 1 : <result!>
+
+If walk speed is .75, animation speed should be 1.495
+
+https://www.calculatorsoup.com/calculators/math/ratios.php
