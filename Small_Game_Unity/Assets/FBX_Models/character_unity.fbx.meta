@@ -18,6 +18,9 @@ ModelImporter:
   - first:
       74: 567468515466751761
     second: CharacterRig|Walk.001
+  - first:
+      74: -7973069088639835645
+    second: CharacterRig|0TPose.001
   externalObjects: {}
   materials:
     materialImportMode: 2
