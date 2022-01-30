@@ -7,6 +7,10 @@ public class PlayerMovementScript : MonoBehaviour
 
     public CharacterController playerCharacterController;
     public PlayerAnimationController playerAnimationController;
+
+    // capsule collider representing the 'front' of the player
+    public CapsuleCollider playerFrontCollider;
+
     public CameraManager cameraManager;
     public Transform activeCameraTransform; // move based on camera angle
 
@@ -20,6 +24,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         playerAnimationController = GetComponent<PlayerAnimationController>();
         playerCharacterController = GetComponent<CharacterController>();
+        playerFrontCollider = GetComponent<CapsuleCollider>();
         cameraManager = GameObject.FindWithTag("CameraManager").GetComponent<CameraManager>(); // CameraManager.cs
     }
 
@@ -45,4 +50,15 @@ public class PlayerMovementScript : MonoBehaviour
             playerAnimationController.SetAnimationParam<float>("player_speed", 0f);
         }
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+        
+        // determine if the 'front' collider intersects with the target collider
+        if (playerFrontCollider.bounds.Intersects(hit.collider.bounds)) {
+            
+            // we don't really want the walk cycle animation to play right now.
+            playerAnimationController.SetAnimationParam<float>("player_speed", 0f);
+        }
+    }
+
 }
