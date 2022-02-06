@@ -3698,6 +3698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 781461541eb30b44882bd4a3a9e3fae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraManager: {fileID: 128838447}
   interactBubble: {fileID: 605977657667567873, guid: 3a9637462d971664c8341808a0f80619, type: 3}
   interactBubblePool: []
 --- !u!1001 &455162283
@@ -3841,7 +3842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f687fe3a1ec07c4478d8b54fd6c423c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactiveObjects: []
+  uiControllerGameObject: {fileID: 418553619}
 --- !u!4 &570999944 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f749cb871d310b34497c8905a0e8c729, type: 3}
@@ -7293,7 +7294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79bf9fa068b26d643b792c894fc6fe8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetFPS: 60
+  targetFPS: 90
 --- !u!4 &2124055877
 Transform:
   m_ObjectHideFlags: 0

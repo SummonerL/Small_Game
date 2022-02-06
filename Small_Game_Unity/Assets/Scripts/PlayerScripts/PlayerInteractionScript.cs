@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/***
+*   This class tracks player proximity to interactive objects.
+*
+***/
 public class PlayerInteractionScript : MonoBehaviour
 {
 
@@ -46,11 +50,11 @@ public class PlayerInteractionScript : MonoBehaviour
         List<GameObject> removals = interactionEligibleObjects.Except(filteredCollisionsList).ToList();
 
         foreach (GameObject addedObject in additions) {
-            Debug.Log(addedObject.name + " added.");
+            interactiveObjectController.HandleEligibleObject(addedObject);
         }
 
         foreach (GameObject removedObject in removals) {
-            Debug.Log(removedObject.name + " removed.");
+            interactiveObjectController.HandleIneligibleObject(removedObject);
         }
 
         interactionEligibleObjects = filteredCollisionsList;
