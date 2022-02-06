@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 605977657667567874}
   - component: {fileID: 605977657667567875}
   m_Layer: 0
-  m_Name: InteractBubble 1
+  m_Name: InteractBubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

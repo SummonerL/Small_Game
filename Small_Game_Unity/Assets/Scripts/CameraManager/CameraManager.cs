@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
 
+    /* TODO: Needs Refactoring */
+
     public Camera defaultCamera;
     public Camera closeCamera;
     public Camera leftCamera;
@@ -14,7 +16,7 @@ public class CameraManager : MonoBehaviour
 
     public int cameraIndex;
 
-    // Start is called before the first frame update
+    // start is called before the first frame update
     void Start()
     {
         defaultCamera = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Camera>();
@@ -36,7 +38,7 @@ public class CameraManager : MonoBehaviour
         cameraIndex = 0;
     }
 
-    // Update is called once per frame
+    // update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Keyboard_Tab") || Input.GetButtonDown("Joystick_Button_Up"))

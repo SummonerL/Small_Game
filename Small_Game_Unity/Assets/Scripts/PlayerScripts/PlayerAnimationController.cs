@@ -6,25 +6,15 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
 
-    Animator playerAnimator;
+    private Animator playerAnimator;
     
-    // Start is called before the first frame update
+    // start is called before the first frame update
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Set player_speed param when key is pressed
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            SetAnimationParam<float>("player_speed", 1 - GetAnimationParam<float>("player_speed")); // toggle between 1 / 0
-        }
-    }
-
-    // Set any animation parameter initialized in playerAnimator
+    // set any animation parameter initialized in playerAnimator
     public void SetAnimationParam<T>(string paramName, T paramValue) {
         if (typeof(T) == typeof(float)) 
         {
@@ -42,7 +32,7 @@ public class PlayerAnimationController : MonoBehaviour
         }
     }
 
-    // Get any animation parameter initialized in playerAnimator
+    // get any animation parameter initialized in playerAnimator
     public T GetAnimationParam<T>(string paramName) {
         if (typeof(T) == typeof(float)) 
         {
