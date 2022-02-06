@@ -34,7 +34,7 @@ public class InteractiveObjectsScript : MonoBehaviour
 
     // an object is no longer within player proximity
     public void HandleIneligibleObject(GameObject ineligibleObject) {
-
+        uiController.HideInteractionBubble(ineligibleObject);
     }
     
     public GameObject[] GetInteractiveObjects() {

@@ -18,7 +18,7 @@ public class UIControllerScript : MonoBehaviour
 
     [SerializeField]
     // UI Elements
-    private GameObject interactBubble;
+    private GameObject interactBubblePrefab;
     [SerializeField]
     private List<GameObject> interactBubblePool; // object pool to prevent runtime instantiation
     
@@ -31,7 +31,7 @@ public class UIControllerScript : MonoBehaviour
         // instantiate interactBubble and add to pool
         interactBubblePool = new List<GameObject>();
         for (int i = 0; i < Constants.POOL_COUNT; i++) {
-            GameObject tmpObject = Instantiate(interactBubble, canvas.transform);
+            GameObject tmpObject = Instantiate(interactBubblePrefab, canvas.transform);
             tmpObject.SetActive(false);
             interactBubblePool.Add(tmpObject);
         }
@@ -57,6 +57,27 @@ public class UIControllerScript : MonoBehaviour
             Vector3 bubblePosition = cameraManager.activeCamera.WorldToScreenPoint(targetObject.transform.position); // determine screen pos from world pos
             newInteractionBubble.transform.position = bubblePosition;
             newInteractionBubble.SetActive(true);
+
+            // set the reference to the target gameObject
+            newInteractionBubble.GetComponent<InteractionBubbleScript>().SetTargetObject(targetObject);
+        }
+    }
+
+    // hide the interaction bubble that is present above the target object
+    public void HideInteractionBubble(GameObject targetObject) {
+        // find the interaction bubble
+        GameObject interactBubble;
+        
+        for (int i = 0; i < Constants.POOL_COUNT; i++) {
+            if (interactBubblePool[i].activeInHierarchy) { 
+                
+                interactBubble = interactBubblePool[i];
+
+                if (interactBubble.GetComponent<InteractionBubbleScript>().GetTargetObject() == targetObject) {
+                    interactBubble.GetComponent<InteractionBubbleScript>().ClearTargetObject();
+                    interactBubble.SetActive(false);
+                }
+            }
         }
     }
 }
