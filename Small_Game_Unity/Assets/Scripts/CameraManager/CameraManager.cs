@@ -16,6 +16,9 @@ public class CameraManager : MonoBehaviour
 
     public int cameraIndex;
 
+    [SerializeField]
+    private GameObject uiController;
+
     // start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,9 @@ public class CameraManager : MonoBehaviour
         activeCamera = defaultCamera;
 
         cameraIndex = 0;
+
+        // make sure the canvas is focused on the active camera
+        uiController.GetComponent<UIControllerScript>().BillboardCanvas(activeCamera);
     }
 
     // update is called once per frame
@@ -51,6 +57,9 @@ public class CameraManager : MonoBehaviour
 
             cameras[cameraIndex].enabled = true;
             activeCamera = cameras[cameraIndex];
+
+            // make sure the canvas is focused on the active camera
+            uiController.GetComponent<UIControllerScript>().BillboardCanvas(activeCamera);
         }
     }
 }

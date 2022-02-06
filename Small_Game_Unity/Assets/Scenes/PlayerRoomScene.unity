@@ -3699,7 +3699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraManager: {fileID: 128838447}
-  interactBubble: {fileID: 605977657667567873, guid: 3a9637462d971664c8341808a0f80619, type: 3}
+  interactBubblePrefab: {fileID: 605977657667567873, guid: 3a9637462d971664c8341808a0f80619, type: 3}
   interactBubblePool: []
 --- !u!1001 &455162283
 PrefabInstance:
