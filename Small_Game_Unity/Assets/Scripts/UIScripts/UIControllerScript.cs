@@ -109,7 +109,7 @@ public class UIControllerScript : MonoBehaviour
                 // scale
                 activeCameraTransform = cameraManager.activeCamera.transform;
                 float size = (activeCameraTransform.position - interactBubble.transform.position).magnitude;
-                interactBubble.transform.localScale = new Vector3(size,size,size) * 0.08f; // maintain scale across all elements
+                interactBubble.transform.localScale = new Vector3(size,size,size) * Constants.WORLD_SPACE_CANVAS_SCALE; // maintain scale across all elements
             }
         }
     }
@@ -128,7 +128,7 @@ public class UIControllerScript : MonoBehaviour
         // scale
         activeCameraTransform = cameraManager.activeCamera.transform;
         float size = (activeCameraTransform.position - interactBubble.transform.position).magnitude;
-        interactBubble.transform.localScale = new Vector3(size,size,size) * 0.08f; // maintain scale across all elements
+        interactBubble.transform.localScale = new Vector3(size,size,size) * Constants.WORLD_SPACE_CANVAS_SCALE; // maintain scale across all elements
 
     }
 
