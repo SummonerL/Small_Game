@@ -63,6 +63,9 @@ public class UIControllerScript : MonoBehaviour
 
             // activate it
             newInteractionBubble.SetActive(true);
+
+            // start the entry animation
+            newInteractionBubble.GetComponent<InteractionBubbleScript>().StartEntryAnimation();
         }
     }
 
@@ -78,7 +81,9 @@ public class UIControllerScript : MonoBehaviour
 
                 if (bubbleScript.GetTargetObject() == targetObject) {
                     bubbleScript.ClearTargetObject();
-                    interactBubble.SetActive(false);
+
+                    // StartEndAnimation will also call SetActive(false) on completion
+                    bubbleScript.StartEndAnimation();
                 }
             }
         }
