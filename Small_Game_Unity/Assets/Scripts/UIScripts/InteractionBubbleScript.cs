@@ -47,7 +47,7 @@ public class InteractionBubbleScript : MonoBehaviour
         // direction determines whether the Z is negative or positive
         int multiplier = 1;
         Constants.DIRECTIONS next;
-        float timer = 1.0f;
+        float timer = 1f;
 
         if (direction == Constants.DIRECTIONS.LEFT) {
             multiplier = -1;
@@ -59,6 +59,6 @@ public class InteractionBubbleScript : MonoBehaviour
         if (initialRotation)
             timer /= 2.0f; // movement from middle to side should happen half as slow
 
-        LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 6.0f * multiplier), timer).setOnComplete(() => { StartWiggleAnimation(next); });
+        LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 5.0f * multiplier), timer).setOnComplete(() => { StartWiggleAnimation(next); });
     }
 }
