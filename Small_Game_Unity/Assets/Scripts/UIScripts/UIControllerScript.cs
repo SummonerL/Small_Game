@@ -9,8 +9,13 @@ using UnityEngine;
 public class UIControllerScript : MonoBehaviour
 {
 
-    // reference to the canvas
-    private GameObject canvas;
+    // reference to the world space canvas
+    [SerializeField]
+    private GameObject worldSpaceCanvas;
+
+    // reference to the screen space canvas
+    [SerializeField]
+    private GameObject screenSpaceCanvas;
 
     // reference to the active camera
     [SerializeField]
@@ -21,18 +26,19 @@ public class UIControllerScript : MonoBehaviour
     // UI Elements
     private GameObject interactBubblePrefab;
     [SerializeField]
+    private GameObject dialogueBoxPrefab;
+
+    [SerializeField]
     private List<GameObject> interactBubblePool; // object pool to prevent runtime instantiation
     
 
     // start is called before the first frame update
     void Start()
     {
-        canvas = transform.GetChild(0).gameObject;
-
         // instantiate interactBubble and add to pool
         interactBubblePool = new List<GameObject>();
         for (int i = 0; i < Constants.POOL_COUNT; i++) {
-            GameObject tmpObject = Instantiate(interactBubblePrefab, canvas.transform);
+            GameObject tmpObject = Instantiate(interactBubblePrefab, worldSpaceCanvas.transform);
             tmpObject.SetActive(false);
             interactBubblePool.Add(tmpObject);
         }
@@ -87,9 +93,9 @@ public class UIControllerScript : MonoBehaviour
         }
     }
 
-    // make the canvas look at a given camera object
+    // make the world space canvas look at a given camera object
     public void BillboardCanvas(Camera targetCamera) {
-        canvas.transform.LookAt(canvas.transform.position + targetCamera.transform.rotation * Vector3.back, targetCamera.transform.rotation * Vector3.up);
+        worldSpaceCanvas.transform.LookAt(worldSpaceCanvas.transform.position + targetCamera.transform.rotation * Vector3.back, targetCamera.transform.rotation * Vector3.up);
 
         RepositionBubbles();
     }
