@@ -7,6 +7,10 @@ public class InteractionBubbleScript : MonoBehaviour
 
     // todo: break out constants?
 
+    private int entryAnimationID = -1;
+    private int exitAnimationID = -1;
+    private int wiggleAnimationID = -1;
+
     [SerializeField]
     private GameObject targetObject; // reference to the object this bubble is hovering above
 
@@ -22,11 +26,37 @@ public class InteractionBubbleScript : MonoBehaviour
         return this.targetObject;
     }
 
+    // when we reposition the camera, we want to cancel these tweens, to prevent scaling issues - we will still need to call their onCompletes
+    public void CancelEntryExitTweens() {
+        if (entryAnimationID > -1 && LeanTween.isTweening(entryAnimationID)) {
+            LeanTween.cancel(entryAnimationID);
+            OnStartEntryComplete();
+        }
+
+        if (exitAnimationID > -1 && LeanTween.isTweening(exitAnimationID)) {
+            LeanTween.cancel(exitAnimationID);
+            OnEndComplete();
+        }
+    }
+
+    // after start animation completes
+    private void OnStartEntryComplete() {
+        // start the wiggle animation
+        StartWiggleAnimation(Constants.DIRECTIONS.RIGHT, true);
+    }
+
+    // after end animation completes
+    private void OnEndComplete() {
+        // clear the active object + deactivate
+        ClearTargetObject();
+        gameObject.SetActive(false); 
+    }
+
     // scale from 0,0,0 to 1,1,1 to 'pop up' the bubble
     public void StartEntryAnimation() {
         Vector3 currentScale = transform.localScale;
         transform.localScale = new Vector3(0, 0, 0);
-        LeanTween.scale(gameObject, currentScale, 0.2f).setOnComplete(() => { StartWiggleAnimation(Constants.DIRECTIONS.RIGHT, true); });
+        entryAnimationID = LeanTween.scale(gameObject, currentScale, 0.2f).setOnComplete(OnStartEntryComplete).id;
     }
 
     // scale back to 0,0,0, then deactivate the object
@@ -38,7 +68,7 @@ public class InteractionBubbleScript : MonoBehaviour
         // ending the animation, reset the rotation
         transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
-        LeanTween.scale(gameObject, new Vector3(0, 0, 0), 0.1f).setOnComplete(() => { gameObject.SetActive(false); });
+        exitAnimationID = LeanTween.scale(gameObject, new Vector3(0, 0, 0), 0.1f).setOnComplete(OnEndComplete).id;
     }
 
     // a simple 'wiggle' animation that gives character to the icon.
@@ -59,6 +89,6 @@ public class InteractionBubbleScript : MonoBehaviour
         if (initialRotation)
             timer /= 2.0f; // movement from middle to side should happen half as slow
 
-        LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 5.0f * multiplier), timer).setOnComplete(() => { StartWiggleAnimation(next); });
+        wiggleAnimationID = LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 5.0f * multiplier), timer).setOnComplete(() => { StartWiggleAnimation(next); }).id;
     }
 }

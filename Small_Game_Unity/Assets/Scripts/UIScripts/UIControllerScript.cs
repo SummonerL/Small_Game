@@ -80,8 +80,6 @@ public class UIControllerScript : MonoBehaviour
                 InteractionBubbleScript bubbleScript = interactBubble.GetComponent<InteractionBubbleScript>();
 
                 if (bubbleScript.GetTargetObject() == targetObject) {
-                    bubbleScript.ClearTargetObject();
-
                     // StartEndAnimation will also call SetActive(false) on completion
                     bubbleScript.StartEndAnimation();
                 }
@@ -103,10 +101,16 @@ public class UIControllerScript : MonoBehaviour
                 GameObject interactBubble;
                 interactBubble = interactBubblePool[i];
                 InteractionBubbleScript bubbleScript = interactBubble.GetComponent<InteractionBubbleScript>();
-                
+                GameObject targetObject = bubbleScript.GetTargetObject();
+
+                // cancel tweens (prevents weird scaling issues)
+                bubbleScript.CancelEntryExitTweens();
+
                 // position
-                Vector3 targetPosition = bubbleScript.GetTargetObject().transform.position;
-                targetPosition.y = bubbleScript.GetTargetObject().GetComponent<BoxCollider>().bounds.max.y;
+                BoxCollider targetObjectCollider = targetObject.GetComponent<BoxCollider>();
+                Vector3 targetPosition = targetObject.transform.TransformPoint(targetObjectCollider.center); // get the world position of the collider
+
+                targetPosition.y = targetObjectCollider.bounds.max.y; // bubble should sit above the top of the collider
                 targetPosition.y += Constants.BUBBLE_POSITION_VERTICAL_BUFFER;
 
                 interactBubble.transform.position = targetPosition; // update the position
@@ -122,10 +126,16 @@ public class UIControllerScript : MonoBehaviour
     // reposition a single interaction bubble (generally upon creation)
     public void RepositionBubble(GameObject interactBubble) {
         InteractionBubbleScript bubbleScript = interactBubble.GetComponent<InteractionBubbleScript>();
+        GameObject targetObject = bubbleScript.GetTargetObject();
         
+        // cancel entry/exit tweens (prevents weird scaling issues)
+        bubbleScript.CancelEntryExitTweens();
+
         // position
-        Vector3 targetPosition = bubbleScript.GetTargetObject().transform.position;
-        targetPosition.y = bubbleScript.GetTargetObject().GetComponent<BoxCollider>().bounds.max.y;
+        BoxCollider targetObjectCollider = targetObject.GetComponent<BoxCollider>();
+        Vector3 targetPosition = targetObject.transform.TransformPoint(targetObjectCollider.center); // get the world position of the collider
+        
+        targetPosition.y = targetObjectCollider.bounds.max.y; // bubble should sit above the top of the collider
         targetPosition.y += Constants.BUBBLE_POSITION_VERTICAL_BUFFER;
 
         interactBubble.transform.position = targetPosition; // update the position
@@ -134,7 +144,6 @@ public class UIControllerScript : MonoBehaviour
         activeCameraTransform = cameraManager.activeCamera.transform;
         float size = (activeCameraTransform.position - interactBubble.transform.position).magnitude;
         interactBubble.transform.localScale = new Vector3(size,size,size) * Constants.WORLD_SPACE_CANVAS_SCALE; // maintain scale across all elements
-
     }
 
 
