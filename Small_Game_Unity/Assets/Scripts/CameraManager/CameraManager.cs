@@ -16,9 +16,6 @@ public class CameraManager : MonoBehaviour
 
     public int cameraIndex;
 
-    [SerializeField]
-    private GameObject uiController;
-
     // CameraManager Singleton Ref
     private static CameraManager _instance;
     public static CameraManager Instance { get { return _instance; } }
