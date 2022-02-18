@@ -12,19 +12,13 @@ public class PlayerInteractionScript : MonoBehaviour
 {
 
     private CharacterController playerCharacterController;
-    private InteractiveObjectsScript interactiveObjectController;
-    
-    [SerializeField]
     private List<GameObject> interactionEligibleObjects;
 
-    [SerializeField]
-    private GameObject interactiveObjectsObject;
 
     // start is called before the first frame update
     void Start()
     {
         playerCharacterController = GetComponent<CharacterController>();
-        interactiveObjectController = interactiveObjectsObject.GetComponent<InteractiveObjectsScript>();
         interactionEligibleObjects = new List<GameObject>();
     }
 
@@ -40,7 +34,7 @@ public class PlayerInteractionScript : MonoBehaviour
         List<GameObject> filteredCollisionsList = new List<GameObject>();
 
         foreach(Collider collider in hitColliders) {
-            if (Array.IndexOf(interactiveObjectController.GetInteractiveObjects(), collider.gameObject) > -1) { // make sure the object is actually interactive
+            if (Array.IndexOf(InteractiveObjectsScript.InteractiveObjects, collider.gameObject) > -1) { // make sure the object is actually interactive
                 filteredCollisionsList.Add(collider.gameObject);
             }
         }
@@ -50,18 +44,20 @@ public class PlayerInteractionScript : MonoBehaviour
         List<GameObject> removals = interactionEligibleObjects.Except(filteredCollisionsList).ToList();
 
         foreach (GameObject addedObject in additions) {
-            interactiveObjectController.HandleEligibleObject(addedObject);
+            // publish an event indicating player is in proximity of interactive object
+            GameEventsScript.Instance.EligibleInteractiveObject(addedObject);
         }
 
         foreach (GameObject removedObject in removals) {
-            interactiveObjectController.HandleIneligibleObject(removedObject);
+            // publish an event indicating player is no longer in proximity of interactive object
+            GameEventsScript.Instance.IneligibleInteractiveObject(removedObject);
         }
 
         interactionEligibleObjects = filteredCollisionsList;
     }
 
     void OnDrawGizmos() {
-        // Debugging
+        // used for debugging
         if (playerCharacterController != null) {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position + playerCharacterController.center, Constants.PLAYER_PROXIMITY_RADIUS);

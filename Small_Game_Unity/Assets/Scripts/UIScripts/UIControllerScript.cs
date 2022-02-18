@@ -3,75 +3,104 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /***
-*   Handles all UI components in the game. There should only be a single child (canvas).
+*   Handles all UI components in the game. There should only be a World + Screen canvas child
 *
 ***/
 public class UIControllerScript : MonoBehaviour
 {
+    private GameObject _worldSpaceCanvas;
+    private GameObject _screenSpaceCanvas;
 
-    // reference to the world space canvas
+    // various UI Elements
     [SerializeField]
-    private GameObject worldSpaceCanvas;
+    private GameObject _interactBubblePrefab;
+    [SerializeField]
+    private GameObject _dialogueBoxPrefab;
 
-    // reference to the screen space canvas
-    [SerializeField]
-    private GameObject screenSpaceCanvas;
+    // object pools to prevent runtime instantiation
+    private List<GameObject> _interactBubblePool; 
+    private List<GameObject> _dialogueBoxPool;
 
-    // reference to the active camera
-    [SerializeField]
-    private CameraManager cameraManager;
-    private Transform activeCameraTransform; // scale ui elements based on camera angle (maintain size)
+    // UI Controller Singleton Ref
+    private static UIControllerScript _instance;
+    public static UIControllerScript Instance { get { return _instance; } }
 
-    [SerializeField]
-    // UI Elements
-    private GameObject interactBubblePrefab;
-    [SerializeField]
-    private GameObject dialogueBoxPrefab;
 
-    [SerializeField]
-    private List<GameObject> interactBubblePool; // object pool to prevent runtime instantiation
-    
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
 
     // start is called before the first frame update
     void Start()
     {
+        // initialize canvas references with singletons
+        _worldSpaceCanvas = WorldSpaceCanvasSingleton.Instance.gameObject;
+        _screenSpaceCanvas = ScreenSpaceCanvasSingleton.Instance.gameObject;
+
         // instantiate interactBubble and add to pool
-        interactBubblePool = new List<GameObject>();
+        _interactBubblePool = new List<GameObject>();
         for (int i = 0; i < Constants.POOL_COUNT; i++) {
-            GameObject tmpObject = Instantiate(interactBubblePrefab, worldSpaceCanvas.transform);
+            GameObject tmpObject = Instantiate(_interactBubblePrefab, _worldSpaceCanvas.transform);
             tmpObject.SetActive(false);
-            interactBubblePool.Add(tmpObject);
+            _interactBubblePool.Add(tmpObject);
         }
 
+        // instantiate dialogueBox and add to the pool
+        _dialogueBoxPool = new List<GameObject>();
+        for (int i = 0; i < Constants.POOL_COUNT; i++) {
+            GameObject tmpObject = Instantiate(_dialogueBoxPrefab, _screenSpaceCanvas.transform);
+            tmpObject.SetActive(false);
+            _dialogueBoxPool.Add(tmpObject);
+        }
+
+        // subscribe to game events
+        GameEventsScript.Instance.onEligibleInteractiveObject += ShowInteractionBubble; // show interaction bubble when object becomes eligible
+        GameEventsScript.Instance.onIneligibleInteractiveObject += HideInteractionBubble; // hide interaction bubble when object becomes ineligible
+        GameEventsScript.Instance.onActiveCameraChanged += BillboardCanvas; // angle the canvas toward the new camera
     }
 
+    // object pool methods
     private GameObject GetPooledInteractionBubble() {
         for (int i = 0; i < Constants.POOL_COUNT; i++) {
-            if (!interactBubblePool[i].activeInHierarchy) { // get first available int. bubble
-                return interactBubblePool[i];
+            if (!_interactBubblePool[i].activeInHierarchy) { // get first available int. bubble
+                return _interactBubblePool[i];
             }
         }
 
         return null;
     }
 
-    // show interaction bubble above target object
+    private GameObject GetPooledDialogueBox() {
+        for (int i = 0; i < Constants.POOL_COUNT; i++) {
+            if (!_dialogueBoxPool[i].activeInHierarchy) { // get first available dialogue box
+                return _dialogueBoxPool[i];
+            }
+        }
+
+        return null;
+    }
+
+    // show an interaction bubble above target object
     public void ShowInteractionBubble(GameObject targetObject) {
+
+        /* Test: Write some text */
+        //GameObject dialogueBox = GetPooledDialogueBox();
+        //DialogueBoxScript dbScript = dialogueBox.GetComponent<DialogueBoxScript>();
+        //dbScript.ShowDialogueBox(cameraManager.activeCamera);
+        /* --------------------- */
+
         // get a new interaction bubble
         GameObject newInteractionBubble = GetPooledInteractionBubble();
 
         if (newInteractionBubble != null) {
-            // set the reference to the target gameObject
-            newInteractionBubble.GetComponent<InteractionBubbleScript>().SetTargetObject(targetObject);
-            
-            // position the new bubble
-            RepositionBubble(newInteractionBubble);
-
-            // activate it
-            newInteractionBubble.SetActive(true);
-
-            // start the entry animation
-            newInteractionBubble.GetComponent<InteractionBubbleScript>().StartEntryAnimation();
+            // invoke the instance's ShowInteractionBubble
+            newInteractionBubble.GetComponent<InteractionBubbleScript>().ShowInteractionBubble(targetObject);
         }
     }
 
@@ -79,78 +108,18 @@ public class UIControllerScript : MonoBehaviour
     public void HideInteractionBubble(GameObject targetObject) {
         // find the interaction bubble
         for (int i = 0; i < Constants.POOL_COUNT; i++) {
-            if (interactBubblePool[i].activeInHierarchy) { 
+            if (_interactBubblePool[i].activeInHierarchy) { 
                 GameObject interactBubble;
-                interactBubble = interactBubblePool[i];
+                interactBubble = _interactBubblePool[i];
 
-                InteractionBubbleScript bubbleScript = interactBubble.GetComponent<InteractionBubbleScript>();
-
-                if (bubbleScript.GetTargetObject() == targetObject) {
-                    // StartEndAnimation will also call SetActive(false) on completion
-                    bubbleScript.StartEndAnimation();
-                }
+                // invoke the instance's HideInteractionBubble
+                interactBubble.GetComponent<InteractionBubbleScript>().HideInteractionBubble(targetObject);
             }
         }
     }
 
     // make the world space canvas look at a given camera object
     public void BillboardCanvas(Camera targetCamera) {
-        worldSpaceCanvas.transform.LookAt(worldSpaceCanvas.transform.position + targetCamera.transform.rotation * Vector3.back, targetCamera.transform.rotation * Vector3.up);
-
-        RepositionBubbles();
+        _worldSpaceCanvas.transform.LookAt(_worldSpaceCanvas.transform.position + targetCamera.transform.rotation * Vector3.back, targetCamera.transform.rotation * Vector3.up);
     }
-
-    // reposition all interaction bubbles (generally after a camera angle change)
-    public void RepositionBubbles() {
-        for (int i = 0; i < Constants.POOL_COUNT; i++) {
-            if (interactBubblePool[i].activeInHierarchy) { 
-                GameObject interactBubble;
-                interactBubble = interactBubblePool[i];
-                InteractionBubbleScript bubbleScript = interactBubble.GetComponent<InteractionBubbleScript>();
-                GameObject targetObject = bubbleScript.GetTargetObject();
-
-                // cancel tweens (prevents weird scaling issues)
-                bubbleScript.CancelEntryExitTweens();
-
-                // position
-                BoxCollider targetObjectCollider = targetObject.GetComponent<BoxCollider>();
-                Vector3 targetPosition = targetObject.transform.TransformPoint(targetObjectCollider.center); // get the world position of the collider
-
-                targetPosition.y = targetObjectCollider.bounds.max.y; // bubble should sit above the top of the collider
-                targetPosition.y += Constants.BUBBLE_POSITION_VERTICAL_BUFFER;
-
-                interactBubble.transform.position = targetPosition; // update the position
-
-                // scale
-                activeCameraTransform = cameraManager.activeCamera.transform;
-                float size = (activeCameraTransform.position - interactBubble.transform.position).magnitude;
-                interactBubble.transform.localScale = new Vector3(size,size,size) * Constants.WORLD_SPACE_CANVAS_SCALE; // maintain scale across all elements
-            }
-        }
-    }
-
-    // reposition a single interaction bubble (generally upon creation)
-    public void RepositionBubble(GameObject interactBubble) {
-        InteractionBubbleScript bubbleScript = interactBubble.GetComponent<InteractionBubbleScript>();
-        GameObject targetObject = bubbleScript.GetTargetObject();
-        
-        // cancel entry/exit tweens (prevents weird scaling issues)
-        bubbleScript.CancelEntryExitTweens();
-
-        // position
-        BoxCollider targetObjectCollider = targetObject.GetComponent<BoxCollider>();
-        Vector3 targetPosition = targetObject.transform.TransformPoint(targetObjectCollider.center); // get the world position of the collider
-        
-        targetPosition.y = targetObjectCollider.bounds.max.y; // bubble should sit above the top of the collider
-        targetPosition.y += Constants.BUBBLE_POSITION_VERTICAL_BUFFER;
-
-        interactBubble.transform.position = targetPosition; // update the position
-
-        // scale
-        activeCameraTransform = cameraManager.activeCamera.transform;
-        float size = (activeCameraTransform.position - interactBubble.transform.position).magnitude;
-        interactBubble.transform.localScale = new Vector3(size,size,size) * Constants.WORLD_SPACE_CANVAS_SCALE; // maintain scale across all elements
-    }
-
-
 }

@@ -19,6 +19,20 @@ public class CameraManager : MonoBehaviour
     [SerializeField]
     private GameObject uiController;
 
+    // CameraManager Singleton Ref
+    private static CameraManager _instance;
+    public static CameraManager Instance { get { return _instance; } }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
+
     // start is called before the first frame update
     void Start()
     {
@@ -40,8 +54,7 @@ public class CameraManager : MonoBehaviour
 
         cameraIndex = 0;
 
-        // make sure the canvas is focused on the active camera
-        uiController.GetComponent<UIControllerScript>().BillboardCanvas(activeCamera);
+        GameEventsScript.Instance.ActiveCameraChanged(activeCamera); // publish event indicating the camera angle was changed (first time)
     }
 
     // update is called once per frame
@@ -58,8 +71,7 @@ public class CameraManager : MonoBehaviour
             cameras[cameraIndex].enabled = true;
             activeCamera = cameras[cameraIndex];
 
-            // make sure the canvas is focused on the active camera
-            uiController.GetComponent<UIControllerScript>().BillboardCanvas(activeCamera);
+            GameEventsScript.Instance.ActiveCameraChanged(activeCamera); // publish event indicating the camera angle was changed (first time)
         }
     }
 }
