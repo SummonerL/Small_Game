@@ -90,9 +90,9 @@ public class UIControllerScript : MonoBehaviour
     public void ShowInteractionBubble(GameObject targetObject) {
 
         /* Test: Write some text */
-        //GameObject dialogueBox = GetPooledDialogueBox();
-        //DialogueBoxScript dbScript = dialogueBox.GetComponent<DialogueBoxScript>();
-        //dbScript.ShowDialogueBox(cameraManager.activeCamera);
+        GameObject dialogueBox = GetPooledDialogueBox();
+        DialogueBoxScript dbScript = dialogueBox.GetComponent<DialogueBoxScript>();
+        dbScript.ShowDialogueBox(PlayerSingleton.Instance.gameObject);
         /* --------------------- */
 
         // get a new interaction bubble
