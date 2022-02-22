@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using TMPro;
 
@@ -37,8 +38,10 @@ public class DialogueBoxScript : MonoBehaviour
 
         gameObject.SetActive(true);
 
-        if (PrepareBoxSizeForText("Alright. Here is a super really cool dialogue test. Wowzers! I'm excited. Pizza!")) {
-            WriteText("Alright. Here is a super really cool dialogue test. Wowzers! I'm excited. Pizza!");
+        if (PrepareBoxSizeForText("Yeah, I think so?")) {
+            /* TODO: If we don't want words to move to the next line as they are being written, we can easily join the chunked
+                string with an \n and pass that to WriteText(). Consider returning a string in PrepareBoxSizeForText() */
+            WriteText("Yeah, I think so?");
         }
         
     }
@@ -49,35 +52,25 @@ public class DialogueBoxScript : MonoBehaviour
 
     /* Size the dialogue box appropriately, depending on the size of the string */ 
     private bool PrepareBoxSizeForText(string textForPreparation) {
-        float contentLength = textForPreparation.Length; 
-        int rowCount = Mathf.CeilToInt(contentLength / Constants.DIALOGUE_ROW_CHARACTER_LIMIT);
+
+        // split the text into chunks of similar size
+        MatchCollection textCollection = Helpers.SplitToLines(textForPreparation, Constants.DIALOGUE_ROW_CHARACTER_LIMIT); 
+        int rowCount = textCollection.Count;
 
         if (rowCount > 0 && rowCount <= Constants.DIALOGUE_MAX_ROW_COUNT_LIMIT) {
             
             // determine the maximum width based on each line of dialogue
-
-            string firstLine = (textForPreparation.Length <= Constants.DIALOGUE_ROW_CHARACTER_LIMIT) ? 
-                textForPreparation : textForPreparation.Substring(0, Constants.DIALOGUE_ROW_CHARACTER_LIMIT);
-
-            //Vector2 preferredValues = textLabel.GetPreferredValues(firstLine); 
-            Vector2 preferredValues = Vector2.zero;// the width + height that would be required to fit text - should be based on the widest string
-            
+            Vector2 preferredValues = Vector2.zero; // holds the width + height that would be required to fit text - should be based on the widest string
             float maxX = 0;
-            for (int i = 0; i < rowCount; ++i) {
-                string currentLine = textForPreparation.Substring(i * Constants.DIALOGUE_ROW_CHARACTER_LIMIT);
-                if (currentLine.Length > Constants.DIALOGUE_ROW_CHARACTER_LIMIT)
-                    currentLine = currentLine.Substring(0, Constants.DIALOGUE_ROW_CHARACTER_LIMIT);
-                
-                Debug.Log(currentLine);
-                Debug.Log(textLabel.GetPreferredValues(currentLine).x);
+           
+           for (int i = 0; i < rowCount; ++i) {
+                string currentLine = textCollection[i].ToString();
 
                 if (textLabel.GetPreferredValues(currentLine).x > maxX ) {
                     preferredValues = textLabel.GetPreferredValues(currentLine);
                     maxX = preferredValues.x;
                 }
             }
-
-            Debug.Log(preferredValues.ToString());
 
             RectTransform dialogueBoxRectTransform = GetComponent<RectTransform>();
             RectTransform labelRectTransform = textLabel.gameObject.GetComponent<RectTransform>();
@@ -94,7 +87,9 @@ public class DialogueBoxScript : MonoBehaviour
             // calculate the height based on the number of rows, preferred height, linespacing, and the label:container offset
             float dialogueBoxTotalHeight = totalVerticalOffset + ((preferredValues.y) * rowCount) + (lineSpacing * (rowCount - 1));
             dialogueBoxRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, dialogueBoxTotalHeight);
-
+            
+            // Yay. The box should now PERFECTLY wrap the text :)
+            
             return true;
         } else {
             return false; // the string is invalid
