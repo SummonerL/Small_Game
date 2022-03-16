@@ -38,10 +38,10 @@ public class DialogueBoxScript : MonoBehaviour
 
         gameObject.SetActive(true);
 
-        if (PrepareBoxSizeForText("Yeah, I think so? This is a super long string. I want to see how this works... But what about 3 lines?")) {
+        if (PrepareBoxSizeForText("What the fuck?!")) {
             /* TODO: If we don't want words to move to the next line as they are being written, we can easily join the chunked
                 string with an \n and pass that to WriteText(). Consider returning a string in PrepareBoxSizeForText() */
-            WriteText("Yeah, I think so? This is a super long string. I want to see how this works... But what about 3 lines?");
+            WriteText("What the fuck?!");
         }
         
     }
