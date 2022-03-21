@@ -9,8 +9,14 @@ public class DialogueBoxScript : MonoBehaviour
     // reference to the object this dialogue box is above
     private GameObject _targetObject;
 
-    // Reference to child text label
+    // reference to child text label
     private TMP_Text textLabel;
+
+    // reference to the animation tween ids
+    private int _entryAnimationID = -1;
+    private int _exitAnimationID = -1;
+
+    private string _currentStoryLine;
 
     private void Awake() {
         if (transform.childCount > 0)
@@ -37,20 +43,53 @@ public class DialogueBoxScript : MonoBehaviour
         transform.position = targetScreenPosition;
 
         gameObject.SetActive(true);
+    
+        // start writing by grabbing the current story line from our Ink file
+        _currentStoryLine = InkManagerScript.Instance.story.Continue();
 
-        // grab the current story line from our Ink Story
-        string currentStoryLine = InkManagerScript.Instance.story.Continue();
-
-        if (PrepareBoxSizeForText(currentStoryLine)) {
-            /* TODO: If we don't want words to move to the next line as they are being written, we can easily join the chunked
-                string with an \n and pass that to WriteText(). Consider returning a string in PrepareBoxSizeForText() */
-            WriteText(currentStoryLine);
+        if (PrepareBoxSizeForText(_currentStoryLine)) {
+            // dialogue box pops up
+            StartEntryAnimation();
         }
-        
+
+
     }
 
     public void HideDialogueBox() {
-        gameObject.SetActive(false);
+        StartEndAnimation();
+    }
+
+    // after start animation completes
+    private void OnStartEntryComplete() {
+        /* TODO: If we don't want words to move to the next line as they are being written, we can easily join the chunked
+            string with an \n and pass that to WriteText(). Consider returning a string in PrepareBoxSizeForText() */
+        WriteText(_currentStoryLine);
+    }
+
+    // after end animation completes
+    private void OnEndComplete() {
+        // clear the active object + deactivate
+        _targetObject = null;
+        gameObject.SetActive(false); 
+    }
+
+    // scale from 0,0,0 to 1,1,1 to 'pop up' the bubble
+    public void StartEntryAnimation() {
+        Vector3 currentScale = transform.localScale;
+        transform.localScale = new Vector3(0, 0, 0);
+        _entryAnimationID = LeanTween.scale(gameObject, currentScale, Constants.DIALOGUE_BOX_ENTRY_TIME).setOnComplete(OnStartEntryComplete).id;
+    }
+
+    // scale back to 0,0,0, then deactivate the object
+    public void StartEndAnimation() {
+        
+        // cancel all active tweens
+        LeanTween.cancel(gameObject);
+
+        // ending the animation, reset the rotation
+        transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+
+        _exitAnimationID = LeanTween.scale(gameObject, new Vector3(0, 0, 0), Constants.DIALOGUE_BOX_EXIT_TIME).setOnComplete(OnEndComplete).id;
     }
 
     /* Size the dialogue box appropriately, depending on the size of the string */ 

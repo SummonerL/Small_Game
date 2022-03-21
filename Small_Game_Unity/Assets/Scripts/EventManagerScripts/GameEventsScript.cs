@@ -25,6 +25,10 @@ public class GameEventsScript : MonoBehaviour
         }
     }
 
+    /**
+    *   Interactive Object Events
+    **/
+
     // when player moves into proximity of interactive object
     public event Action<GameObject> onEligibleInteractiveObject; 
     public void EligibleInteractiveObject(GameObject eligibleObject) {
@@ -41,6 +45,18 @@ public class GameEventsScript : MonoBehaviour
         }
     }
 
+    // when the player 'selects' an eligible interactive object (initiated by the primary controller button)
+    public event Action<GameObject> onSelectedInteractiveObject; 
+    public void SelectedInteractiveObject(GameObject selectedObject) {
+        if (onSelectedInteractiveObject != null) {
+            onSelectedInteractiveObject(selectedObject);
+        }
+    }
+
+    /**
+    *   Camera Events
+    **/ 
+
     // when the active camera changes
     public event Action<Camera> onActiveCameraChanged;
     public void ActiveCameraChanged(Camera newCamera) {
@@ -48,4 +64,6 @@ public class GameEventsScript : MonoBehaviour
             onActiveCameraChanged(newCamera);
         }
     }
+
+
 }

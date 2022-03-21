@@ -88,13 +88,6 @@ public class UIControllerScript : MonoBehaviour
 
     // show an interaction bubble above target object
     public void ShowInteractionBubble(GameObject targetObject) {
-
-        /* Test: Write some text */
-        GameObject dialogueBox = GetPooledDialogueBox();
-        DialogueBoxScript dbScript = dialogueBox.GetComponent<DialogueBoxScript>();
-        dbScript.ShowDialogueBox(PlayerSingleton.Instance.gameObject);
-        /* --------------------- */
-
         // get a new interaction bubble
         GameObject newInteractionBubble = GetPooledInteractionBubble();
 
@@ -116,6 +109,13 @@ public class UIControllerScript : MonoBehaviour
                 interactBubble.GetComponent<InteractionBubbleScript>().HideInteractionBubble(targetObject);
             }
         }
+    }
+
+    // show the dialogue box above the current target
+    public void ShowDialogueBox(GameObject targetObject) {
+        GameObject dialogueBox = GetPooledDialogueBox();
+        DialogueBoxScript dbScript = dialogueBox.GetComponent<DialogueBoxScript>();
+        dbScript.ShowDialogueBox(PlayerSingleton.Instance.gameObject);
     }
 
     // make the world space canvas look at a given camera object

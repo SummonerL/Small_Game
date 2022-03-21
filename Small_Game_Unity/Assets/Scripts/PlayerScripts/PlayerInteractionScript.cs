@@ -25,6 +25,11 @@ public class PlayerInteractionScript : MonoBehaviour
     // update is called once per frame
     void Update()
     {
+        // check for input 
+        // TODO: Consider having an input manager, or creating Events for player input
+        if ( interactionEligibleObjects.Count > 0 &&
+            (Input.GetButtonDown("Keyboard_Enter") || Input.GetButtonDown("Joystick_Button_Down")) ) { ObjectSelection(interactionEligibleObjects[0]); }
+
         // use Physics.OverlapSphere to determine proximity to all interactive objects
         Vector3 playerPosition = transform.position + playerCharacterController.center;
 
@@ -54,6 +59,12 @@ public class PlayerInteractionScript : MonoBehaviour
         }
 
         interactionEligibleObjects = filteredCollisionsList;
+    }
+
+    // the player has selected an eligible interactive object
+    void ObjectSelection(GameObject selectedObject) {
+        // publish an event indicating player has selected an object
+        GameEventsScript.Instance.SelectedInteractiveObject(selectedObject);
     }
 
     void OnDrawGizmos() {

@@ -25,6 +25,8 @@ public class Constants {
     public static float INTERACTION_BUBBLE_EXIT_TIME = 0.1f;
     public static float INTERACTION_BUBBLE_WIGGLE_TIME = 1.0f;
     public static float INTERACTION_BUBBLE_WIGGLE_ROTATION_DEGREES = 5.0f;
+    public static float DIALOGUE_BOX_ENTRY_TIME = 0.2f;
+    public static float DIALOGUE_BOX_EXIT_TIME = 0.1f;
 
     public enum DIRECTIONS
     {
