@@ -65,5 +65,25 @@ public class GameEventsScript : MonoBehaviour
         }
     }
 
+    /**
+    *   State Events
+    **/
+
+    // when a day state transition occurs
+    public event Action<DayBaseState> onDayStateTransitioned;
+    public void DayStateTransitioned(DayBaseState newState) {
+        if (newState != null) {
+            onDayStateTransitioned(newState);
+        }
+    }
+
+    // when a player state transition occurs
+    public event Action<PlayerBaseState> onPlayerStateTransitioned;
+    public void PlayerStateTransitioned(PlayerBaseState newState) {
+        if (newState != null) {
+            // no active subscribers
+            //onPlayerStateTransitioned(newState);
+        }
+    }
 
 }

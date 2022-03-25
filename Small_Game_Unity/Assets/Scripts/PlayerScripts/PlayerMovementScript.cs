@@ -75,4 +75,8 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
 
+    public void StopMovement() {
+        playerAnimationController.SetAnimationParam<float>("player_speed", 0f);
+    }
+
 }

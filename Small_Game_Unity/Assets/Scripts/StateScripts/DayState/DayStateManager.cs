@@ -48,6 +48,8 @@ public class DayStateManager : MonoBehaviour
         currentState.ExitState(this); // leave the old state
         currentState = state;
         state.EnterState(this); // enter the new state
+
+        GameEventsScript.Instance.DayStateTransitioned(state); // publish event indicating a transition to the new day-state
     }
 
     /**
