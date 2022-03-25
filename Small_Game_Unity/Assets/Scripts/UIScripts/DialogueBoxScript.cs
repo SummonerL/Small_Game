@@ -23,7 +23,7 @@ public class DialogueBoxScript : MonoBehaviour
             textLabel = transform.GetChild(0).GetComponent<TMP_Text>();
     }
 
-    public void ShowDialogueBox(GameObject targetObject) { // passed from ui controller
+    public void ShowDialogueBox(GameObject targetObject, string initialLine) { // passed from ui controller
         _targetObject = targetObject;
 
         // get the generic collider - we don't care if it's capsule, box, etc.
@@ -44,15 +44,13 @@ public class DialogueBoxScript : MonoBehaviour
 
         gameObject.SetActive(true);
     
-        // start writing by grabbing the current story line from our Ink file
-        _currentStoryLine = InkManagerScript.Instance.story.Continue();
+        // set the current story line
+        _currentStoryLine = initialLine;
 
         if (PrepareBoxSizeForText(_currentStoryLine)) {
             // dialogue box pops up
             StartEntryAnimation();
         }
-
-
     }
 
     public void HideDialogueBox() {
@@ -138,7 +136,7 @@ public class DialogueBoxScript : MonoBehaviour
         }
     }
 
-    private void WriteText(string textToWrite) {
+    public void WriteText(string textToWrite) {
         GetComponent<TypeWriterEffectScript>().Run(textToWrite, textLabel);
     }
 }

@@ -111,11 +111,13 @@ public class UIControllerScript : MonoBehaviour
         }
     }
 
-    // show the dialogue box above the current target
-    public void ShowDialogueBox(GameObject targetObject) {
+    // show the dialogue box above the current target.
+    public DialogueBoxScript ShowDialogueBox(GameObject targetObject, string initialLine) {
         GameObject dialogueBox = GetPooledDialogueBox();
         DialogueBoxScript dbScript = dialogueBox.GetComponent<DialogueBoxScript>();
-        dbScript.ShowDialogueBox(PlayerSingleton.Instance.gameObject);
+        dbScript.ShowDialogueBox(PlayerSingleton.Instance.gameObject, initialLine);
+
+        return dbScript;
     }
 
     // make the world space canvas look at a given camera object

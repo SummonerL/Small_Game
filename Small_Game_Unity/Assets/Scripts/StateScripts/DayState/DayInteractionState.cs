@@ -7,7 +7,10 @@ using UnityEngine;
 public class DayInteractionState : DayBaseState
 {
     public override void EnterState(DayStateManager day) {
-        UIControllerScript.Instance.ShowDialogueBox(day.targetInteractiveObject);
+        ObjectStoryManager objectStory = day.targetInteractiveObject.GetComponent<ObjectStoryManager>();
+
+        // start a story 'session' with the target object
+        objectStory.StartStorySession();
     }
 
     public override void UpdateState(DayStateManager day) {
