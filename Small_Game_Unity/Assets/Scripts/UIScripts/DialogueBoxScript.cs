@@ -136,6 +136,16 @@ public class DialogueBoxScript : MonoBehaviour
         }
     }
 
+    public void PrepareAndWrite(string newStoryLine) {
+        // set the current story line
+        _currentStoryLine = newStoryLine;
+
+        if (PrepareBoxSizeForText(_currentStoryLine)) {
+            // write the text (without animation)
+            WriteText(_currentStoryLine);
+        }
+    }
+
     public void WriteText(string textToWrite) {
         GetComponent<TypeWriterEffectScript>().Run(textToWrite, textLabel);
     }

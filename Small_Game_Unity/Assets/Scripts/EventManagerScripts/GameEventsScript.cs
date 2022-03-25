@@ -54,6 +54,26 @@ public class GameEventsScript : MonoBehaviour
     }
 
     /**
+    *  Story / Dialogue Events
+    **/
+
+    // when the player wants to progress dialogue (usually by pressing the primary button / key)
+    public event Action<GameObject> onProgressDialogueInput; 
+    public void ProgressDialogueInput(GameObject activeObject) {
+        if (onProgressDialogueInput != null) {
+            onProgressDialogueInput(activeObject);
+        }
+    }
+
+    // when the player has completed a story session
+    public event Action<GameObject> onCompletedStorySession; 
+    public void CompletedStorySession(GameObject activeObject) {
+        if (onCompletedStorySession != null) {
+            onCompletedStorySession(activeObject);
+        }
+    }
+
+    /**
     *   Camera Events
     **/ 
 

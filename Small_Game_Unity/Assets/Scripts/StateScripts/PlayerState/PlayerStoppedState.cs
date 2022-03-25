@@ -8,10 +8,12 @@ using UnityEngine;
 public class PlayerStoppedState : PlayerBaseState
 {
     public override void EnterState(PlayerStateManager playerState) {
-        // disable player movement script
+        // disable player movement/interaction scripts
         PlayerMovementScript playerMovement = playerState.gameObject.GetComponent<PlayerMovementScript>();
-        playerMovement.StopMovement();
+        PlayerInteractionScript playerInteraction = playerState.gameObject.GetComponent<PlayerInteractionScript>();
+        playerMovement.StopMovement(); // revert to standing position
         playerMovement.enabled = false;
+        playerInteraction.enabled = false;
     }
 
     public override void UpdateState(PlayerStateManager playerState) {
@@ -19,7 +21,8 @@ public class PlayerStoppedState : PlayerBaseState
     }
 
     public override void ExitState(PlayerStateManager playerState) {
-        // activate player movement script
+        // activate player movement/interaction scripts
         playerState.gameObject.GetComponent<PlayerMovementScript>().enabled = true;
+        playerState.gameObject.GetComponent<PlayerInteractionScript>().enabled = true;
     }
 }

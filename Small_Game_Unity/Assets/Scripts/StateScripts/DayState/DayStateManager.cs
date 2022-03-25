@@ -59,4 +59,9 @@ public class DayStateManager : MonoBehaviour
         targetInteractiveObject = selectedObject;
         SwitchState(InteractionState);
     }
+
+    public void FinishedStorySession(GameObject selectedObject) {
+        targetInteractiveObject = null;
+        SwitchState(DecisionState); // switch back to the decision state
+    }
 }

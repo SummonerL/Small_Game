@@ -57,6 +57,9 @@ public class PlayerStateManager : MonoBehaviour
     public void HandleDayTransition(DayBaseState dayState) {
         if (dayState.GetType() == typeof(DayInteractionState))
             SwitchState(StoppedState); // a transition to the 'interaction' day-state will stop the player
+
+        if (dayState.GetType() == typeof(DayDecisionState))
+            SwitchState(ActiveState); // the player can begin 'deciding' again and is now active
     }
 
     /**
