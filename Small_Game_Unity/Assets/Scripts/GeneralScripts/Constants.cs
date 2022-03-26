@@ -20,6 +20,9 @@ public class Constants {
     public static int DIALOGUE_ROW_CHARACTER_LIMIT = 40;
     public static int DIALOGUE_MAX_ROW_COUNT_LIMIT = 3;
 
+    // Story Constants
+    public static string NO_STORY_DIALOGUE_DEFAULT_TEXT = "I'm not sure about that...";
+
     // LeanTween constants
     public static float INTERACTION_BUBBLE_ENTRY_TIME = 0.2f;
     public static float INTERACTION_BUBBLE_EXIT_TIME = 0.1f;

@@ -18,11 +18,6 @@ public class ObjectStoryManager : MonoBehaviour
     {
         story = new Story(inkJSON.text);
     }
-
-    // if available, feeds the next story line 
-    string FeedStoryLine() {
-        return story.Continue();
-    }
     
     /**
     *   A story 'session' refers to a series of story lines written to the dialogue box. 
@@ -30,7 +25,10 @@ public class ObjectStoryManager : MonoBehaviour
     **/
     public void StartStorySession() {
 
-        _currentStoryLine = story.Continue();
+        if (story.canContinue)
+            _currentStoryLine = story.Continue();
+        else
+            _currentStoryLine = Constants.NO_STORY_DIALOGUE_DEFAULT_TEXT;
 
         // create a dialogue box above this object. This will also write the initial line
         _activeDialogueBox = UIControllerScript.Instance.ShowDialogueBox(gameObject, _currentStoryLine);

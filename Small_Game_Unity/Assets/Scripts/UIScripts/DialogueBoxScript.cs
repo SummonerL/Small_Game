@@ -18,6 +18,9 @@ public class DialogueBoxScript : MonoBehaviour
 
     private string _currentStoryLine;
 
+    // keep a reference to the initial scale, so that we can 'reset' the box once deactivated/hidden
+    private Vector3 _initialScale;
+
     private void Awake() {
         if (transform.childCount > 0)
             textLabel = transform.GetChild(0).GetComponent<TMP_Text>();
@@ -68,14 +71,17 @@ public class DialogueBoxScript : MonoBehaviour
     private void OnEndComplete() {
         // clear the active object + deactivate
         _targetObject = null;
-        gameObject.SetActive(false); 
+        gameObject.SetActive(false);
+        
+        // reset the box to ensure it is reusable
+        Reset();
     }
 
-    // scale from 0,0,0 to 1,1,1 to 'pop up' the bubble
+    // scale from 0,0,0 to initial scale to 'pop up' the bubble
     public void StartEntryAnimation() {
-        Vector3 currentScale = transform.localScale;
+        _initialScale = transform.localScale;
         transform.localScale = new Vector3(0, 0, 0);
-        _entryAnimationID = LeanTween.scale(gameObject, currentScale, Constants.DIALOGUE_BOX_ENTRY_TIME).setOnComplete(OnStartEntryComplete).id;
+        _entryAnimationID = LeanTween.scale(gameObject, _initialScale, Constants.DIALOGUE_BOX_ENTRY_TIME).setOnComplete(OnStartEntryComplete).id;
     }
 
     // scale back to 0,0,0, then deactivate the object
@@ -146,7 +152,17 @@ public class DialogueBoxScript : MonoBehaviour
         }
     }
 
+    // reset the dialogue box to it's initial state (pooled objects will be reused)
+    public void Reset() {
+        ClearText();
+        transform.localScale = _initialScale;
+    }
+
     public void WriteText(string textToWrite) {
         GetComponent<TypeWriterEffectScript>().Run(textToWrite, textLabel);
+    }
+
+    public void ClearText() {
+        textLabel.text = string.Empty;
     }
 }
