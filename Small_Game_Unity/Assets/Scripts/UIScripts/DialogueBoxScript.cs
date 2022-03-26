@@ -27,23 +27,13 @@ public class DialogueBoxScript : MonoBehaviour
     }
 
     public void ShowDialogueBox(GameObject targetObject, string initialLine) { // passed from ui controller
+
+        // start listening for camera angle changes
+        GameEventsScript.Instance.onActiveCameraChanged += PositionBox; // reposition the dialogue box if the camera angle changes
+
         _targetObject = targetObject;
 
-        // get the generic collider - we don't care if it's capsule, box, etc.
-        Collider targetObjectCollider = targetObject.GetComponent<Collider>();
-
-        Vector3 targetWorldPosition = targetObjectCollider.bounds.center;
-        targetWorldPosition.y = targetObjectCollider.bounds.max.y;
-        
-        // using the distance of the camera to player's head, we can synchronize the position a bit more
-        float cameraDistance = (CameraManager.Instance.activeCamera.transform.position - targetWorldPosition).magnitude;
-
-        Vector3 targetScreenPosition = CameraManager.Instance.activeCamera.WorldToScreenPoint(targetWorldPosition);
-
-        // increase y by a calculated amount - this should position the box above the player at (relatively) the same position, regardless of angle
-        targetScreenPosition.y += (cameraDistance * Constants.DIALOGUE_BOX_POSITION_VERTICAL_BUFFER);
-
-        transform.position = targetScreenPosition;
+        PositionBox(CameraManager.Instance.activeCamera);
 
         gameObject.SetActive(true);
     
@@ -54,6 +44,26 @@ public class DialogueBoxScript : MonoBehaviour
             // dialogue box pops up
             StartEntryAnimation();
         }
+    }
+
+    // position the box based on the position of the target object
+    public void PositionBox(Camera targetCamera) {
+        
+        // get the generic collider - we don't care if it's capsule, box, etc.
+        Collider targetObjectCollider = _targetObject.GetComponent<Collider>();
+
+        Vector3 targetWorldPosition = targetObjectCollider.bounds.center;
+        targetWorldPosition.y = targetObjectCollider.bounds.max.y;
+        
+        // using the distance of the camera to player's head, we can synchronize the position a bit more
+        float cameraDistance = (targetCamera.transform.position - targetWorldPosition).magnitude;
+
+        Vector3 targetScreenPosition = targetCamera.WorldToScreenPoint(targetWorldPosition);
+
+        // increase y by a calculated amount - this should position the box above the player at (relatively) the same position, regardless of angle
+        targetScreenPosition.y += (cameraDistance * Constants.DIALOGUE_BOX_POSITION_VERTICAL_BUFFER);
+
+        transform.position = targetScreenPosition;
     }
 
     public void HideDialogueBox() {
@@ -73,6 +83,9 @@ public class DialogueBoxScript : MonoBehaviour
         _targetObject = null;
         gameObject.SetActive(false);
         
+        // we no longer need to listen for the camera angle change event
+        GameEventsScript.Instance.onActiveCameraChanged -= PositionBox;
+
         // reset the box to ensure it is reusable
         Reset();
     }
@@ -94,6 +107,18 @@ public class DialogueBoxScript : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
         _exitAnimationID = LeanTween.scale(gameObject, new Vector3(0, 0, 0), Constants.DIALOGUE_BOX_EXIT_TIME).setOnComplete(OnEndComplete).id;
+    }
+
+    public bool IsAnimating() {
+        if (_entryAnimationID > -1 && LeanTween.isTweening(_entryAnimationID)) {
+            return true;
+        }
+
+        if (_exitAnimationID > -1 && LeanTween.isTweening(_exitAnimationID)) {
+            return true;
+        }
+
+        return false;
     }
 
     /* Size the dialogue box appropriately, depending on the size of the string */ 
@@ -156,6 +181,29 @@ public class DialogueBoxScript : MonoBehaviour
     public void Reset() {
         ClearText();
         transform.localScale = _initialScale;
+    }
+
+    // returns a bool indicating whether or not we can progress the dialogue.
+    // will also invoke FastType() if the caller requests.
+    public bool ReadyForProgression(bool fastTypeIfEligible) {
+        if (GetComponent<TypeWriterEffectScript>().IsRunning()) {
+            if (fastTypeIfEligible) FastType();
+            return false;
+        } else if (IsAnimating()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // fast types the current story line, or returns false if not in an active coroutine
+    public bool FastType() {
+        if (GetComponent<TypeWriterEffectScript>().IsRunning()) {
+            // fast type
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void WriteText(string textToWrite) {

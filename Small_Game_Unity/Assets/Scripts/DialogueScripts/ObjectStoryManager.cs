@@ -40,15 +40,20 @@ public class ObjectStoryManager : MonoBehaviour
     public void ProgressStorySession(GameObject activeObject) {
         // make sure that the event was actually published for this object
         if (activeObject == gameObject) {
-            // progress the dialogue
-            if (story.canContinue) {
-                _currentStoryLine = story.Continue();
-                _activeDialogueBox.PrepareAndWrite(_currentStoryLine);
-            } else {
-                // we can safely end the story session
-                EndStorySession();
-            }
 
+            // indicator that any text in-progress can be fast typed.
+            bool fastType = true;
+
+            if (_activeDialogueBox.ReadyForProgression(fastType)) { // make sure we're not actively typing, or animating
+                // progress the dialogue
+                if (story.canContinue) {
+                    _currentStoryLine = story.Continue();
+                    _activeDialogueBox.PrepareAndWrite(_currentStoryLine);
+                } else {
+                    // we can safely end the story session
+                    EndStorySession();
+                }
+            }
         }
     }
 

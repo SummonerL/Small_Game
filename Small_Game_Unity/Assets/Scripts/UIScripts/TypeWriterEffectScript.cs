@@ -5,12 +5,20 @@ using TMPro;
 
 public class TypeWriterEffectScript : MonoBehaviour
 {
+    private bool _coroutineRunning = false; 
+
+    public bool IsRunning() {
+        return _coroutineRunning;
+    }
+
     public void Run(string textToWrite, TMP_Text labelToWriteTo) {
         StartCoroutine(TypeText(textToWrite, labelToWriteTo));
     }
 
     private IEnumerator TypeText(string textToWrite, TMP_Text labelToWriteTo) {
         
+        _coroutineRunning = true;
+
         float t = 0; // elapsed time since we began writing
         int charIndex = 0;
         
@@ -29,5 +37,7 @@ public class TypeWriterEffectScript : MonoBehaviour
         }
 
         labelToWriteTo.text = textToWrite;
+
+        _coroutineRunning = false;
     }
 }
