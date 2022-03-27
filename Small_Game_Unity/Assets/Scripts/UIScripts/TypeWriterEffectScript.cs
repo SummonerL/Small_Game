@@ -17,6 +17,8 @@ public class TypeWriterEffectScript : MonoBehaviour
 
     private IEnumerator TypeText(string textToWrite, TMP_Text labelToWriteTo) {
         
+        GameEventsScript.Instance.TypeWriterStarted(); // publish event indicating the typewriter has started typing
+
         _coroutineRunning = true;
 
         float t = 0; // elapsed time since we began writing
@@ -39,5 +41,7 @@ public class TypeWriterEffectScript : MonoBehaviour
         labelToWriteTo.text = textToWrite;
 
         _coroutineRunning = false;
+
+        GameEventsScript.Instance.TypeWriterCompleted(); // publish event indicating the typewriter has completed it's sequence
     }
 }

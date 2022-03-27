@@ -57,6 +57,22 @@ public class GameEventsScript : MonoBehaviour
     *  Story / Dialogue Events
     **/
 
+    // when the typewriter has finished typing a block of text
+    public event Action onTypeWriterCompleted; 
+    public void TypeWriterCompleted() {
+        if (onTypeWriterCompleted != null) {
+            onTypeWriterCompleted();
+        }
+    }
+
+    // when the typewriter has started typing a block of text
+    public event Action onTypeWriterStarted; 
+    public void TypeWriterStarted() {
+        if (onTypeWriterStarted != null) {
+            onTypeWriterStarted();
+        }
+    }
+
     // when the player wants to progress dialogue (usually by pressing the primary button / key)
     public event Action<GameObject> onProgressDialogueInput; 
     public void ProgressDialogueInput(GameObject activeObject) {

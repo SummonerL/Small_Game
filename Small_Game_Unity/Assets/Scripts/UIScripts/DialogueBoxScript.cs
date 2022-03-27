@@ -21,6 +21,9 @@ public class DialogueBoxScript : MonoBehaviour
     // keep a reference to the initial scale, so that we can 'reset' the box once deactivated/hidden
     private Vector3 _initialScale;
 
+    // keep a reference to our progression dots
+    public GameObject progressionDots;
+
     private void Awake() {
         if (transform.childCount > 0)
             textLabel = transform.GetChild(0).GetComponent<TMP_Text>();
@@ -28,8 +31,9 @@ public class DialogueBoxScript : MonoBehaviour
 
     public void ShowDialogueBox(GameObject targetObject, string initialLine) { // passed from ui controller
 
-        // start listening for camera angle changes
         GameEventsScript.Instance.onActiveCameraChanged += PositionBox; // reposition the dialogue box if the camera angle changes
+        GameEventsScript.Instance.onTypeWriterCompleted += StartDotAnimation; // trigger the progression dot animation
+        GameEventsScript.Instance.onTypeWriterStarted += StopDotAnimation; // stop the dot animation
 
         _targetObject = targetObject;
 
@@ -66,7 +70,16 @@ public class DialogueBoxScript : MonoBehaviour
         transform.position = targetScreenPosition;
     }
 
+    public void StartDotAnimation() {
+        progressionDots.GetComponent<DialogueProgressionDotsScript>().StartWaitingAnimation();
+    }
+
+    public void StopDotAnimation() {
+        progressionDots.GetComponent<DialogueProgressionDotsScript>().CancelTweens();
+    }
+
     public void HideDialogueBox() {
+        StopDotAnimation();
         StartEndAnimation();
     }
 
@@ -83,8 +96,10 @@ public class DialogueBoxScript : MonoBehaviour
         _targetObject = null;
         gameObject.SetActive(false);
         
-        // we no longer need to listen for the camera angle change event
+        // we no longer need to listen for events
         GameEventsScript.Instance.onActiveCameraChanged -= PositionBox;
+        GameEventsScript.Instance.onTypeWriterCompleted -= StartDotAnimation;
+        GameEventsScript.Instance.onTypeWriterStarted -= StopDotAnimation;
 
         // reset the box to ensure it is reusable
         Reset();
@@ -184,7 +199,7 @@ public class DialogueBoxScript : MonoBehaviour
     }
 
     // returns a bool indicating whether or not we can progress the dialogue.
-    // will also invoke FastType() if the caller requests.
+    // will also invoke FastType() if the caller requests it.
     public bool ReadyForProgression(bool fastTypeIfEligible) {
         if (GetComponent<TypeWriterEffectScript>().IsRunning()) {
             if (fastTypeIfEligible) FastType();
@@ -197,12 +212,9 @@ public class DialogueBoxScript : MonoBehaviour
     }
 
     // fast types the current story line, or returns false if not in an active coroutine
-    public bool FastType() {
+    public void FastType() {
         if (GetComponent<TypeWriterEffectScript>().IsRunning()) {
             // fast type
-            return true;
-        } else {
-            return false;
         }
     }
 
