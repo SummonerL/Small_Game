@@ -37,15 +37,12 @@ public class DialogueProgressionDotsScript : MonoBehaviour
             // show the current dot
             _waitingAnimationSequence.append(LeanTween.alpha(dotTransform, 1f , Constants.DIALOGUE_PROGRESSION_DOT_SHOW_TIME));
             _waitingAnimationSequence.append(Constants.DIALOGUE_PROGRESSION_DOT_DELAY_TIME);
+
+            _waitingAnimationSequence.append(() => {
+                // start fading the current dot asynchronously
+                LeanTween.alpha(dotTransform, 0f , Constants.DIALOGUE_PROGRESSION_DOT_FADE_TIME);
+            });
         }
-
-        for (int i = 0; i < _progressionDots.Length; ++i) {
-            RectTransform dotTransform = _progressionDots[i].gameObject.transform as RectTransform;
-
-            // show the current dot
-            _waitingAnimationSequence.append(LeanTween.alpha(dotTransform, 0f , Constants.DIALOGUE_PROGRESSION_DOT_SHOW_TIME));
-            _waitingAnimationSequence.append(Constants.DIALOGUE_PROGRESSION_DOT_DELAY_TIME);
-        } 
 
         _waitingAnimationSequence.append(OnWaitingAnimationComplete);
     }

@@ -31,7 +31,8 @@ public class Constants {
     public static float DIALOGUE_BOX_ENTRY_TIME = 0.2f;
     public static float DIALOGUE_BOX_EXIT_TIME = 0.1f;
     public static float DIALOGUE_PROGRESSION_DOT_SHOW_TIME = .05f;
-    public static float DIALOGUE_PROGRESSION_DOT_DELAY_TIME = .2f;
+    public static float DIALOGUE_PROGRESSION_DOT_DELAY_TIME = .3f;
+    public static float DIALOGUE_PROGRESSION_DOT_FADE_TIME = .5f;
 
     public enum DIRECTIONS
     {
