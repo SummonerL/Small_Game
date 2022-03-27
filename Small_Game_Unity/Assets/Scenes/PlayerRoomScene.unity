@@ -7106,6 +7106,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10380e9527dd61f449488bcefff2f2e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2044112918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044112909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5baee12ee1a16ae42b4d4811b361d513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2061497704
 GameObject:
   m_ObjectHideFlags: 0
@@ -7987,6 +7999,7 @@ GameObject:
   - component: {fileID: 3469287837127627237}
   - component: {fileID: 1711813855480620335}
   - component: {fileID: 919132149610448123}
+  - component: {fileID: 919132149610448124}
   m_Layer: 0
   m_Name: Guitar
   m_TagString: Untagged
@@ -8007,6 +8020,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0010843767, y: 0.003672714, z: 0.010062738}
   m_Center: {x: 0.00013380537, y: 0.0000000010854609, z: 0.0026123754}
+--- !u!114 &919132149610448124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149610448122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b3d6a7cd1c46ed4ab991a8366f6c84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkJSON: {fileID: 4900000, guid: c71b3e55785797142a5fb693e6e21ef3, type: 3}
 --- !u!4 &933681864719861544
 Transform:
   m_ObjectHideFlags: 0
@@ -8514,6 +8540,7 @@ GameObject:
   - component: {fileID: 4751432593666548476}
   - component: {fileID: 5938439506642766018}
   - component: {fileID: 2715603002462176756}
+  - component: {fileID: 2715603002462176757}
   m_Layer: 0
   m_Name: DarkPurpleBook
   m_TagString: Untagged
@@ -8534,6 +8561,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0007028341, y: 0.00050218176, z: 0.00069047516}
   m_Center: {x: 0.0004475545, y: -0.000115829156, z: 0.00096810196}
+--- !u!114 &2715603002462176757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715603002462176755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b3d6a7cd1c46ed4ab991a8366f6c84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkJSON: {fileID: 4900000, guid: cfec53ee7f0d5844eb264e89fcfdeb49, type: 3}
 --- !u!1 &2744579301726120556
 GameObject:
   m_ObjectHideFlags: 0
@@ -9834,6 +9874,7 @@ GameObject:
   - component: {fileID: 12060218179601226}
   - component: {fileID: 1245452831979645465}
   - component: {fileID: 7587821204967861744}
+  - component: {fileID: 7587821204967861745}
   m_Layer: 0
   m_Name: Pillow
   m_TagString: Untagged
@@ -9854,6 +9895,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.025181456, y: 0.03537854, z: 0.045704246}
   m_Center: {x: 0.0015368906, y: 0.0028500473, z: 0.012184106}
+--- !u!114 &7587821204967861745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7587821204967861743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b3d6a7cd1c46ed4ab991a8366f6c84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkJSON: {fileID: 4900000, guid: d8b74f56d2a624945a39f2a189b9cc22, type: 3}
 --- !u!33 &7700617456934728571
 MeshFilter:
   m_ObjectHideFlags: 0
