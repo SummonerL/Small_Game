@@ -70,9 +70,6 @@ public class PlayerInteractionScript : MonoBehaviour
 
                 float distance = Vector3.Distance(playerYIgnored, objectYIgnored);
 
-                Debug.Log("----------");
-                Debug.Log("Distance to " + collider.gameObject.ToString() + " is " + distance.ToString());
-
                 if (distance < minDistance) {
                     minDistance = distance;
                     minDistanceIndex = filteredCollisionsList.Count - 1;
