@@ -16,7 +16,7 @@ public class DayInteractionState : DayBaseState
         GameEventsScript.Instance.onCompletedStorySession += day.FinishedStorySession;
     }
 
-    public override async void UpdateState(DayStateManager day) {
+    public override void UpdateState(DayStateManager day) {
         // check for input - this will progress the 'story' of the current object
         if (Input.GetButtonDown("Keyboard_Enter") || Input.GetButtonDown("Joystick_Button_Down"))
             GameEventsScript.Instance.ProgressDialogueInput(day.targetInteractiveObject);

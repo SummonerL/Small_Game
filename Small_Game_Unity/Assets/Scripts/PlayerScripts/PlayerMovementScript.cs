@@ -59,6 +59,9 @@ public class PlayerMovementScript : MonoBehaviour
 
             // rotate the character based on direction
             transform.rotation = Quaternion.Euler(0f, smoothedAngle, 0f); 
+
+            // publish an event, indicating that the player moved
+            GameEventsScript.Instance.PlayerMoved();
         } else {
             // should trigger idle animation
             playerAnimationController.SetAnimationParam<float>("player_speed", 0f);

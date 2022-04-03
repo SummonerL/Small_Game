@@ -62,6 +62,19 @@ public class GameEventsScript : MonoBehaviour
     }
 
     /**
+    *  Player Events
+    **/
+
+    // when the player moves (through user input)
+    public event Action onPlayerMoved; 
+    public void PlayerMoved() {
+        if (onPlayerMoved != null) {
+            onPlayerMoved();
+        }
+    }
+
+
+    /**
     *  Story / Dialogue Events
     **/
 
