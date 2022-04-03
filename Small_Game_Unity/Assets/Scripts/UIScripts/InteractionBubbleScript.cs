@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractionBubbleScript : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class InteractionBubbleScript : MonoBehaviour
     private int _entryAnimationID = -1;
     private int _exitAnimationID = -1;
     private int _wiggleAnimationID = -1;
+    private LTSeq _untargetedAnimationSequence;
 
     private GameObject _targetObject; // ref to the object this bubble is hovering above
 
@@ -15,11 +17,14 @@ public class InteractionBubbleScript : MonoBehaviour
     void Start(){
         // subscribe to game events
         GameEventsScript.Instance.onActiveCameraChanged += RepositionBubble; // reposition and rescale the bubble when the active camera changes
+        GameEventsScript.Instance.onNewEligibleObjectTargeted += DetermineTargeted; // if a new object has been targeted, we might need to 'untarget' this one
     }
 
     public void ShowInteractionBubble(GameObject targetObject) {
         _targetObject = targetObject;
     
+        ResetAlpha();
+
         gameObject.SetActive(true);
 
         // posistioned above the target object
@@ -60,6 +65,13 @@ public class InteractionBubbleScript : MonoBehaviour
         }
     }
 
+    private void ResetAlpha() {
+        Image bubbleImage = GetComponent<Image>();
+        Color tempColor = bubbleImage.color;
+        tempColor.a = 1.0f;
+        bubbleImage.color = tempColor;
+    }
+
     // after start animation completes
     private void OnStartEntryComplete() {
         // start the wiggle animation
@@ -71,6 +83,30 @@ public class InteractionBubbleScript : MonoBehaviour
         // clear the active object + deactivate
         _targetObject = null;
         gameObject.SetActive(false); 
+    }
+
+    public void DetermineTargeted(GameObject newTarget) {
+        if (newTarget != _targetObject) {
+            ShowUntargeted();
+        } else {
+            // this object is being targeted
+            ResetAlpha();
+            StartWiggleAnimation(Constants.DIRECTIONS.RIGHT, true);
+        }
+    }
+
+    // an 'untargeted' bubble will appear opaque, with no animation.
+    public void ShowUntargeted() {
+        RectTransform bubbleRectTransform = GetComponent<RectTransform>();
+        _untargetedAnimationSequence = LeanTween.sequence();
+        
+        // start fading out asynchronously
+        _untargetedAnimationSequence.append(() => {
+            LeanTween.alpha(bubbleRectTransform, Constants.INTERACTION_BUBBLE_UNTARGETED_FADE_OPACITY, Constants.INTERACTION_BUBBLE_UNTARGETED_FADE_TIME);
+        });
+
+        // rotate back to the default position
+        _untargetedAnimationSequence.append(LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 0), Constants.INTERACTION_BUBBLE_UNTARGETED_ROTATE_BACK_TIME));
     }
 
     // scale from 0,0,0 to 1,1,1 to 'pop up' the bubble

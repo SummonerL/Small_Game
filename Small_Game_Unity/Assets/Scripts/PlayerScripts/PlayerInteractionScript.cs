@@ -30,6 +30,8 @@ public class PlayerInteractionScript : MonoBehaviour
         if ( interactionEligibleObjects.Count > 0 &&
             (Input.GetButtonDown("Keyboard_Enter") || Input.GetButtonDown("Joystick_Button_Down")) ) { ObjectSelection(interactionEligibleObjects[0]); }
 
+        /* TODO: I think we only want to do all of the below if the player moves. Otherwise, there's no reason to keep checking */
+
         // use Physics.OverlapSphere to determine proximity to all interactive objects
         Vector3 playerPosition = transform.position + playerCharacterController.center;
 

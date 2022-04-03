@@ -53,6 +53,14 @@ public class GameEventsScript : MonoBehaviour
         }
     }
 
+    // when a player 'targets' an eligible object (this applies to multiple eligible objects, only one can be targeted at a time)
+    public event Action<GameObject> onNewEligibleObjectTargeted;
+    public void NewEligibleObjectTargeted(GameObject targetedObject) {
+        if (onNewEligibleObjectTargeted != null) {
+            onNewEligibleObjectTargeted(targetedObject);
+        }
+    }
+
     /**
     *  Story / Dialogue Events
     **/
