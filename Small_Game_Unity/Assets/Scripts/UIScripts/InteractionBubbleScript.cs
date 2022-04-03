@@ -9,6 +9,7 @@ public class InteractionBubbleScript : MonoBehaviour
     private int _entryAnimationID = -1;
     private int _exitAnimationID = -1;
     private int _wiggleAnimationID = -1;
+    private int _fadeAnimationID = -1;
     private LTSeq _untargetedAnimationSequence;
 
     private GameObject _attachedObject; // ref to the object this bubble is hovering above
@@ -97,7 +98,6 @@ public class InteractionBubbleScript : MonoBehaviour
                 ShowUntargeted();
             } else {
                 // this object is being targeted
-                SetAlpha(1.0f);
                 StartWiggleAnimation(Constants.DIRECTIONS.RIGHT, true);
             }
         }
@@ -106,15 +106,15 @@ public class InteractionBubbleScript : MonoBehaviour
     // an 'untargeted' bubble will appear opaque, with no animation.
     public void ShowUntargeted() {
 
-        // cancel all active tweens
-        LeanTween.cancel(gameObject);
+        // cancel potential wiggle/untargeted animations
+        CancelMiddleAnimations();
 
         RectTransform bubbleRectTransform = GetComponent<RectTransform>();
         _untargetedAnimationSequence = LeanTween.sequence();
         
         // start fading out asynchronously
         _untargetedAnimationSequence.append(() => {
-            LeanTween.alpha(bubbleRectTransform, Constants.INTERACTION_BUBBLE_UNTARGETED_FADE_OPACITY, Constants.INTERACTION_BUBBLE_UNTARGETED_FADE_TIME);
+            _fadeAnimationID = LeanTween.alpha(bubbleRectTransform, Constants.INTERACTION_BUBBLE_UNTARGETED_FADE_OPACITY, Constants.INTERACTION_BUBBLE_UNTARGETED_FADE_TIME).id;
         });
 
         // rotate back to the default position
@@ -153,11 +153,31 @@ public class InteractionBubbleScript : MonoBehaviour
         }
     }
 
+    // all animations that occur between the bubble appearing / disappearing
+    public void CancelMiddleAnimations() {
+        if (_wiggleAnimationID > -1 && LeanTween.isTweening(_wiggleAnimationID)) {
+            LeanTween.cancel(_wiggleAnimationID);
+        }
+
+        if (_untargetedAnimationSequence != null && _untargetedAnimationSequence.id > -1 && LeanTween.isTweening(_untargetedAnimationSequence.id)) {
+            LeanTween.cancel(_untargetedAnimationSequence.id);
+            SetAlpha(1.0f);
+        }
+
+        if ( _fadeAnimationID > -1 && LeanTween.isTweening(_fadeAnimationID)) {
+            LeanTween.cancel(_fadeAnimationID);
+            SetAlpha(1.0f);
+        }
+    }
+
     // a simple 'wiggle' animation that gives character to the icon.
     public void StartWiggleAnimation(Constants.DIRECTIONS direction, bool initialRotation = false) {
 
-        // cancel all active tweens
-        LeanTween.cancel(gameObject);
+        // cancel potential wiggle/untargeted animations
+        CancelMiddleAnimations();
+
+        // ensure the icon has full alpha
+        SetAlpha(1.0f);
 
         // direction determines whether the Z is negative or positive
         int multiplier = 1;
