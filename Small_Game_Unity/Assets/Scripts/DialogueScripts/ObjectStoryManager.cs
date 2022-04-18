@@ -25,6 +25,10 @@ public class ObjectStoryManager : MonoBehaviour
     **/
     public void StartStorySession() {
 
+        /* Elliot: Temporary Debugging */
+        StartStoriedMovement();
+        /*******************************/
+
         if (story.canContinue)
             _currentStoryLine = story.Continue();
         else
@@ -55,6 +59,11 @@ public class ObjectStoryManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    // trigger some player movement that accompanies this object or story session.
+    public void StartStoriedMovement() {
+        PlayerStateManager.Instance.StartStoriedMovement();
     }
 
     public void EndStorySession() {

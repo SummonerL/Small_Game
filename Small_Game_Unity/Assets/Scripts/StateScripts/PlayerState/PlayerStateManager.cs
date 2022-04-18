@@ -11,6 +11,7 @@ public class PlayerStateManager : MonoBehaviour
     // concrete states
     PlayerStoppedState StoppedState = new PlayerStoppedState();
     PlayerActiveState ActiveState = new PlayerActiveState();
+    PlayerAutoMovementState AutoMovementState = new PlayerAutoMovementState();
 
     // data-control between states
 
@@ -49,9 +50,10 @@ public class PlayerStateManager : MonoBehaviour
     public void SwitchState(PlayerBaseState state) {
         currentState.ExitState(this); // leave the old state
         currentState = state;
-        state.EnterState(this); // enter the new state
 
         GameEventsScript.Instance.PlayerStateTransitioned(state); // publish event indicating a transition to the new player-state
+
+        state.EnterState(this); // trigger the new state functionality
     }
 
     public void HandleDayTransition(DayBaseState dayState) {
@@ -60,6 +62,10 @@ public class PlayerStateManager : MonoBehaviour
 
         if (dayState.GetType() == typeof(DayDecisionState))
             SwitchState(ActiveState); // the player can begin 'deciding' again and is now active
+    }
+
+    public void StartStoriedMovement() {
+        SwitchState(AutoMovementState);
     }
 
     /**

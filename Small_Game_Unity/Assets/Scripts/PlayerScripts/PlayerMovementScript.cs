@@ -82,4 +82,12 @@ public class PlayerMovementScript : MonoBehaviour
         playerAnimationController.SetAnimationParam<float>("player_speed", 0f);
     }
 
+    // used to position the player for animation
+    public void MoveTowardsPosition(Vector3 position, Vector3 direction) {
+        // this will be called each frame, via the state's 'update' method
+
+        // MoveTowards will calculate the new position
+        Debug.Log("Here each frame");
+    }
+
 }
