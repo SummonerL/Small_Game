@@ -7,16 +7,33 @@ using UnityEngine;
 public class PlayerAutoMovementState : PlayerBaseState
 {
     public override void EnterState(PlayerStateManager playerState) {
-        // do something
+        // disable player movement/interaction scripts
+        PlayerMovementScript playerMovement = playerState.gameObject.GetComponent<PlayerMovementScript>();
+        PlayerInteractionScript playerInteraction = playerState.gameObject.GetComponent<PlayerInteractionScript>();
+        playerMovement.StopMovement(); // revert to standing position
+        playerMovement.enabled = false;
+        playerInteraction.enabled = false;
     }
 
     public override void UpdateState(PlayerStateManager playerState) {
         // move player to target position + direction
-        PlayerMovementScript movement = playerState.gameObject.GetComponent<PlayerMovementScript>();
-        movement.MoveTowardsPosition(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+        PlayerAutomationScript automate = playerState.gameObject.GetComponent<PlayerAutomationScript>();
+
+        if (automate.MoveTowardsPosition(new Vector3(-1.3f, 0, 1.3f), new Vector3(0, 0, 0))) {
+            
+            // player is within the walkingSpeed distance, snap to the position.
+            Vector3 targetPosition = new Vector3(-1.3f, playerState.transform.position.y, 1.3f);
+            playerState.transform.position = targetPosition;
+
+            // player reached the target position, publish an event
+            GameEventsScript.Instance.PlayerReachedPosition(); 
+        }
+        
     }
 
     public override void ExitState(PlayerStateManager playerState) {
-        // do something
+        // activate player movement/interaction scripts
+        playerState.gameObject.GetComponent<PlayerMovementScript>().enabled = true;
+        playerState.gameObject.GetComponent<PlayerInteractionScript>().enabled = true;
     }
 }

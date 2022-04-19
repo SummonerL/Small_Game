@@ -73,6 +73,14 @@ public class GameEventsScript : MonoBehaviour
         }
     }
 
+    // when the player has reached a position (through auto-movement)
+    public event Action onPlayerReachedPosition;
+    public void PlayerReachedPosition() {
+        if (onPlayerReachedPosition != null) {
+            onPlayerReachedPosition();
+        }
+    }
+
 
     /**
     *  Story / Dialogue Events

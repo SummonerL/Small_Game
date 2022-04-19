@@ -39,6 +39,7 @@ public class PlayerStateManager : MonoBehaviour
 
         // subscribe to events
         GameEventsScript.Instance.onDayStateTransitioned += HandleDayTransition;
+        GameEventsScript.Instance.onPlayerReachedPosition += AutoMovementComplete;
     }
 
     // update is called once per frame
@@ -62,6 +63,11 @@ public class PlayerStateManager : MonoBehaviour
 
         if (dayState.GetType() == typeof(DayDecisionState))
             SwitchState(ActiveState); // the player can begin 'deciding' again and is now active
+    }
+
+    public void AutoMovementComplete() {
+        // we're done with the auto-movement. Switch back to the relevant player state.
+        HandleDayTransition(DayStateManager.Instance.currentState);
     }
 
     public void StartStoriedMovement() {
