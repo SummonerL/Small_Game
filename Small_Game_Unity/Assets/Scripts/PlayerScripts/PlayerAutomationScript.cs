@@ -24,7 +24,7 @@ public class PlayerAutomationScript : MonoBehaviour
     }
 
     // used to position the player for animation
-    public bool MoveTowardsPosition(Vector3 position, Vector3 direction) {
+    public bool MoveTowardsPosition(Vector3 position) {
         // this will be called each frame, via the state's 'update' method
 
         bool reachedDestination = false;
@@ -50,9 +50,23 @@ public class PlayerAutomationScript : MonoBehaviour
         // determine if we're done moving
         float newDistance = Vector3.Distance(targetYIgnored, playerYIgnored);
 
-        reachedDestination = (newDistance < (movementScript.walkingSpeed * Time.deltaTime));
+        if (newDistance < (movementScript.walkingSpeed * Time.deltaTime)) {
+            reachedDestination = true;
+            playerAnimationController.SetAnimationParam<float>("player_speed", 0f);
+        }
 
         return reachedDestination;
+    }
+
+    public bool RotateTowardsDirection(Vector3 direction) {
+        Vector3 targetDirection = direction.normalized;
+        float targetAngle = Mathf.Atan2(targetDirection.x, targetDirection.z) * Mathf.Rad2Deg; // target direction of model
+        float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, movementScript.turnSmoothTime); // prevents sharp turns
+
+        // rotate the character based on direction
+        transform.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
+
+        return true;
     }
 
 }

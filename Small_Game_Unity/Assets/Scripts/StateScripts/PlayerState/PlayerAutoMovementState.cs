@@ -19,14 +19,16 @@ public class PlayerAutoMovementState : PlayerBaseState
         // move player to target position + direction
         PlayerAutomationScript automate = playerState.gameObject.GetComponent<PlayerAutomationScript>();
 
-        if (automate.MoveTowardsPosition(new Vector3(-1.3f, 0, 1.3f), new Vector3(0, 0, 0))) {
+        if (automate.MoveTowardsPosition(new Vector3(-1.3f, 0, 1.3f))) {
             
             // player is within the walkingSpeed distance, snap to the position.
             Vector3 targetPosition = new Vector3(-1.3f, playerState.transform.position.y, 1.3f);
             playerState.transform.position = targetPosition;
 
             // player reached the target position, publish an event
-            GameEventsScript.Instance.PlayerReachedPosition(); 
+            //GameEventsScript.Instance.PlayerReachedPosition(); 
+
+            automate.RotateTowardsDirection(playerState.transform.right);
         }
         
     }
