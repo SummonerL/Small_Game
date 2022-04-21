@@ -10,13 +10,19 @@ public class ObjectStoryManager : MonoBehaviour
     public TextAsset inkJSON;
     public Story story;
 
+    // used to control some animations triggered in our object's story
+    private PlayerAnimationController playerAnimationController;
+
     private string _currentStoryLine;
+    private AnimationMetadata _currentStoryAnimation;
     private DialogueBoxScript _activeDialogueBox;
 
     // start is called before the first frame update
     void Start()
     {
         story = new Story(inkJSON.text);
+
+        playerAnimationController = PlayerSingleton.Instance.GetComponent<PlayerAnimationController>();
     }
     
     /**
@@ -25,15 +31,28 @@ public class ObjectStoryManager : MonoBehaviour
     **/
     public void StartStorySession() {
 
-        /* Elliot: Temporary Debugging */
-        StartStoriedMovement();
-        /*******************************/
-
         if (story.canContinue)
             _currentStoryLine = story.Continue();
         else
             _currentStoryLine = Constants.NO_STORY_DIALOGUE_DEFAULT_TEXT;
 
+        // check for any story tags that might give us direction for this story session
+        List<string> storyTags = story.currentTags;
+
+        if (storyTags.Count > 0) {
+            string animationName = Helpers.GetTagValue("animation", storyTags);
+            if (animationName.Length > 0) {
+                _currentStoryAnimation = Constants.animationList[animationName];
+                StartStoriedMovement();
+                return;
+            }
+        }
+
+        StartStoryDialogue();
+
+    }
+
+    public void StartStoryDialogue() {
         // create a dialogue box above this object. This will also write the initial line
         _activeDialogueBox = UIControllerScript.Instance.ShowDialogueBox(gameObject, _currentStoryLine);
 
@@ -63,7 +82,20 @@ public class ObjectStoryManager : MonoBehaviour
 
     // trigger some player movement that accompanies this object or story session.
     public void StartStoriedMovement() {
-        PlayerStateManager.Instance.StartStoriedMovement();
+        PlayerStateManager.Instance.StartStoriedMovement(_currentStoryAnimation.startingPoint, _currentStoryAnimation.startingDirection);
+
+        // once the player reaches the target position, they should perform the animation
+        GameEventsScript.Instance.onPlayerReachedPosition += StartStoriedAnimation;
+    }
+
+    public void StartStoriedAnimation() {
+        // we no longer need to listen for the event
+        GameEventsScript.Instance.onPlayerReachedPosition -= StartStoriedAnimation;
+
+        // trigger the active animation
+        playerAnimationController.SetAnimationParam<bool>(_currentStoryAnimation.animationParameter, true);
+
+        StartStoryDialogue();
     }
 
     public void EndStorySession() {

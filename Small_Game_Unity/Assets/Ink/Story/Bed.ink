@@ -1,3 +1,4 @@
+#animation:BedSit
 I can't sleep...
 
 Goddamn insomnia drives me crazy.

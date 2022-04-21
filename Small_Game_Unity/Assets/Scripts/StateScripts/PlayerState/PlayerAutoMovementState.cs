@@ -19,7 +19,7 @@ public class PlayerAutoMovementState : PlayerBaseState
         // move player to target position + direction
         PlayerAutomationScript automate = playerState.gameObject.GetComponent<PlayerAutomationScript>();
 
-        if (automate.MoveAndRotate(new Vector3(-1.3f, 0, 1.3f), Vector3.right)) { //playerState.transform.right)) {
+        if (automate.MoveAndRotate(playerState.autoMovementPosition, playerState.autoMovementDirection)) {
             // player reached the target position, publish an event
             GameEventsScript.Instance.PlayerReachedPosition(); 
         }

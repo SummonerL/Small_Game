@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,4 +41,19 @@ public class Constants {
         LEFT,
         RIGHT
     }
+
+    public static Dictionary<string, AnimationMetadata> animationList = new Dictionary<string, AnimationMetadata>() {
+        ["BedSit"] = new AnimationMetadata { 
+            animationParameter="bed_sit",
+            startingPoint = new Vector3(0.15f, 0, -0.1f),
+            startingDirection = Vector3.left
+        }
+    };
+
+}
+
+public struct AnimationMetadata {
+    public string animationParameter { get; set; }
+    public Vector3 startingPoint { get; set; }
+    public Vector3 startingDirection { get; set; }
 }

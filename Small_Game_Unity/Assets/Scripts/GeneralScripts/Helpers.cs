@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -17,5 +18,13 @@ public class Helpers : MonoBehaviour
     public static MatchCollection SplitToLines(string stringToSplit, int maximumLineLength)
     {
         return Regex.Matches(stringToSplit, @"(.{1," + maximumLineLength +@"})(?:\s|$)");
+    }
+
+    public static string GetTagValue(string key, List<string> currentTags) {
+        string fullString = String.Join(",", currentTags);
+
+        Match tagValue = Regex.Match(fullString, "(?<="+ key +":)(.*?)(?=\\,|$)");
+
+        return tagValue.ToString();
     }
 }

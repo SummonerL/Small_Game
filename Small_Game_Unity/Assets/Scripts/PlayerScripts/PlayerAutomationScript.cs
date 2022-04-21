@@ -83,7 +83,7 @@ public class PlayerAutomationScript : MonoBehaviour
         // rotate the character based on direction
         transform.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
 
-        if (turnSmoothVelocity < movementScript.turnSmoothTime) {
+        if (Mathf.Abs(turnSmoothVelocity) < movementScript.turnSmoothTime) {
             complete = true;
             transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
         }

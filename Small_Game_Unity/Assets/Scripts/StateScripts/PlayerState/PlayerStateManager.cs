@@ -14,6 +14,8 @@ public class PlayerStateManager : MonoBehaviour
     PlayerAutoMovementState AutoMovementState = new PlayerAutoMovementState();
 
     // data-control between states
+    public Vector3 autoMovementPosition;
+    public Vector3 autoMovementDirection;
 
     // PlayerStateManager Singleton ref
     private static PlayerStateManager _instance;
@@ -70,7 +72,9 @@ public class PlayerStateManager : MonoBehaviour
         HandleDayTransition(DayStateManager.Instance.currentState);
     }
 
-    public void StartStoriedMovement() {
+    public void StartStoriedMovement(Vector3 autoMovementPosition, Vector3 autoMovementDirection) {
+        this.autoMovementPosition = autoMovementPosition;
+        this.autoMovementDirection = autoMovementDirection;
         SwitchState(AutoMovementState);
     }
 
