@@ -51,6 +51,12 @@ public class Constants {
             animationParameter="bed_sit",
             startingPoint = new Vector3(0.28f, 0, -0.24f),
             startingDirection = Vector3.left
+        },
+
+        ["BedCollapse"] = new AnimationMetadata { 
+            animationParameter="bed_collapse",
+            startingPoint = new Vector3(0.28f, 0, -0.24f),
+            startingDirection = Vector3.left
         }
     };
 
