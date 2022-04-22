@@ -36,6 +36,10 @@ public class Constants {
     public static float DIALOGUE_PROGRESSION_DOT_DELAY_TIME = .3f;
     public static float DIALOGUE_PROGRESSION_DOT_FADE_TIME = .5f;
 
+    // Layer Constants
+    public static int PHYSICAL_OBJECT_LAYER = 7;
+    public static int PLAYER_LAYER = 8;
+
     public enum DIRECTIONS
     {
         LEFT,
@@ -45,7 +49,7 @@ public class Constants {
     public static Dictionary<string, AnimationMetadata> animationList = new Dictionary<string, AnimationMetadata>() {
         ["BedSit"] = new AnimationMetadata { 
             animationParameter="bed_sit",
-            startingPoint = new Vector3(0.15f, 0, -0.1f),
+            startingPoint = new Vector3(0.28f, 0, -0.24f),
             startingDirection = Vector3.left
         }
     };

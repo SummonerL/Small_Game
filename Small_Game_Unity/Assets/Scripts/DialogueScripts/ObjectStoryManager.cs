@@ -31,6 +31,10 @@ public class ObjectStoryManager : MonoBehaviour
     **/
     public void StartStorySession() {
 
+        // given that the object is usually interacted with in some way, let's disable collision between the player and physical objects
+        Physics.IgnoreLayerCollision(Constants.PHYSICAL_OBJECT_LAYER, Constants.PLAYER_LAYER, true);
+
+
         if (story.canContinue)
             _currentStoryLine = story.Continue();
         else
@@ -99,6 +103,10 @@ public class ObjectStoryManager : MonoBehaviour
     }
 
     public void EndStorySession() {
+
+        // stop ignoring collision between the player and physical objects
+        Physics.IgnoreLayerCollision(Constants.PHYSICAL_OBJECT_LAYER, Constants.PLAYER_LAYER, false);
+
         // stop listening for the dialogue progression event
         GameEventsScript.Instance.onProgressDialogueInput -= ProgressStorySession;
 
