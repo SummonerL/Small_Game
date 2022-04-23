@@ -8,6 +8,12 @@ public class DayInteractionState : DayBaseState
 {
     public override void EnterState(DayStateManager day) {
         ObjectStoryManager objectStory = day.targetInteractiveObject.GetComponent<ObjectStoryManager>();
+
+        // since we're interacting with the object, there's no need to show interaction bubbles
+        PlayerInteractionScript.Instance.clearInteractionEligibleObjects();
+    
+        // we also want to lock the script, given that there will be no new interactions
+        PlayerInteractionScript.Instance.enabled = false;
         
         // start a story 'session' with the target object
         objectStory.StartStorySession();
@@ -23,6 +29,10 @@ public class DayInteractionState : DayBaseState
     }
 
     public override void ExitState(DayStateManager day) {
+        // reenable the interaction script
+        PlayerInteractionScript.Instance.enabled = true;
 
+        // and re-check objects in the proximity
+        PlayerInteractionScript.Instance.CheckInteractiveEligibleObjects();
     }
 }
