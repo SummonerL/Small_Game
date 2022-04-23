@@ -119,6 +119,16 @@ public class GameEventsScript : MonoBehaviour
     }
 
     /**
+    *   Animation Events
+    **/
+    public event Action onAnimationCompleted;
+    public void AnimationCompleted() {
+        if (onAnimationCompleted != null) {
+            onAnimationCompleted();
+        }
+    }
+
+    /**
     *   Camera Events
     **/ 
 

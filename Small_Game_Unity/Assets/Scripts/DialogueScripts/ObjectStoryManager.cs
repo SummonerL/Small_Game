@@ -92,12 +92,27 @@ public class ObjectStoryManager : MonoBehaviour
         GameEventsScript.Instance.onPlayerReachedPosition += StartStoriedAnimation;
     }
 
-    public void StartStoriedAnimation() {
+    public void StoriedMovementComplete() {
         // we no longer need to listen for the event
         GameEventsScript.Instance.onPlayerReachedPosition -= StartStoriedAnimation;
 
+
+        // Right now, the progression is generally movement -> animation. But this is not always the case. (i.e. getting up from the bed)
+        // TODO: allow for a 'backwards' progression
+        StartStoriedAnimation();
+    }
+
+    public void StartStoriedAnimation() {
         // trigger the active animation
         playerAnimationController.SetAnimationParam<bool>(_currentStoryAnimation.animationParameter, true);
+
+        // listen for the animation completion event
+        GameEventsScript.Instance.onAnimationCompleted += StoriedAnimationComplete;
+    }
+
+    public void StoriedAnimationComplete() {
+        // we no longer need to listen for the event
+        GameEventsScript.Instance.onAnimationCompleted -= StoriedAnimationComplete;
 
         StartStoryDialogue();
     }
