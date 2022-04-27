@@ -51,7 +51,7 @@ public class PlayerAnimationController : MonoBehaviour
     }
 
     // an animation event that gets published when an animation clip has completed (these events have to be set manually in the 'Animation' tab)
-    public void AnimationCompleted() {
+    public void AnimationCompletedFrameEvent() {
         // publish an event indicating that an animation is complete. For now, we don't care which animation it is.
         GameEventsScript.Instance.AnimationCompleted();
     }

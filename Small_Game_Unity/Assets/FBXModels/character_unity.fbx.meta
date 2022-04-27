@@ -36,6 +36,12 @@ ModelImporter:
   - first:
       74: 8625011736047648254
     second: CharacterRig|TurnAround
+  - first:
+      74: 3837542886219407008
+    second: CharacterRig|BedCollapseUp
+  - first:
+      74: 2213542625222538420
+    second: CharacterRig|BedSitUp
   externalObjects: {}
   materials:
     materialImportMode: 2
