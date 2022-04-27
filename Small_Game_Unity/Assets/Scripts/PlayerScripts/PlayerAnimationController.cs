@@ -49,4 +49,10 @@ public class PlayerAnimationController : MonoBehaviour
             throw new NotSupportedException(String.Format("GetAnimationParam<{0}> type must be of float, bool or integer.", typeof(T).ToString()));
         }
     }
+
+    // an animation event that gets published when an animation clip has completed (these events have to be set manually in the 'Animation' tab)
+    public void AnimationCompletedFrameEvent() {
+        // publish an event indicating that an animation is complete. For now, we don't care which animation it is.
+        GameEventsScript.Instance.AnimationCompleted();
+    }
 }

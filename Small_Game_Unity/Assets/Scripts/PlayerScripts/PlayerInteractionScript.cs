@@ -47,7 +47,7 @@ public class PlayerInteractionScript : MonoBehaviour
     }
 
     // determine and track proximity to interactive objects
-    void CheckInteractiveEligibleObjects() {
+    public void CheckInteractiveEligibleObjects() {
         // use Physics.OverlapSphere to determine proximity to all interactive objects
         Vector3 playerPosition = transform.position + playerCharacterController.center;
 
@@ -117,6 +117,17 @@ public class PlayerInteractionScript : MonoBehaviour
     // publicly accessible method to get the currently targeted object
     public GameObject GetTargetedObject() {
         return (interactionEligibleObjects.Count > 0) ? interactionEligibleObjects[0] : null;
+    }
+
+    // remove all objects from the interaction eligible list, and publish the appropriate event
+    public void clearInteractionEligibleObjects() {
+        foreach (GameObject interactiveObject in interactionEligibleObjects) {
+            // publish an event indicating player is no longer able to interact with this object
+            GameEventsScript.Instance.IneligibleInteractiveObject(interactiveObject);
+        }
+
+        // clear the list
+        interactionEligibleObjects = new List<GameObject>();
     }
 
     void OnDrawGizmos() {

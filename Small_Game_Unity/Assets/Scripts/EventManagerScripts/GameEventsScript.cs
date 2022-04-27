@@ -73,6 +73,14 @@ public class GameEventsScript : MonoBehaviour
         }
     }
 
+    // when the player has reached a position (through auto-movement)
+    public event Action onPlayerReachedPosition;
+    public void PlayerReachedPosition() {
+        if (onPlayerReachedPosition != null) {
+            onPlayerReachedPosition();
+        }
+    }
+
 
     /**
     *  Story / Dialogue Events
@@ -107,6 +115,16 @@ public class GameEventsScript : MonoBehaviour
     public void CompletedStorySession(GameObject activeObject) {
         if (onCompletedStorySession != null) {
             onCompletedStorySession(activeObject);
+        }
+    }
+
+    /**
+    *   Animation Events
+    **/
+    public event Action onAnimationCompleted;
+    public void AnimationCompleted() {
+        if (onAnimationCompleted != null) {
+            onAnimationCompleted();
         }
     }
 

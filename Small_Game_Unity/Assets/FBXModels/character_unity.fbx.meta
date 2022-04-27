@@ -21,6 +21,27 @@ ModelImporter:
   - first:
       74: -7973069088639835645
     second: CharacterRig|0TPose.001
+  - first:
+      74: -8732713711748344515
+    second: CharacterRig|BedCollapse
+  - first:
+      74: -5845427312341169123
+    second: CharacterRig|BedSit
+  - first:
+      74: 4580363293427120554
+    second: CharacterRig|FallingFaceDown
+  - first:
+      74: -2400761534609805319
+    second: CharacterRig|GroundSit
+  - first:
+      74: 8625011736047648254
+    second: CharacterRig|TurnAround
+  - first:
+      74: 3837542886219407008
+    second: CharacterRig|BedCollapseUp
+  - first:
+      74: 2213542625222538420
+    second: CharacterRig|BedSitUp
   externalObjects: {}
   materials:
     materialImportMode: 2

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,9 +36,55 @@ public class Constants {
     public static float DIALOGUE_PROGRESSION_DOT_DELAY_TIME = .3f;
     public static float DIALOGUE_PROGRESSION_DOT_FADE_TIME = .5f;
 
+    // Layer Constants
+    public static int PHYSICAL_OBJECT_LAYER = 7;
+    public static int PLAYER_LAYER = 8;
+
     public enum DIRECTIONS
     {
         LEFT,
         RIGHT
     }
+
+    public static Dictionary<string, AnimationMetadata> animationList = new Dictionary<string, AnimationMetadata>() {
+        ["BedSit"] = new AnimationMetadata { 
+            animationParameter="bed_sit",
+            startingPoint = new Vector3(0.28f, 0, -0.24f),
+            startingDirection = Vector3.left
+        },
+
+        ["BedSitUp"] = new AnimationMetadata { 
+            animationParameter="bed_sit",
+            animationParameterValue=false,
+            movementFirst=false,
+            startingPoint = new Vector3(-0.1f, 0, -0.24f),
+            startingDirection = Vector3.left
+        },
+
+
+        ["BedCollapse"] = new AnimationMetadata { 
+            animationParameter="bed_collapse",
+            startingPoint = new Vector3(0.28f, 0, -0.24f),
+            startingDirection = Vector3.left
+        },
+
+        ["BedCollapseUp"] = new AnimationMetadata { 
+            animationParameter="bed_collapse",
+            animationParameterValue=false,
+            movementFirst=false,
+            startingPoint = new Vector3(-0.1f, 0, -0.24f),
+            startingDirection = Vector3.left
+        }
+    };
+
+}
+
+public class AnimationMetadata {
+    public string animationParameter { get; set; }
+
+    public bool animationParameterValue {get; set; } = true;
+
+    public bool movementFirst {get; set;} = true;
+    public Vector3 startingPoint { get; set; }
+    public Vector3 startingDirection { get; set; }
 }
