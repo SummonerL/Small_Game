@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DayStateManager : MonoBehaviour
+public class GameFlowStateManager : MonoBehaviour
 {
 
     [SerializeField]
-    public DayBaseState currentState;
+    public GameFlowBaseState currentState;
 
     // concrete states
-    DayDecisionState DecisionState = new DayDecisionState();
-    DayInteractionState InteractionState = new DayInteractionState();
+    GameFlowDecisionState DecisionState = new GameFlowDecisionState();
+    GameFlowInteractionState InteractionState = new GameFlowInteractionState();
 
     // data-control between states
     public GameObject targetInteractiveObject;
 
-    // DayStateManager Singleton ref
-    private static DayStateManager _instance;
-    public static DayStateManager Instance { get { return _instance; } }
+    // GameFlowStateManager Singleton ref
+    private static GameFlowStateManager _instance;
+    public static GameFlowStateManager Instance { get { return _instance; } }
 
     private void Awake()
     {
@@ -44,11 +44,11 @@ public class DayStateManager : MonoBehaviour
         currentState.UpdateState(this);
     }
 
-    public void SwitchState(DayBaseState state) {
+    public void SwitchState(GameFlowBaseState state) {
         currentState.ExitState(this); // leave the old state
         currentState = state;
 
-        GameEventsScript.Instance.DayStateTransitioned(state); // publish event indicating a transition to the new day-state
+        GameEventsScript.Instance.GameFlowStateTransitioned(state); // publish event indicating a transition to the new game flow state
 
         state.EnterState(this); // trigger the enter state functionality
     }

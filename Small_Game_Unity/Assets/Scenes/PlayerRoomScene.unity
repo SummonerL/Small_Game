@@ -7554,7 +7554,7 @@ GameObject:
   - component: {fileID: 779002355}
   - component: {fileID: 779002354}
   m_Layer: 0
-  m_Name: DayController
+  m_Name: GameFlowController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13860,6 +13860,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6362ceed19c4839478acb7461b9d72fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _monthText: {fileID: 809006297}
+  _dayText: {fileID: 1338080344}
 --- !u!1 &919132148952526095
 GameObject:
   m_ObjectHideFlags: 0
