@@ -144,11 +144,11 @@ public class GameEventsScript : MonoBehaviour
     *   State Events
     **/
 
-    // when a day state transition occurs
-    public event Action<DayBaseState> onDayStateTransitioned;
-    public void DayStateTransitioned(DayBaseState newState) {
+    // when a game flow state transition occurs
+    public event Action<GameFlowBaseState> onGameFlowStateTransitioned;
+    public void GameFlowStateTransitioned(GameFlowBaseState newState) {
         if (newState != null) {
-            onDayStateTransitioned(newState);
+            onGameFlowStateTransitioned(newState);
         }
     }
 

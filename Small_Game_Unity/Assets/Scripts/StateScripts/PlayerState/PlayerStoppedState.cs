@@ -3,7 +3,7 @@ using UnityEngine;
 /**
 *   Type: Constant State
 *   Purpose: Player state that occurs when the player is inactive (usually standing still).
-*   This is often aligned with the 'DayInteractionState', where the player is interacting with an object
+*   This is often aligned with the 'GameFlowInteractionState', where the player is interacting with an object
 **/
 public class PlayerStoppedState : PlayerBaseState
 {

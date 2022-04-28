@@ -40,7 +40,7 @@ public class PlayerStateManager : MonoBehaviour
         currentState.EnterState(this);
 
         // subscribe to events
-        GameEventsScript.Instance.onDayStateTransitioned += HandleDayTransition;
+        GameEventsScript.Instance.onGameFlowStateTransitioned += HandleGameFlowTransition;
         GameEventsScript.Instance.onPlayerReachedPosition += AutoMovementComplete;
     }
 
@@ -59,17 +59,17 @@ public class PlayerStateManager : MonoBehaviour
         state.EnterState(this); // trigger the new state functionality
     }
 
-    public void HandleDayTransition(DayBaseState dayState) {
-        if (dayState.GetType() == typeof(DayInteractionState))
-            SwitchState(StoppedState); // a transition to the 'interaction' day-state will stop the player
+    public void HandleGameFlowTransition(GameFlowBaseState gameFlowState) {
+        if (gameFlowState.GetType() == typeof(GameFlowInteractionState))
+            SwitchState(StoppedState); // a transition to the 'interaction' game flow state will stop the player
 
-        if (dayState.GetType() == typeof(DayDecisionState))
+        if (gameFlowState.GetType() == typeof(GameFlowDecisionState))
             SwitchState(ActiveState); // the player can begin 'deciding' again and is now active
     }
 
     public void AutoMovementComplete() {
         // we're done with the auto-movement. Switch back to the relevant player state.
-        HandleDayTransition(DayStateManager.Instance.currentState);
+        HandleGameFlowTransition(GameFlowStateManager.Instance.currentState);
     }
 
     public void StartStoriedMovement(Vector3 autoMovementPosition, Vector3 autoMovementDirection) {
