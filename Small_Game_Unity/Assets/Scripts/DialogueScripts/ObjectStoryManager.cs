@@ -98,8 +98,11 @@ public class ObjectStoryManager : MonoBehaviour
                 if (story.canContinue) {
                     _currentStoryLine = story.Continue();
 
-                    if (CheckStoryTags())
+                    if (CheckStoryTags()) {
+                        // this set of story dialogue has been interrupted. Stop listening for input for the time being.
+                        GameEventsScript.Instance.onProgressDialogueInput -= ProgressStorySession;
                         return;
+                    }
 
                     _activeDialogueBox.PrepareAndWrite(_currentStoryLine);
                 } else {
