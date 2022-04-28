@@ -8,6 +8,8 @@ public class DayMorningState : DayBaseState
 {
     public override void EnterState(DayStateManager dayState) {
         // do something
+
+        AlarmClockScript.Instance.changeClockText("09:00");
     }
 
     public override void UpdateState(DayStateManager dayState) {
