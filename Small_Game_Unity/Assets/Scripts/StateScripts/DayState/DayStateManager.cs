@@ -22,6 +22,9 @@ public class DayStateManager : MonoBehaviour
     [SerializeField]
     public Material glassNormalMaterial;
 
+    [SerializeField] 
+    public GameObject windowGlassObject;
+
 
     // DayStateManager Singleton ref
     private static DayStateManager _instance;

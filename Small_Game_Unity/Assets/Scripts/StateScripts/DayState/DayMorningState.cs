@@ -7,7 +7,8 @@ using UnityEngine;
 public class DayMorningState : DayBaseState
 {
     public override void EnterState(DayStateManager dayState) {
-        // do something
+        // use the 'morning' material on the window glass
+        dayState.windowGlassObject.GetComponent<MeshRenderer>().material = dayState.glassMorningMaterial;
 
         AlarmClockScript.Instance.changeClockText("09:00");
     }
