@@ -16,6 +16,11 @@ public class DayStateManager : MonoBehaviour
     DayEveningState EveningState = new DayEveningState();
 
     // data-control between states
+    [SerializeField]
+    public Material glassMorningMaterial;
+
+    [SerializeField]
+    public Material glassNormalMaterial;
 
 
     // DayStateManager Singleton ref

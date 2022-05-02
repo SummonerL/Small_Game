@@ -166,7 +166,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51068515}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 4
   m_BackGroundColor: {r: 0.29803923, g: 0.227451, b: 0.1254902, a: 0}
@@ -6931,7 +6931,7 @@ PrefabInstance:
     - target: {fileID: 8029106800918022278, guid: e14fbe12a722f104f9749b3d0e2ce5aa, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 20005260567de8d4784e13fe60238e08, type: 2}
+      objectReference: {fileID: 2100000, guid: 6bf3875f9f3ecff4eb4db293f6372965, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e14fbe12a722f104f9749b3d0e2ce5aa, type: 3}
 --- !u!1 &310116943
@@ -11990,6 +11990,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4338b7333f65e4fab7588b1e45d6c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glassMorningMaterial: {fileID: 2100000, guid: 6bf3875f9f3ecff4eb4db293f6372965, type: 2}
+  glassNormalMaterial: {fileID: 2100000, guid: 20005260567de8d4784e13fe60238e08, type: 2}
 --- !u!4 &1325060653
 Transform:
   m_ObjectHideFlags: 0
