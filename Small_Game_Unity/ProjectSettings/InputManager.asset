@@ -170,7 +170,7 @@ InputManager:
     descriptiveName: Used for primary actions (by default)
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: enter
+    positiveButton: return
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
