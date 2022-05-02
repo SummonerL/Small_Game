@@ -60,6 +60,15 @@ public class CameraManager : MonoBehaviour
         if (Input.GetButtonDown("Keyboard_Tab") || Input.GetButtonDown("Joystick_Button_Up"))
         {
             cameras[cameraIndex].enabled = false;
+            
+            // let's also disable the sub-camera
+            if (cameras[cameraIndex].transform.childCount > 0) {
+                GameObject child = cameras[cameraIndex].transform.GetChild(0).gameObject;
+                Camera subCamera = child.GetComponent<Camera>();
+                if (subCamera != null)
+                    subCamera.enabled = false;
+            }
+
             if (cameraIndex == cameras.Count - 1) 
                 cameraIndex = 0;
             else
@@ -67,6 +76,15 @@ public class CameraManager : MonoBehaviour
 
             cameras[cameraIndex].enabled = true;
             activeCamera = cameras[cameraIndex];
+
+            // let's also enable the sub-camera
+            if (cameras[cameraIndex].transform.childCount > 0) {
+                GameObject child = cameras[cameraIndex].transform.GetChild(0).gameObject;
+                Camera subCamera = child.GetComponent<Camera>();
+
+                if (subCamera != null)
+                    subCamera.enabled = true;
+            }
 
             GameEventsScript.Instance.ActiveCameraChanged(activeCamera); // publish event indicating the camera angle was changed (first time)
         }
