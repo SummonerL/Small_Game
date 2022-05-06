@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,6 +54,8 @@ public class ObjectStoryManager : MonoBehaviour
         List<string> storyTags = story.currentTags;
 
         if (storyTags.Count > 0) {
+
+            // check for animation
             string animationName = Helpers.GetTagValue("animation", storyTags);
             if (animationName.Length > 0) {
                 // hide the dialogue box, given that we'll be doing some animation + movement
@@ -66,6 +69,14 @@ public class ObjectStoryManager : MonoBehaviour
                     StartStoriedAnimation();
                 
                 return true;
+            }
+
+            // check for time advancement
+            string timeAdvance = Helpers.GetTagValue("advancetime", storyTags);
+
+            if (timeAdvance.Length > 0) {
+                // move forward X number of day states
+                DayStateManager.Instance.AdvanceTime(Int32.Parse(timeAdvance));
             }
         }
 

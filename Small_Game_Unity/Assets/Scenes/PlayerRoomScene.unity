@@ -8259,6 +8259,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 406f37ec914943d4ca7f5221b9f0c31d, type: 3}
+--- !u!1 &864345636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5162820104835090806, guid: e14fbe12a722f104f9749b3d0e2ce5aa, type: 3}
+  m_PrefabInstance: {fileID: 290444756}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &891937932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11992,6 +11997,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glassMorningMaterial: {fileID: 2100000, guid: 6bf3875f9f3ecff4eb4db293f6372965, type: 2}
   glassNormalMaterial: {fileID: 2100000, guid: 20005260567de8d4784e13fe60238e08, type: 2}
+  windowGlassObject: {fileID: 864345636}
+  MorningProfile: {fileID: 11400000, guid: 70e539c34cb8e6449b2ea7144746af82, type: 2}
+  NoonProfile: {fileID: 11400000, guid: cc8aee7cc2898f84abc19693286e9b3f, type: 2}
+  EveningProfile: {fileID: 11400000, guid: 8a8707509c7c1ec4fb2683511584b11b, type: 2}
 --- !u!4 &1325060653
 Transform:
   m_ObjectHideFlags: 0
@@ -13568,6 +13577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1930979762}
   - component: {fileID: 1930979761}
+  - component: {fileID: 1930979763}
   m_Layer: 9
   m_Name: PostFX
   m_TagString: Untagged
@@ -13587,7 +13597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 70e539c34cb8e6449b2ea7144746af82, type: 2}
+  sharedProfile: {fileID: 11400000, guid: cc8aee7cc2898f84abc19693286e9b3f, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -13606,6 +13616,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1930979763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930979760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473ad3d9f8c92124eb397a335d8da11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2044112909 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eb768cd15d77bce4a8669a1cc0b6dcfc, type: 3}

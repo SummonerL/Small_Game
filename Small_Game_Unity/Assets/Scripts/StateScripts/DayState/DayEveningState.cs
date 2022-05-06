@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 /**
 *   Type: Constant State
@@ -7,7 +8,14 @@ using UnityEngine;
 public class DayEveningState : DayBaseState
 {
     public override void EnterState(DayStateManager dayState) {
-        // do something
+        // use the 'standard' material on the window glass
+        dayState.windowGlassObject.GetComponent<MeshRenderer>().material = dayState.glassNormalMaterial;
+
+        // use the 'night' PostFX Profile
+        PostFXSingleton.Instance.GetComponent<PostProcessVolume>().profile = dayState.EveningProfile;
+
+        // set the time!
+        AlarmClockScript.Instance.changeClockText(Constants.NIGHT_TIME);
     }
 
     public override void UpdateState(DayStateManager dayState) {

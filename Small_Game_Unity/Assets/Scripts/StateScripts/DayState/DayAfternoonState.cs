@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 /**
 *   Type: Constant State
@@ -7,7 +8,11 @@ using UnityEngine;
 public class DayAfternoonState : DayBaseState
 {
     public override void EnterState(DayStateManager dayState) {
-        // do something
+        // use the 'noon' PostFX Profile
+        PostFXSingleton.Instance.GetComponent<PostProcessVolume>().profile = dayState.NoonProfile;
+
+        // set the time!
+        AlarmClockScript.Instance.changeClockText(Constants.AFTERNOON_TIME);
     }
 
     public override void UpdateState(DayStateManager dayState) {

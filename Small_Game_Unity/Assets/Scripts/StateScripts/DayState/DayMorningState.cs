@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 /**
 *   Type: Constant State
@@ -10,7 +11,11 @@ public class DayMorningState : DayBaseState
         // use the 'morning' material on the window glass
         dayState.windowGlassObject.GetComponent<MeshRenderer>().material = dayState.glassMorningMaterial;
 
-        AlarmClockScript.Instance.changeClockText("09:00");
+        // use the 'morning' PostFX Profile
+        PostFXSingleton.Instance.GetComponent<PostProcessVolume>().profile = dayState.MorningProfile;
+
+        // set the time!
+        AlarmClockScript.Instance.changeClockText(Constants.MORNING_TIME);
     }
 
     public override void UpdateState(DayStateManager dayState) {

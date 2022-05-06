@@ -36,6 +36,12 @@ public class Constants {
     public static float DIALOGUE_PROGRESSION_DOT_DELAY_TIME = .3f;
     public static float DIALOGUE_PROGRESSION_DOT_FADE_TIME = .5f;
 
+    // Day Constants
+    public static string MORNING_TIME = "08:00";
+    public static string AFTERNOON_TIME = "12:00";
+
+    public static string NIGHT_TIME = "21:00";
+
     // Layer Constants
     public static int PHYSICAL_OBJECT_LAYER = 7;
     public static int PLAYER_LAYER = 8;
