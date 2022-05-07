@@ -36,6 +36,9 @@ public class Constants {
     public static float DIALOGUE_PROGRESSION_DOT_DELAY_TIME = .3f;
     public static float DIALOGUE_PROGRESSION_DOT_FADE_TIME = .5f;
 
+    public static float SCREEN_FADE_OUT_TIME = 1.0f;
+    public static float SCREEN_FADE_IN_TIME = 1.0f;
+
     // Day Constants
     public static string MORNING_TIME = "08:00";
     public static string AFTERNOON_TIME = "12:00";

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /***
 *   Handles all UI components in the game. There should only be a World + Screen canvas child
@@ -16,6 +17,9 @@ public class UIControllerScript : MonoBehaviour
     private GameObject _interactBubblePrefab;
     [SerializeField]
     private GameObject _dialogueBoxPrefab;
+
+    [SerializeField]
+    private GameObject _screenFader;
 
     // object pools to prevent runtime instantiation
     private List<GameObject> _interactBubblePool; 
@@ -123,5 +127,25 @@ public class UIControllerScript : MonoBehaviour
     // make the world space canvas look at a given camera object
     public void BillboardCanvas(Camera targetCamera) {
         _worldSpaceCanvas.transform.LookAt(_worldSpaceCanvas.transform.position + targetCamera.transform.rotation * Vector3.back, targetCamera.transform.rotation * Vector3.up);
+    }
+
+    public void FadeOut() {
+        // use the screen fader to fade to black
+        LeanTween.alpha(_screenFader.GetComponent<Image>().rectTransform, 1f, Constants.SCREEN_FADE_IN_TIME)
+        .setEase(LeanTweenType.easeOutQuad)
+        .setOnComplete(() => {
+            // publish an event, indicating that we've finished fading out
+            GameEventsScript.Instance.ScreenFadedOut();
+        });
+    }
+
+    public void FadeIn() {
+        // use the screen fader to fade in from black
+        LeanTween.alpha(_screenFader.GetComponent<Image>().rectTransform, 0f, Constants.SCREEN_FADE_OUT_TIME)
+        .setEase(LeanTweenType.easeInQuad)
+        .setOnComplete(() => {
+            // publish an event, indicating that we've finished fading in
+            GameEventsScript.Instance.ScreenFadedIn();
+        });
     }
 }

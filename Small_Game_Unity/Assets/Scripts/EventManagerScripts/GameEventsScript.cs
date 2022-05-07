@@ -141,6 +141,26 @@ public class GameEventsScript : MonoBehaviour
     }
 
     /**
+    *   Screen / Render Events
+    **/
+
+    // when the screen has finished fading to black
+    public event Action onScreenFadedOut;
+    public void ScreenFadedOut() {
+        if (onScreenFadedOut != null) {
+            onScreenFadedOut();
+        }
+    }
+
+    // when the screen has finished fading in from black
+    public event Action onScreenFadedIn;
+    public void ScreenFadedIn() {
+        if (onScreenFadedIn != null) {
+            onScreenFadedIn();
+        }
+    }
+
+    /**
     *   State Events
     **/
 
