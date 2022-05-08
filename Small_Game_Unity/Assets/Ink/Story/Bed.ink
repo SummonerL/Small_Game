@@ -10,7 +10,11 @@ $. #fade:out
 
 $. #advancetime:1
 
+$. #dramaticpause:2
+
 $. #fade:in
+
+$. #dramaticpause:1
 
 Wow... Did I actually manage to fall asleep?
 

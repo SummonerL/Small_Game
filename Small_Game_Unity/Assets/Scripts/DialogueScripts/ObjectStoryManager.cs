@@ -102,6 +102,18 @@ public class ObjectStoryManager : MonoBehaviour
                 digressionFunctions.Add(() => { StartStoriedFade(screenFade); });
                 digression = true;
             }
+
+            // check for pauses
+            string waitFor = Helpers.GetTagValue("dramaticpause", storyTags);
+
+            if (waitFor.Length > 0) {
+                // wait for X seconds
+                int seconds = Int32.Parse(waitFor);
+
+                digressionFunctions.Add(() => { StartCoroutine(StartStoriedPause(seconds)); });
+                digression = true;
+            }
+
         }
 
         if (digression) {
@@ -218,6 +230,12 @@ public class ObjectStoryManager : MonoBehaviour
     public void StoriedFadeInComplete() {
         // we no longer need to listen for this event
         GameEventsScript.Instance.onScreenFadedIn -= StoriedFadeInComplete;
+
+        WriteStoryDialogue();
+    }
+
+    public IEnumerator StartStoriedPause(int seconds) {
+        yield return new WaitForSeconds(seconds);
 
         WriteStoryDialogue();
     }
