@@ -55,6 +55,24 @@ public class Constants {
     public static int PHYSICAL_OBJECT_LAYER = 7;
     public static int PLAYER_LAYER = 8;
 
+    // Day / Time constants
+
+    public enum MONTHS
+    {
+        January = 1,
+        February,
+        March,
+        April,
+        May,
+        June,
+        July,
+        August,
+        September,
+        October,
+        November,
+        December
+    }
+
     public enum DIRECTIONS
     {
         LEFT,

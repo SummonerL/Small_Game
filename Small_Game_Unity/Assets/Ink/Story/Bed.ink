@@ -8,7 +8,7 @@ I swear to God, it's like I have no energy in the morning and yet I can't turn o
 
 $. #fade:out
 
-$. #advancetime:1
+$. #advancetime:2
 
 $. #dramaticpause:2
 
