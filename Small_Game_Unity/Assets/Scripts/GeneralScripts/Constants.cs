@@ -22,6 +22,12 @@ public class Constants {
     // Story Constants
     public static string NO_STORY_DIALOGUE_DEFAULT_TEXT = "I'm not sure about that...";
 
+    public static string IGNORED_TEXT = "$.";
+
+    // used with the 'fade' story tag
+    public static string TAG_FADE_OUT = "out";
+    public static string TAG_FADE_IN = "in";
+
     // LeanTween constants
     public static float INTERACTION_BUBBLE_ENTRY_TIME = 0.2f;
     public static float INTERACTION_BUBBLE_EXIT_TIME = 0.1f;
@@ -36,8 +42,8 @@ public class Constants {
     public static float DIALOGUE_PROGRESSION_DOT_DELAY_TIME = .3f;
     public static float DIALOGUE_PROGRESSION_DOT_FADE_TIME = .5f;
 
-    public static float SCREEN_FADE_OUT_TIME = 1.0f;
-    public static float SCREEN_FADE_IN_TIME = 1.0f;
+    public static float SCREEN_FADE_OUT_TIME = 1.2f;
+    public static float SCREEN_FADE_IN_TIME = 1.2f;
 
     // Day Constants
     public static string MORNING_TIME = "08:00";

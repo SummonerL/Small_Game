@@ -35,16 +35,29 @@ public class ObjectStoryManager : MonoBehaviour
         // given that the object is usually interacted with in some way, let's disable collision between the player and physical objects
         Physics.IgnoreLayerCollision(Constants.PHYSICAL_OBJECT_LAYER, Constants.PLAYER_LAYER, true);
 
+        CheckNextStoryLine(true);
+    }
+
+    // determines how to proceed with the story session
+    public void CheckNextStoryLine(bool firstInteraction = false) {
+
         if (story.canContinue) {
             _currentStoryLine = story.Continue();
             
             if (CheckStoryTags())
                 return;
         }
-        else
-            _currentStoryLine = Constants.NO_STORY_DIALOGUE_DEFAULT_TEXT;
+        else {
+            if (!firstInteraction) {
+                // there's nothing else to say. End the story session
+                EndStorySession();
+                return;
+            }
 
-        StartStoryDialogue();
+            _currentStoryLine = Constants.NO_STORY_DIALOGUE_DEFAULT_TEXT;
+        }
+
+        WriteStoryDialogue();
 
     }
 
@@ -53,22 +66,25 @@ public class ObjectStoryManager : MonoBehaviour
         // check for any story tags that might give us direction for this story session
         List<string> storyTags = story.currentTags;
 
+        // we'll return 'digression', which indicates whether or not the tags have given us some story instruction.
+        // generally, this will mean that we want the instruction to complete before continuing with the dialogue.
+        bool digression = false;
+
+        // we can add methods to a list (with params), and then invoke them sequentially. How cool!
+        List<Action> digressionFunctions = new List<Action>();
+
         if (storyTags.Count > 0) {
 
             // check for animation
             string animationName = Helpers.GetTagValue("animation", storyTags);
             if (animationName.Length > 0) {
-                // hide the dialogue box, given that we'll be doing some animation + movement
-                if (_activeDialogueBox != null)
-                    _activeDialogueBox.HideDialogueBox();
-
                 _currentStoryAnimation = Constants.animationList[animationName];
                 if (_currentStoryAnimation.movementFirst)
-                    StartStoriedMovement();
+                    digressionFunctions.Add(StartStoriedMovement);
                 else
-                    StartStoriedAnimation();
+                    digressionFunctions.Add(StartStoriedAnimation);
                 
-                return true;
+                digression = true;
             }
 
             // check for time advancement
@@ -78,22 +94,46 @@ public class ObjectStoryManager : MonoBehaviour
                 // move forward X number of day states
                 DayStateManager.Instance.AdvanceTime(Int32.Parse(timeAdvance));
             }
+
+            // check for screen fades
+            string screenFade = Helpers.GetTagValue("fade", storyTags);
+
+            if (screenFade.Length > 0) {
+                digressionFunctions.Add(() => { StartStoriedFade(screenFade); });
+                digression = true;
+            }
         }
 
-        return false;
+        if (digression) {
+            // clear the dialogue box, given that we'll be following some story digression
+            ClearDialogueBox();
+
+            // and execute all of our digression functions
+            foreach (Action func in digressionFunctions)
+                func();
+        }
+
+        return digression;
     }
 
-    public void StartStoryDialogue() {
-        
-        if (_currentStoryLine.Length > 0) {
-            // create a dialogue box above this object. This will also write the initial line
-            _activeDialogueBox = UIControllerScript.Instance.ShowDialogueBox(gameObject, _currentStoryLine);
+    // write a line of dialogue
+    public void WriteStoryDialogue() {
+
+        if (_currentStoryLine.Length > 0 && !IsTagLine(_currentStoryLine)) {
+
+            if (_activeDialogueBox == null) {
+                // create a dialogue box above this object. This will also write the initial line
+                _activeDialogueBox = UIControllerScript.Instance.ShowDialogueBox(gameObject, _currentStoryLine);
+            } else {
+                _activeDialogueBox.PrepareAndWrite(_currentStoryLine);
+            }
 
             // start listening for a 'dialogue progression' input event (the user has pressed the primary button)
             GameEventsScript.Instance.onProgressDialogueInput += ProgressStorySession;
+
         } else {
-            // this was most likely called on a tag-only line. Let's just progress the story session.
-            ProgressStorySession(gameObject);
+            // this was most likely called on a tag-only line. Let's not write anything and just progress the story session.
+            CheckNextStoryLine();
         }
     }
 
@@ -105,21 +145,11 @@ public class ObjectStoryManager : MonoBehaviour
             bool fastType = true;
 
             if (_activeDialogueBox.ReadyForProgression(fastType)) { // make sure we're not actively typing, or animating
-                // progress the dialogue
-                if (story.canContinue) {
-                    _currentStoryLine = story.Continue();
 
-                    if (CheckStoryTags()) {
-                        // this set of story dialogue has been interrupted. Stop listening for input for the time being.
-                        GameEventsScript.Instance.onProgressDialogueInput -= ProgressStorySession;
-                        return;
-                    }
+                // we can safely move forward with the story session. No need to listen for this event anymore.
+                GameEventsScript.Instance.onProgressDialogueInput -= ProgressStorySession;
 
-                    _activeDialogueBox.PrepareAndWrite(_currentStoryLine);
-                } else {
-                    // we can safely end the story session
-                    EndStorySession();
-                }
+                CheckNextStoryLine();
             }
         }
     }
@@ -141,7 +171,7 @@ public class ObjectStoryManager : MonoBehaviour
         if (_currentStoryAnimation.movementFirst)
             StartStoriedAnimation();
         else 
-            StartStoryDialogue();
+            WriteStoryDialogue();
     }
 
     public void StartStoriedAnimation() {
@@ -157,10 +187,41 @@ public class ObjectStoryManager : MonoBehaviour
         GameEventsScript.Instance.onAnimationCompleted -= StoriedAnimationComplete;
 
         if (_currentStoryAnimation.movementFirst)
-            StartStoryDialogue();
+            WriteStoryDialogue();
         else 
             StartStoriedMovement();
     }
+
+    public void StartStoriedFade(string fadeDirection) {
+        if (fadeDirection == Constants.TAG_FADE_OUT) {
+            // perform the fade out
+            UIControllerScript.Instance.FadeOut();
+            
+            // start listening for event
+            GameEventsScript.Instance.onScreenFadedOut += StoriedFadeOutComplete;
+        } else {
+            // perform the fade in
+            UIControllerScript.Instance.FadeIn();
+            
+            // start listening for event
+            GameEventsScript.Instance.onScreenFadedIn += StoriedFadeInComplete;
+        }
+    }
+
+    public void StoriedFadeOutComplete() {
+        // we no longer need to listen for this event
+        GameEventsScript.Instance.onScreenFadedOut -= StoriedFadeOutComplete;
+
+        WriteStoryDialogue();
+    }
+
+    public void StoriedFadeInComplete() {
+        // we no longer need to listen for this event
+        GameEventsScript.Instance.onScreenFadedIn -= StoriedFadeInComplete;
+
+        WriteStoryDialogue();
+    }
+
 
     public void EndStorySession() {
 
@@ -170,10 +231,22 @@ public class ObjectStoryManager : MonoBehaviour
         // stop listening for the dialogue progression event
         GameEventsScript.Instance.onProgressDialogueInput -= ProgressStorySession;
 
-        // hide the dialogue box
-        _activeDialogueBox.HideDialogueBox();
+        // clear the dialogue box
+        ClearDialogueBox();
 
         // publish an event indicating that we've completed the story session
         GameEventsScript.Instance.CompletedStorySession(gameObject);
+    }
+
+    public void ClearDialogueBox() {
+        if (_activeDialogueBox != null) {
+            _activeDialogueBox.HideDialogueBox();
+            _activeDialogueBox = null;
+        }
+    }
+
+    // checks if the provided story line is a 'tag-only' line (the actual text is ignored)
+    public bool IsTagLine(string storyLine) {
+        return (storyLine.Replace("\n", "") == Constants.IGNORED_TEXT);
     }
 }

@@ -54,6 +54,9 @@ public class DialogueProgressionDotsScript : MonoBehaviour
 
     public void CancelTweens() {
         if (_waitingAnimationSequence != null) {
+
+            // ALERT: This shit will cancel any tweens created right before this call.
+            // Somehow, they get appended to the sequence. LeanTween, get your shit together.
             LeanTween.cancel(_waitingAnimationSequence.id);
 
             // hide progression dots

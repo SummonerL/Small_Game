@@ -131,8 +131,14 @@ public class UIControllerScript : MonoBehaviour
 
     public void FadeOut() {
         // use the screen fader to fade to black
-        LeanTween.alpha(_screenFader.GetComponent<Image>().rectTransform, 1f, Constants.SCREEN_FADE_IN_TIME)
-        .setEase(LeanTweenType.easeOutQuad)
+        Image screenFaderImage = _screenFader.GetComponent<Image>();
+        LeanTween.value(_screenFader, 0f, 1f, Constants.SCREEN_FADE_OUT_TIME)
+        .setOnUpdate((float val) =>
+        {
+            Color c = screenFaderImage.color;
+            c.a = val;
+            screenFaderImage.color = c;
+        })
         .setOnComplete(() => {
             // publish an event, indicating that we've finished fading out
             GameEventsScript.Instance.ScreenFadedOut();
@@ -141,8 +147,14 @@ public class UIControllerScript : MonoBehaviour
 
     public void FadeIn() {
         // use the screen fader to fade in from black
-        LeanTween.alpha(_screenFader.GetComponent<Image>().rectTransform, 0f, Constants.SCREEN_FADE_OUT_TIME)
-        .setEase(LeanTweenType.easeInQuad)
+        Image screenFaderImage = _screenFader.GetComponent<Image>();
+        LeanTween.value(_screenFader, 1f, 0f, Constants.SCREEN_FADE_IN_TIME)
+        .setOnUpdate((float val) =>
+        {
+            Color c = screenFaderImage.color;
+            c.a = val;
+            screenFaderImage.color = c;
+        })
         .setOnComplete(() => {
             // publish an event, indicating that we've finished fading in
             GameEventsScript.Instance.ScreenFadedIn();
