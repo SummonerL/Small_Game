@@ -595,7 +595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3a2cb410bddf3164ea5f5965990c7dac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.58220845
+      value: 0.522
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3a2cb410bddf3164ea5f5965990c7dac, type: 3}
       propertyPath: m_LocalPosition.y
@@ -603,7 +603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3a2cb410bddf3164ea5f5965990c7dac, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5530214
+      value: 1.636
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3a2cb410bddf3164ea5f5965990c7dac, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7804,7 +7804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 59722023475f7c84fb279bb24e09c6ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.4188047
+      value: -0.48
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 59722023475f7c84fb279bb24e09c6ad, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7812,7 +7812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 59722023475f7c84fb279bb24e09c6ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.8992602
+      value: 1.057
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 59722023475f7c84fb279bb24e09c6ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11997,6 +11997,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4338b7333f65e4fab7588b1e45d6c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMonth: 0
+  currentDay: 0
   glassMorningMaterial: {fileID: 2100000, guid: 6bf3875f9f3ecff4eb4db293f6372965, type: 2}
   glassNormalMaterial: {fileID: 2100000, guid: 20005260567de8d4784e13fe60238e08, type: 2}
   windowGlassObject: {fileID: 864345636}
