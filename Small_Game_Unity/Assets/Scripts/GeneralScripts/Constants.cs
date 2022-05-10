@@ -79,6 +79,12 @@ public class Constants {
         RIGHT
     }
 
+
+    /****
+    *   Note: I've created empty objects which sit at these exact locations. At some point, it might be a better idea to just use their positions via code
+    *   instead of hardcoding. Regardless, if we move the desk/bed/etc, it's VITAL that we also move these reference objects in sync. I don't want to have 
+    *   to tweak the positions of objects again for each animation.
+    ****/
     public static Dictionary<string, AnimationMetadata> animationList = new Dictionary<string, AnimationMetadata>() {
         ["BedSit"] = new AnimationMetadata { 
             animationParameter="bed_sit",
