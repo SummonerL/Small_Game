@@ -22,4 +22,6 @@ What time is it...?
 
 God, I have a splitting headache.
 
-#animation:BedCollapseUp
+$. #animation:BedCollapseUp
+
+$. #animation:ChairSit

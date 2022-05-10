@@ -107,6 +107,14 @@ public class Constants {
             movementFirst=false,
             startingPoint = new Vector3(-0.1f, 0, -0.24f),
             startingDirection = Vector3.left
+        },
+
+        ["ChairSit"] = new AnimationMetadata { 
+            animationParameter="chair_sit",
+            animationParameterValue=true,
+            movementFirst=true,
+            startingPoint = new Vector3(-0.334f, 0.044f, -0.387f),
+            startingDirection = new Vector3(2.905f, -144.617f, 0) // need to figure out what this rotation is gonna be
         }
     };
 
