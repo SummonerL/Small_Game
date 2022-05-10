@@ -113,8 +113,8 @@ public class Constants {
             animationParameter="chair_sit",
             animationParameterValue=true,
             movementFirst=true,
-            startingPoint = new Vector3(-0.334f, 0.044f, -0.387f),
-            startingDirection = new Vector3(2.905f, -144.617f, 0) // need to figure out what this rotation is gonna be
+            startingPoint = new Vector3(-0.4f, 0, -0.356f),
+            startingDirection = new Vector3(-1f, 0, -1.4f) // between left and backwards (slightly more to the back)
         }
     };
 
