@@ -123,6 +123,14 @@ public class Constants {
             movementFirst=true,
             startingPoint = new Vector3(-0.4f, 0, -0.356f),
             startingDirection = new Vector3(-1f, 0, -1.4f) // between left and backwards (slightly more to the back)
+        },
+
+        ["ChairStand"] = new AnimationMetadata { 
+            animationParameter="chair_sit",
+            animationParameterValue=false,
+            movementFirst=false,
+            startingPoint = new Vector3(-0.4f, 0, -0.356f),
+            startingDirection = Vector3.left // between left and backwards (slightly more to the back)
         }
     };
 
