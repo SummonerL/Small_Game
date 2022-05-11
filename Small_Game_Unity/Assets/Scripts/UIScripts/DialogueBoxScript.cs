@@ -53,11 +53,20 @@ public class DialogueBoxScript : MonoBehaviour
     // position the box based on the position of the target object
     public void PositionBox(Camera targetCamera) {
         
-        // get the generic collider - we don't care if it's capsule, box, etc.
-        Collider targetObjectCollider = _targetObject.GetComponent<Collider>();
+        Vector3 targetWorldPosition = Vector3.zero;
 
-        Vector3 targetWorldPosition = targetObjectCollider.bounds.center;
-        targetWorldPosition.y = targetObjectCollider.bounds.max.y;
+        // if this is the player, we'll just use his head bone instead of the collider
+        if (_targetObject == PlayerSingleton.Instance.gameObject) {
+            targetWorldPosition = PlayerSingleton.Instance.headBone.transform.position;
+            targetWorldPosition.y += Constants.DIALOGUE_BOX_POSITION_VERTICAL_BUFFER_PLAYER;
+        } else {
+            // otherwise, we'll use the object's collider
+
+            // get the generic collider - we don't care if it's capsule, box, etc.
+            Collider targetObjectCollider = _targetObject.GetComponent<Collider>();
+            targetWorldPosition = targetObjectCollider.bounds.center;
+            targetWorldPosition.y = targetObjectCollider.bounds.max.y;
+        }
         
         // using the distance of the camera to player's head, we can synchronize the position a bit more
         float cameraDistance = (targetCamera.transform.position - targetWorldPosition).magnitude;

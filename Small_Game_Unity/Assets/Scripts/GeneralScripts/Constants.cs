@@ -10,6 +10,8 @@ public class Constants {
     // UI constants
     public static float BUBBLE_POSITION_VERTICAL_BUFFER = 0.2f; // how far above an object is the interactive bubble (world space)
     public static float DIALOGUE_BOX_POSITION_VERTICAL_BUFFER = 5.0f; // how far above an object is the dialogue box (screen space)
+
+    public static float DIALOGUE_BOX_POSITION_VERTICAL_BUFFER_PLAYER = 0.2f; // how far above the player's head is the dialogue box (world space)
     public static float WORLD_SPACE_CANVAS_SCALE = 0.004f; // used to scale world spaced UI elements to an appropriate size across all camera angles
     
     // Dialogue Constants
