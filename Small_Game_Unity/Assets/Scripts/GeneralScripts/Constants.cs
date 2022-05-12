@@ -130,7 +130,7 @@ public class Constants {
             animationParameterValue=false,
             movementFirst=false,
             startingPoint = new Vector3(-0.4f, 0, -0.356f),
-            startingDirection = Vector3.left // between left and backwards (slightly more to the back)
+            startingDirection = new Vector3(-1f, 0, -1.4f) // between left and backwards (slightly more to the back)
         }
     };
 
