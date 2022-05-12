@@ -42,6 +42,12 @@ ModelImporter:
   - first:
       74: 2213542625222538420
     second: CharacterRig|BedSitUp
+  - first:
+      74: -2661518422070543753
+    second: CharacterRig|ChairSit
+  - first:
+      74: 8166311354333944238
+    second: CharacterRig|ChairStandUp
   externalObjects: {}
   materials:
     materialImportMode: 2

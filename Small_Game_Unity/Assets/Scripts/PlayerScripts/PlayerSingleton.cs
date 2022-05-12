@@ -8,6 +8,16 @@ public class PlayerSingleton : MonoBehaviour
 
     public static PlayerSingleton Instance { get { return _instance; } }
 
+    /**
+    *   keep track of various bones on our character rig. This will allow us to move objects easily or determine target positions for UI elements
+    **/
+
+    // head bone used for UI elements (dialogue box)
+    public GameObject headBone;
+
+    // hand bone used for picking up objects (e.g. phone)
+    public GameObject handBone;
+
 
     private void Awake()
     {

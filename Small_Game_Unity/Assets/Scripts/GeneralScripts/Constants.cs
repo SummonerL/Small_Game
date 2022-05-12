@@ -10,6 +10,8 @@ public class Constants {
     // UI constants
     public static float BUBBLE_POSITION_VERTICAL_BUFFER = 0.2f; // how far above an object is the interactive bubble (world space)
     public static float DIALOGUE_BOX_POSITION_VERTICAL_BUFFER = 5.0f; // how far above an object is the dialogue box (screen space)
+
+    public static float DIALOGUE_BOX_POSITION_VERTICAL_BUFFER_PLAYER = 0.2f; // how far above the player's head is the dialogue box (world space)
     public static float WORLD_SPACE_CANVAS_SCALE = 0.004f; // used to scale world spaced UI elements to an appropriate size across all camera angles
     
     // Dialogue Constants
@@ -79,6 +81,12 @@ public class Constants {
         RIGHT
     }
 
+
+    /****
+    *   Note: I've created empty objects which sit at these exact locations. At some point, it might be a better idea to just use their positions via code
+    *   instead of hardcoding. Regardless, if we move the desk/bed/etc, it's VITAL that we also move these reference objects in sync. I don't want to have 
+    *   to tweak the positions of objects again for each animation.
+    ****/
     public static Dictionary<string, AnimationMetadata> animationList = new Dictionary<string, AnimationMetadata>() {
         ["BedSit"] = new AnimationMetadata { 
             animationParameter="bed_sit",
@@ -107,6 +115,22 @@ public class Constants {
             movementFirst=false,
             startingPoint = new Vector3(-0.1f, 0, -0.24f),
             startingDirection = Vector3.left
+        },
+
+        ["ChairSit"] = new AnimationMetadata { 
+            animationParameter="chair_sit",
+            animationParameterValue=true,
+            movementFirst=true,
+            startingPoint = new Vector3(-0.4f, 0, -0.356f),
+            startingDirection = new Vector3(-1f, 0, -1.4f) // between left and backwards (slightly more to the back)
+        },
+
+        ["ChairStand"] = new AnimationMetadata { 
+            animationParameter="chair_sit",
+            animationParameterValue=false,
+            movementFirst=false,
+            startingPoint = new Vector3(-0.4f, 0, -0.356f),
+            startingDirection = new Vector3(-1f, 0, -1.4f) // between left and backwards (slightly more to the back)
         }
     };
 
