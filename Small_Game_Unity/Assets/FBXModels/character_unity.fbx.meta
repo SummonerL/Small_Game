@@ -48,6 +48,12 @@ ModelImporter:
   - first:
       74: 8166311354333944238
     second: CharacterRig|ChairStandUp
+  - first:
+      74: -4624446288279619162
+    second: CharacterRig|PickUpPhone
+  - first:
+      74: -5489000173735498077
+    second: CharacterRig|PhoneToEar
   externalObjects: {}
   materials:
     materialImportMode: 2

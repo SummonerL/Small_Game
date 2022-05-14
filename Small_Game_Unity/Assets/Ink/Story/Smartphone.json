@@ -1,0 +1,1 @@
+﻿{"inkVersion":20,"root":[["^Who is calling me?","\n","^$. ",{"#":"animation:PhonePickUp"},"\n","^Oh, it's Mom.","\n","^$. ",{"#":"animation:PhoneToEar"},"\n","^Hello?","\n",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}
