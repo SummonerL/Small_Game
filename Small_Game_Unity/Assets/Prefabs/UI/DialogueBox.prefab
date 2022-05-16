@@ -498,6 +498,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressionDots: {fileID: 2234589920336782692}
+  dialogueBoxTail: {fileID: 3078717366526308736}
+  internalDialogueBoxSprite: {fileID: 21300000, guid: c54abaa31ea0a034d9c2ecabc2454cd9, type: 3}
+  internalDialogueBoxProgressionDots: {fileID: 21300000, guid: ef461aebeb373174c83f77963e85d77c, type: 3}
+  externalDialogueBoxSprite: {fileID: 21300000, guid: 36ec5497841bc2140abb787de8a61885, type: 3}
+  externalDialogueBoxProgressionDots: {fileID: 21300000, guid: 1261e019f350cba478da11711ae111dd, type: 3}
 --- !u!114 &4535376063239027628
 MonoBehaviour:
   m_ObjectHideFlags: 0

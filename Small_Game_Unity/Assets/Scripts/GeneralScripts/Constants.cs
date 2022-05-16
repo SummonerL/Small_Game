@@ -13,6 +13,10 @@ public class Constants {
 
     public static float DIALOGUE_BOX_POSITION_VERTICAL_BUFFER_PLAYER = 0.2f; // how far above the player's head is the dialogue box (world space)
     public static float WORLD_SPACE_CANVAS_SCALE = 0.004f; // used to scale world spaced UI elements to an appropriate size across all camera angles
+
+    public static Color INTERNAL_FONT_COLOR = new Color(.34f, .33f, .22f);
+
+    public static Color EXTERNAL_FONT_COLOR = new Color(.33f, .23f, .23f);
     
     // Dialogue Constants
     public static float TYPEWRITER_SPEED_SLOW = 24.0f;
@@ -29,6 +33,10 @@ public class Constants {
     // used with the 'fade' story tag
     public static string TAG_FADE_OUT = "out";
     public static string TAG_FADE_IN = "in";
+
+    // used with the 'actor' story tag
+    public static string TAG_EXTERNAL_ACTOR = "external";
+    public static string TAG_PLAYER_ACTOR = "lucas";
 
     // LeanTween constants
     public static float INTERACTION_BUBBLE_ENTRY_TIME = 0.2f;

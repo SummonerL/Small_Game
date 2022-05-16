@@ -103,6 +103,13 @@ public class ObjectStoryManager : MonoBehaviour
                 digression = true;
             }
 
+            // check for actor changes
+            string actor = Helpers.GetTagValue("actor", storyTags);
+
+            if (actor.Length > 0) {
+                ChangeActor(actor); // doesn't require digression
+            }
+
             // check for pauses
             string waitFor = Helpers.GetTagValue("dramaticpause", storyTags);
 
@@ -217,6 +224,18 @@ public class ObjectStoryManager : MonoBehaviour
             
             // start listening for event
             GameEventsScript.Instance.onScreenFadedIn += StoriedFadeInComplete;
+        }
+    }
+
+    // the 'actor' is the person/entity that is currently speaking.
+    public void ChangeActor(string actor) {
+        // 'external' indicates an off-screen talker.
+        if (actor == Constants.TAG_EXTERNAL_ACTOR) {
+            _activeDialogueBox.UseExternalBox();
+            _activeDialogueBox.UseExternalText();
+        } else if (actor == Constants.TAG_PLAYER_ACTOR) {
+            _activeDialogueBox.UseInternalBox();
+            _activeDialogueBox.UseInternalText();
         }
     }
 

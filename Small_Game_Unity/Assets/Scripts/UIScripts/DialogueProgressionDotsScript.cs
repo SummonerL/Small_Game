@@ -68,5 +68,15 @@ public class DialogueProgressionDotsScript : MonoBehaviour
         }
     }
 
+    public void UseInternalSprite(Sprite internalSprite) {
+        for (int i = 0; i < _progressionDots.Length; i++) {
+            _progressionDots[i].GetComponent<Image>().sprite = internalSprite;
+        } 
+    }
 
+    public void UseExternalSprite(Sprite externalSprite) {
+        for (int i = 0; i < _progressionDots.Length; i++) {
+            _progressionDots[i].GetComponent<Image>().sprite = externalSprite;
+        } 
+    }
 }

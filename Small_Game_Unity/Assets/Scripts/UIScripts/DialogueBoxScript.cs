@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
@@ -23,6 +24,17 @@ public class DialogueBoxScript : MonoBehaviour
 
     // keep a reference to our progression dots
     public GameObject progressionDots;
+
+    // keep a reference to the dialogue tail
+    public GameObject dialogueBoxTail;
+
+    // images used for internal dialogue
+    public Sprite internalDialogueBoxSprite;
+    public Sprite internalDialogueBoxProgressionDots;
+
+    // images used for external dialogue
+    public Sprite externalDialogueBoxSprite;
+    public Sprite externalDialogueBoxProgressionDots;
 
     private void Awake() {
         if (transform.childCount > 0)
@@ -225,6 +237,35 @@ public class DialogueBoxScript : MonoBehaviour
         if (GetComponent<TypeWriterEffectScript>().IsRunning()) {
             // fast type
         }
+    }
+
+    // the 'external' box is used for offscreen dialogue, and differs slightly
+    public void UseExternalBox() {
+        // hide the tail
+        dialogueBoxTail.SetActive(false);
+
+        // use the 'external' sprites
+        gameObject.GetComponent<Image>().sprite = externalDialogueBoxSprite;
+        progressionDots.GetComponent<DialogueProgressionDotsScript>().UseExternalSprite(externalDialogueBoxProgressionDots);
+    }
+
+    // the 'external' text is just a change of color
+    public void UseExternalText() {
+        textLabel.color = Constants.EXTERNAL_FONT_COLOR;
+    }
+
+    public void UseInternalBox() {
+        // unhide the tail
+        dialogueBoxTail.SetActive(true);
+
+        // use the 'internal' sprites
+        gameObject.GetComponent<Image>().sprite = internalDialogueBoxSprite;
+        progressionDots.GetComponent<DialogueProgressionDotsScript>().UseInternalSprite(internalDialogueBoxProgressionDots);
+    }
+
+    // the 'internal' text is just a change of color
+    public void UseInternalText() {
+        textLabel.color = Constants.INTERNAL_FONT_COLOR;
     }
 
     public void WriteText(string textToWrite) {
