@@ -137,4 +137,18 @@ public class PlayerInteractionScript : MonoBehaviour
             Gizmos.DrawWireSphere(transform.position + playerCharacterController.center, Constants.PLAYER_PROXIMITY_RADIUS);
         }
     }
+
+    
+    // these methods are used in animations to attach/unattach objects to the players hand and are triggered from animation keyframes
+    public void PickUpObject() {
+        // attach the object to the hand
+        GameFlowStateManager.Instance.targetInteractiveObject.transform.SetParent(PlayerSingleton.Instance.handBone.transform, true);
+    }
+
+    // triggered from animation keyframe
+    public void PutDownObject() {
+        // unattach the object to the hand and move it back to 'interactive objects'
+        GameFlowStateManager.Instance.targetInteractiveObject.transform.SetParent(InteractiveObjectsScript.Instance.gameObject.transform, true);
+    }
+
 }

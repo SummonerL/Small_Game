@@ -147,6 +147,22 @@ public class Constants {
             movementFirst=false,
             startingPoint = new Vector3(-.24f, 0, -0.5f),
             startingDirection = Vector3.back
+        },
+
+        ["PhonePutDown"] = new AnimationMetadata { 
+            animationParameter="phone_pick_up",
+            animationParameterValue=false,
+            movementFirst=true,
+            startingPoint = new Vector3(-.24f, 0, -0.5f),
+            startingDirection = Vector3.back
+        },
+
+        ["PhoneEarToFace"] = new AnimationMetadata { 
+            animationParameter="phone_to_ear",
+            animationParameterValue=false,
+            movementFirst=false,
+            startingPoint = new Vector3(-.24f, 0, -0.5f),
+            startingDirection = Vector3.back
         }
     };
 

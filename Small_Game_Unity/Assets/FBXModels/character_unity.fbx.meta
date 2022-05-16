@@ -54,6 +54,12 @@ ModelImporter:
   - first:
       74: -5489000173735498077
     second: CharacterRig|PhoneToEar
+  - first:
+      74: 8920981916060003338
+    second: CharacterRig|PhoneEarToFace
+  - first:
+      74: 2426842051509803547
+    second: CharacterRig|PutDownPhone
   externalObjects: {}
   materials:
     materialImportMode: 2

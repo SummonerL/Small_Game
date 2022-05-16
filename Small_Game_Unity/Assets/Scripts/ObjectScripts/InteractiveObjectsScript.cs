@@ -9,8 +9,23 @@ using UnityEngine;
 public class InteractiveObjectsScript : MonoBehaviour
 {
 
+    // keep a singleton reference to this script
+    private static InteractiveObjectsScript _instance;
+
+    public static InteractiveObjectsScript Instance { get { return _instance; } }
+
     private static GameObject[] _interactiveObjects; // keep track of all child gameObjects 
     public static GameObject[] InteractiveObjects { get { return _interactiveObjects; } }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
 
     // start is called before the first frame update
     void Start()

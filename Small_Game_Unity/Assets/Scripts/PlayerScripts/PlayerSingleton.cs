@@ -28,15 +28,4 @@ public class PlayerSingleton : MonoBehaviour
             _instance = this;
         }
     }
-
-
-    // triggered from animation keyframe
-    public void PickUpObject() {
-        Debug.Log("Picking up!");
-
-        Debug.Log(GameFlowStateManager.Instance.targetInteractiveObject);
-
-        // attach the object to the hand
-        GameFlowStateManager.Instance.targetInteractiveObject.transform.SetParent(handBone.transform, true);
-    }
 }
