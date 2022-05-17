@@ -86,8 +86,6 @@ public class ObjectStoryManager : MonoBehaviour
                     digressionFunctions.Add(StartStoriedAnimation);
                 
                 digression = true;
-
-                Debug.Log("Triggering " + animationName);
             }
 
             // check for time advancement
