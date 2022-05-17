@@ -28,26 +28,34 @@ public class DialogueBoxScript : MonoBehaviour
     // keep a reference to the dialogue tail
     public GameObject dialogueBoxTail;
 
-    // images used for internal dialogue
+    // image used for internal dialogue
     public Sprite internalDialogueBoxSprite;
-    public Sprite internalDialogueBoxProgressionDots;
 
-    // images used for external dialogue
+
+    // image used for external dialogue
     public Sprite externalDialogueBoxSprite;
-    public Sprite externalDialogueBoxProgressionDots;
 
     private void Awake() {
         if (transform.childCount > 0)
             textLabel = transform.GetChild(0).GetComponent<TMP_Text>();
     }
 
-    public void ShowDialogueBox(GameObject targetObject, string initialLine) { // passed from ui controller
+    public void ShowDialogueBox(GameObject targetObject, string initialLine, bool usingInternalActor = true) { // passed from ui controller
 
         GameEventsScript.Instance.onActiveCameraChanged += PositionBox; // reposition the dialogue box if the camera angle changes
         GameEventsScript.Instance.onTypeWriterCompleted += StartDotAnimation; // trigger the progression dot animation
         GameEventsScript.Instance.onTypeWriterStarted += StopDotAnimation; // stop the dot animation
 
         _targetObject = targetObject;
+
+        // ensure the box is using the appropriate visuals
+        if (usingInternalActor) {
+            UseInternalBox();
+            UseInternalText();
+        } else {
+            UseExternalBox();
+            UseExternalText();
+        }
 
         PositionBox(CameraManager.Instance.activeCamera);
 
@@ -246,7 +254,7 @@ public class DialogueBoxScript : MonoBehaviour
 
         // use the 'external' sprites
         gameObject.GetComponent<Image>().sprite = externalDialogueBoxSprite;
-        progressionDots.GetComponent<DialogueProgressionDotsScript>().UseExternalSprite(externalDialogueBoxProgressionDots);
+        progressionDots.GetComponent<DialogueProgressionDotsScript>().UseExternalSprite();
     }
 
     // the 'external' text is just a change of color
@@ -260,7 +268,7 @@ public class DialogueBoxScript : MonoBehaviour
 
         // use the 'internal' sprites
         gameObject.GetComponent<Image>().sprite = internalDialogueBoxSprite;
-        progressionDots.GetComponent<DialogueProgressionDotsScript>().UseInternalSprite(internalDialogueBoxProgressionDots);
+        progressionDots.GetComponent<DialogueProgressionDotsScript>().UseInternalSprite();
     }
 
     // the 'internal' text is just a change of color

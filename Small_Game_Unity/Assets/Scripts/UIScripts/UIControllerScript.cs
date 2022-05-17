@@ -29,6 +29,9 @@ public class UIControllerScript : MonoBehaviour
     private static UIControllerScript _instance;
     public static UIControllerScript Instance { get { return _instance; } }
 
+    private bool _usingInternalActor = true;
+    public bool UsingInternalActor { get { return _usingInternalActor; } }
+
 
     private void Awake()
     {
@@ -119,7 +122,7 @@ public class UIControllerScript : MonoBehaviour
     public DialogueBoxScript ShowDialogueBox(GameObject targetObject, string initialLine) {
         GameObject dialogueBox = GetPooledDialogueBox();
         DialogueBoxScript dbScript = dialogueBox.GetComponent<DialogueBoxScript>();
-        dbScript.ShowDialogueBox(PlayerSingleton.Instance.gameObject, initialLine);
+        dbScript.ShowDialogueBox(PlayerSingleton.Instance.gameObject, initialLine, _usingInternalActor);
 
         return dbScript;
     }
@@ -159,5 +162,13 @@ public class UIControllerScript : MonoBehaviour
             // publish an event, indicating that we've finished fading in
             GameEventsScript.Instance.ScreenFadedIn();
         });
+    }
+
+    public void UseInternalActor() {
+        _usingInternalActor = true;
+    }
+
+    public void UseExternalActor() {
+        _usingInternalActor = false;
     }
 }

@@ -77,6 +77,7 @@ public class ObjectStoryManager : MonoBehaviour
 
             // check for animation
             string animationName = Helpers.GetTagValue("animation", storyTags);
+            
             if (animationName.Length > 0) {
                 _currentStoryAnimation = Constants.animationList[animationName];
                 if (_currentStoryAnimation.movementFirst)
@@ -85,6 +86,8 @@ public class ObjectStoryManager : MonoBehaviour
                     digressionFunctions.Add(StartStoriedAnimation);
                 
                 digression = true;
+
+                Debug.Log("Triggering " + animationName);
             }
 
             // check for time advancement
@@ -231,11 +234,22 @@ public class ObjectStoryManager : MonoBehaviour
     public void ChangeActor(string actor) {
         // 'external' indicates an off-screen talker.
         if (actor == Constants.TAG_EXTERNAL_ACTOR) {
-            _activeDialogueBox.UseExternalBox();
-            _activeDialogueBox.UseExternalText();
+            if (_activeDialogueBox != null) {
+                _activeDialogueBox.UseExternalBox();
+                _activeDialogueBox.UseExternalText();
+            }
+            
+            // the UIController will keep track of the status, in case we create a new dialogue box
+            UIControllerScript.Instance.UseExternalActor();
+
         } else if (actor == Constants.TAG_PLAYER_ACTOR) {
-            _activeDialogueBox.UseInternalBox();
-            _activeDialogueBox.UseInternalText();
+            if (_activeDialogueBox != null) {
+                _activeDialogueBox.UseInternalBox();
+                _activeDialogueBox.UseInternalText();
+            }
+
+            UIControllerScript.Instance.UseInternalActor();
+
         }
     }
 

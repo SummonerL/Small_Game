@@ -12,6 +12,12 @@ public class DialogueProgressionDotsScript : MonoBehaviour
     // reference to the animation tween ids
     private LTSeq _waitingAnimationSequence;
 
+    // image used for internal dialogue
+    public Sprite internalDialogueProgressionDots;
+
+    // image used for external dialogue
+    public Sprite externalDialogueProgressionDots;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +28,13 @@ public class DialogueProgressionDotsScript : MonoBehaviour
             Color tempColor = _progressionDots[i].color;
             tempColor.a = 0f;
             _progressionDots[i].color = tempColor;
-        } 
+
+            // use the appropriate sprite
+            if (UIControllerScript.Instance.UsingInternalActor)
+                _progressionDots[i].GetComponent<Image>().sprite = internalDialogueProgressionDots;
+            else
+                _progressionDots[i].GetComponent<Image>().sprite = externalDialogueProgressionDots;
+        }
     }
 
     // dots pop up sequentially, then fade out sequentially.
@@ -68,15 +80,19 @@ public class DialogueProgressionDotsScript : MonoBehaviour
         }
     }
 
-    public void UseInternalSprite(Sprite internalSprite) {
-        for (int i = 0; i < _progressionDots.Length; i++) {
-            _progressionDots[i].GetComponent<Image>().sprite = internalSprite;
-        } 
+    public void UseInternalSprite() {
+        if (_progressionDots != null) {
+            for (int i = 0; i < _progressionDots.Length; i++) {
+                _progressionDots[i].GetComponent<Image>().sprite = internalDialogueProgressionDots;
+            }
+        }
     }
 
-    public void UseExternalSprite(Sprite externalSprite) {
-        for (int i = 0; i < _progressionDots.Length; i++) {
-            _progressionDots[i].GetComponent<Image>().sprite = externalSprite;
-        } 
+    public void UseExternalSprite() {
+        if (_progressionDots != null) {
+            for (int i = 0; i < _progressionDots.Length; i++) {
+                _progressionDots[i].GetComponent<Image>().sprite = externalDialogueProgressionDots;
+            }
+        }
     }
 }

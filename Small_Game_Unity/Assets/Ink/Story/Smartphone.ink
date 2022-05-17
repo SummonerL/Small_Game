@@ -10,7 +10,7 @@ Hello?
 
 $. #actor:external
 
-Lucas! I... g.. you!
+Lucas! I finally g.. t.. you!
 
 $. #actor:lucas
 
