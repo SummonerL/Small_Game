@@ -60,6 +60,9 @@ ModelImporter:
   - first:
       74: 2426842051509803547
     second: CharacterRig|PutDownPhone
+  - first:
+      74: -4132622785102574574
+    second: CharacterRig|BedSleeping_Still
   externalObjects: {}
   materials:
     materialImportMode: 2

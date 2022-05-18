@@ -125,6 +125,14 @@ public class Constants {
             startingDirection = Vector3.left
         },
 
+        ["BedSleepingStill"] = new AnimationMetadata { 
+            animationParameter="bed_sleeping",
+            animationParameterValue=true,
+            movementFirst=true,
+            startingPoint = new Vector3(-0.1f, 0, -0.24f),
+            startingDirection = Vector3.left
+        },
+
         ["ChairSit"] = new AnimationMetadata { 
             animationParameter="chair_sit",
             animationParameterValue=true,
