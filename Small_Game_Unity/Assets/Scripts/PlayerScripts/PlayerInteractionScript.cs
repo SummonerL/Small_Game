@@ -56,32 +56,33 @@ public class PlayerInteractionScript : MonoBehaviour
         // filter list to only contain interactive objects
         List<GameObject> filteredCollisionsList = new List<GameObject>();
 
-        int minDistanceIndex = 0;
-        float minDistance = Mathf.Infinity;
+        int minAngleIndex = 0;
+        float minAngle = Mathf.Infinity;
 
-        // find relevant collisions + determine closest object
+        // find relevant collisions + determine object the player is looking towards (the most)
         foreach(Collider collider in hitColliders) {
             if (Array.IndexOf(InteractiveObjectsScript.InteractiveObjects, collider.gameObject) > -1) { // make sure the object is actually interactive
                 filteredCollisionsList.Add(collider.gameObject);
 
-                // get the distance between the player and the interactive object (ignoring vertical index Y)
-                Vector3 playerYIgnored = new Vector3(transform.position.x, 0f, transform.position.z);
-                Vector3 objectYIgnored = new Vector3(collider.bounds.center.x, 0f, collider.bounds.center.z);
+                // determine the angle between the player's forward and the interactive object (ignoring vertical index y)
+                Vector3 playerForwardYIgnored = new Vector3(transform.forward.x, 0f, transform.forward.z);
+                Vector3 objectDistance = collider.bounds.center - transform.position;
+                Vector3 objectYIgnored = new Vector3(objectDistance.x, 0f, objectDistance.z);
 
-                float distance = Vector3.Distance(playerYIgnored, objectYIgnored);
+                float angle = Mathf.Abs(Vector3.Angle(playerForwardYIgnored, objectYIgnored));
 
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    minDistanceIndex = filteredCollisionsList.Count - 1;
+                if (angle < minAngle) {
+                    minAngle = angle;
+                    minAngleIndex = filteredCollisionsList.Count - 1;
                 }
             }
         }
 
-        // ensure the closest object sits in front
-        if (minDistanceIndex > 0) {
+        // ensure the object the player is (mostly) facing sits in front
+        if (minAngleIndex > 0) {
             GameObject tempObject = filteredCollisionsList[0];
-            filteredCollisionsList[0] = filteredCollisionsList[minDistanceIndex];
-            filteredCollisionsList[minDistanceIndex] = tempObject;
+            filteredCollisionsList[0] = filteredCollisionsList[minAngleIndex];
+            filteredCollisionsList[minAngleIndex] = tempObject;
         }
         
         // check our existing list to see if the targeted object has changed
