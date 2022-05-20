@@ -8,11 +8,11 @@ I swear to God, it's like I have no energy in the morning and yet I can't turn o
 
 $. #fade:out
 
+$. #animation:BedCollapseUp
+
 $. #animation:BedSleepingStill
 
 $. #advancetime:2
-
-$. #dramaticpause:2
 
 $. #fade:in
 
@@ -24,4 +24,4 @@ What time is it...?
 
 God, I have a splitting headache.
 
-$. #animation:BedCollapseUp
+$. #animation:BedSleepingGetUp

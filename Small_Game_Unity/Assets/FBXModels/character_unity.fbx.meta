@@ -63,6 +63,9 @@ ModelImporter:
   - first:
       74: -4132622785102574574
     second: CharacterRig|BedSleeping_Still
+  - first:
+      74: -3272816930269343306
+    second: CharacterRig|BedSleepingGetUp
   externalObjects: {}
   materials:
     materialImportMode: 2
