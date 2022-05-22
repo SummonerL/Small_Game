@@ -75,6 +75,9 @@ public class ObjectStoryManager : MonoBehaviour
         // we can add methods to a list (with params), and then invoke them sequentially. How cool!
         List<Action> digressionFunctions = new List<Action>();
 
+        // WriteStoryDialogue will be the most common callback method for digressions
+        StoryDirector.CallbackDelegate writeStoryCallback = WriteStoryDialogue;
+
         if (storyTags.Count > 0) {
 
             // check for animation
@@ -112,7 +115,7 @@ public class ObjectStoryManager : MonoBehaviour
             string screenFade = Helpers.GetTagValue("fade", storyTags);
 
             if (screenFade.Length > 0) {
-                digressionFunctions.Add(() => { StartStoriedFade(screenFade); });
+                digressionFunctions.Add(() => {StoryDirector.StartStoriedFade(screenFade, writeStoryCallback); });
                 digression = true;
             }
 
@@ -130,7 +133,7 @@ public class ObjectStoryManager : MonoBehaviour
                 // wait for X seconds
                 int seconds = Int32.Parse(waitFor);
 
-                digressionFunctions.Add(() => { StartCoroutine(StartStoriedPause(seconds)); });
+                digressionFunctions.Add(() => { StartCoroutine(StoryDirector.StartStoriedPause(seconds, writeStoryCallback)); });
                 digression = true;
             }
 
@@ -232,22 +235,6 @@ public class ObjectStoryManager : MonoBehaviour
             StartStoriedMovement();
     }
 
-    public void StartStoriedFade(string fadeDirection) {
-        if (fadeDirection == Constants.TAG_FADE_OUT) {
-            // perform the fade out
-            UIControllerScript.Instance.FadeOut();
-            
-            // start listening for event
-            GameEventsScript.Instance.onScreenFadedOut += StoriedFadeOutComplete;
-        } else {
-            // perform the fade in
-            UIControllerScript.Instance.FadeIn();
-            
-            // start listening for event
-            GameEventsScript.Instance.onScreenFadedIn += StoriedFadeInComplete;
-        }
-    }
-
     // the 'actor' is the person/entity that is currently speaking.
     public void ChangeActor(string actor) {
         // 'external' indicates an off-screen talker.
@@ -270,27 +257,6 @@ public class ObjectStoryManager : MonoBehaviour
 
         }
     }
-
-    public void StoriedFadeOutComplete() {
-        // we no longer need to listen for this event
-        GameEventsScript.Instance.onScreenFadedOut -= StoriedFadeOutComplete;
-
-        WriteStoryDialogue();
-    }
-
-    public void StoriedFadeInComplete() {
-        // we no longer need to listen for this event
-        GameEventsScript.Instance.onScreenFadedIn -= StoriedFadeInComplete;
-
-        WriteStoryDialogue();
-    }
-
-    public IEnumerator StartStoriedPause(int seconds) {
-        yield return new WaitForSeconds(seconds);
-
-        WriteStoryDialogue();
-    }
-
 
     public void EndStorySession() {
 

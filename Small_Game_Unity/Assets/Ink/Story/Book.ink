@@ -14,16 +14,31 @@ $. #endsession:true
 -> book_really_heard_about_2
 
 === book_really_heard_about_2 ===
-No, I mean I REALLY keep hearing about this
 
-Variable check.
+Now it's time to test our stuff.
 
-First is {checkMemory("book_heard_about_1")}
+$. #fade:out
 
-Second is {checkMemory("book_really_heard_about_2")}
+$. #dramaticpause: 2
 
-~ addMemory("book_really_heard_about_2")
+$. #fade:in
 
-Third is {checkMemory("book_really_heard_about_2")}
+Did it work? Let's try again...
+
+$. #fade:out
+
+$. #dramaticpause: 2
+
+$. #fade:in
+
+One last time...
+
+$. #fade:out
+
+$. #dramaticpause: 4
+
+$. #fade:in
+
+Ok, I'm done
 
 -> END
