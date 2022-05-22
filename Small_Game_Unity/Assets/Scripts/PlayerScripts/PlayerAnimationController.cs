@@ -55,4 +55,10 @@ public class PlayerAnimationController : MonoBehaviour
         // publish an event indicating that an animation is complete. For now, we don't care which animation it is.
         GameEventsScript.Instance.AnimationCompleted();
     }
+
+    // 'reset' the animator to it's initial state. Useful for 'skipping' certain animations.
+    public void ResetAnimatorState() {
+        playerAnimator.Rebind();
+        playerAnimator.Update(0f);
+    }
 }

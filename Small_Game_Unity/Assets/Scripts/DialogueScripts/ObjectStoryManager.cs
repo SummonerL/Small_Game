@@ -88,6 +88,16 @@ public class ObjectStoryManager : MonoBehaviour
                 digression = true;
             }
 
+            // check for animation controls
+            string animationControl = Helpers.GetTagValue("animationControl", storyTags);
+
+            if (animationControl.Length > 0) {
+                if (animationControl == Constants.ANIMATION_CONTROL_RESET_STATE) {
+                    PlayerAnimationController animationControllerScript = PlayerSingleton.Instance.GetComponent<PlayerAnimationController>();
+                    animationControllerScript.ResetAnimatorState();
+                }
+            }
+
             // check for time advancement
             string timeAdvance = Helpers.GetTagValue("advancetime", storyTags);
 

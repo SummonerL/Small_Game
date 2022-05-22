@@ -8,7 +8,7 @@ I swear to God, it's like I have no energy in the morning and yet I can't turn o
 
 $. #fade:out
 
-$. #animation:BedCollapseUp
+$. #animationControl:reset_state
 
 $. #animation:BedSleepingStill
 
