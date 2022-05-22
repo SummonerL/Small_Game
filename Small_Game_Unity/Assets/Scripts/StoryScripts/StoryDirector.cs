@@ -6,7 +6,8 @@ using Ink.Runtime;
 
 
 /**
-*   This class contains generic utilities + story flow management utilized by all Story scripts.
+*   This class provides handlers for story direction. Generally, these are invoked using story tags, and are considered 'digressions'
+*   to the story. E.g. playing an animation, moving to a location, fading in / out, etc.
 **/
 public static class StoryDirector {
 
@@ -49,5 +50,37 @@ public static class StoryDirector {
             // start listening for event
             GameEventsScript.Instance.onScreenFadedIn += handler;
         }
+    }
+
+    public static void StartStoriedAnimation(AnimationMetadata animation, CallbackDelegate cb) {
+        // trigger the active animation
+        PlayerAnimationController animationController = PlayerSingleton.Instance.GetComponent<PlayerAnimationController>();
+
+        animationController.SetAnimationParam<bool>(animation.animationParameter, animation.animationParameterValue);
+
+        Action handler = null;
+        handler = new Action(delegate() {
+            GameEventsScript.Instance.onAnimationCompleted -= handler;
+
+            cb();
+        });
+
+        // listen for the animation completion event
+        GameEventsScript.Instance.onAnimationCompleted += handler;
+    }
+
+    // trigger some player movement that accompanies this object or story session.
+    public static void StartStoriedMovement(AnimationMetadata animation, CallbackDelegate cb) {
+        PlayerStateManager.Instance.StartStoriedMovement(animation.startingPoint, animation.startingDirection);
+
+        Action handler = null;
+        handler = new Action(delegate() {
+            GameEventsScript.Instance.onPlayerReachedPosition -= handler;
+
+            cb();
+        });
+
+        // once the player reaches the target position, they should perform the animation
+        GameEventsScript.Instance.onPlayerReachedPosition += handler;
     }
 }

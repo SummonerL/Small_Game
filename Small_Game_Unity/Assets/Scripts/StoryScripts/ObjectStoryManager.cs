@@ -84,11 +84,18 @@ public class ObjectStoryManager : MonoBehaviour
             string animationName = Helpers.GetTagValue("animation", storyTags);
             
             if (animationName.Length > 0) {
-                _currentStoryAnimation = Constants.animationList[animationName];
-                if (_currentStoryAnimation.movementFirst)
-                    digressionFunctions.Add(StartStoriedMovement);
-                else
-                    digressionFunctions.Add(StartStoriedAnimation);
+                AnimationMetadata animation = Constants.animationList[animationName];
+
+                if (animation.movementFirst) {
+                    // animate after moving
+                    StoryDirector.CallbackDelegate cb = () => { StoryDirector.StartStoriedAnimation(animation, writeStoryCallback); };
+                    digressionFunctions.Add(() => { StoryDirector.StartStoriedMovement(animation, cb); });
+                }
+                else {
+                    // move after animating
+                    StoryDirector.CallbackDelegate cb = () => { StoryDirector.StartStoriedMovement(animation, writeStoryCallback); };
+                    digressionFunctions.Add(() => { StoryDirector.StartStoriedAnimation(animation, cb); });
+                }
                 
                 digression = true;
             }
@@ -195,44 +202,6 @@ public class ObjectStoryManager : MonoBehaviour
                 CheckNextStoryLine();
             }
         }
-    }
-
-    // trigger some player movement that accompanies this object or story session.
-    public void StartStoriedMovement() {
-        PlayerStateManager.Instance.StartStoriedMovement(_currentStoryAnimation.startingPoint, _currentStoryAnimation.startingDirection);
-
-        // once the player reaches the target position, they should perform the animation
-        GameEventsScript.Instance.onPlayerReachedPosition += StoriedMovementComplete;
-    }
-
-    public void StoriedMovementComplete() {
-        // we no longer need to listen for the event
-        GameEventsScript.Instance.onPlayerReachedPosition -= StoriedMovementComplete;
-
-
-        // an animation can either occur before movement, or after it. This flag allows for anim->movement->story or movement->anim->story
-        if (_currentStoryAnimation.movementFirst)
-            StartStoriedAnimation();
-        else 
-            WriteStoryDialogue();
-    }
-
-    public void StartStoriedAnimation() {
-        // trigger the active animation
-        playerAnimationController.SetAnimationParam<bool>(_currentStoryAnimation.animationParameter, _currentStoryAnimation.animationParameterValue);
-
-        // listen for the animation completion event
-        GameEventsScript.Instance.onAnimationCompleted += StoriedAnimationComplete;
-    }
-
-    public void StoriedAnimationComplete() {
-        // we no longer need to listen for the event
-        GameEventsScript.Instance.onAnimationCompleted -= StoriedAnimationComplete;
-
-        if (_currentStoryAnimation.movementFirst)
-            WriteStoryDialogue();
-        else 
-            StartStoriedMovement();
     }
 
     // the 'actor' is the person/entity that is currently speaking.
