@@ -1,5 +1,7 @@
 $. #animation:BedCollapse
 
+$. #dramaticpause:3
+
 I can't sleep...
 
 Goddamn insomnia drives me crazy.

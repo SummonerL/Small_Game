@@ -132,6 +132,14 @@ public class ObjectStoryManager : MonoBehaviour
                 digression = true;
             }
 
+            // finally, check to see if we want to end this session
+            string endSession = Helpers.GetTagValue("endsession", storyTags);
+
+            if (endSession.Length > 0) {
+                digressionFunctions.Add(EndStorySession);
+                digression = true;
+            }
+
         }
 
         if (digression) {
