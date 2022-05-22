@@ -24,6 +24,8 @@ public class ObjectStoryManager : MonoBehaviour
         story = new Story(inkJSON.text);
 
         playerAnimationController = PlayerSingleton.Instance.GetComponent<PlayerAnimationController>();
+
+        GeneralStoryManager.Instance.BindEssentialFunctions(story);
     }
     
     /**

@@ -1,3 +1,5 @@
+INCLUDE GlobalVariables.ink
+
 Who is calling me?
 
 $. #animation:PhonePickUp

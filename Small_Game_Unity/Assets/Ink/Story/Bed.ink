@@ -1,3 +1,5 @@
+INCLUDE GlobalVariables.ink
+
 $. #animation:BedCollapse
 
 $. #dramaticpause:3

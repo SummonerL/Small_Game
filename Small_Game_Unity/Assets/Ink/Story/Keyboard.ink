@@ -1,3 +1,5 @@
+INCLUDE GlobalVariables.ink
+
 $. #animation:ChairSit
 
 $. #dramaticpause:1

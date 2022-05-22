@@ -15,6 +15,9 @@ public class GeneralStoryManager : MonoBehaviour
 
     public static GeneralStoryManager Instance { get { return _instance; } }
 
+    // memory bank holds memories across all ink Story files. 
+    public static List<string> memoryBank;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -25,12 +28,30 @@ public class GeneralStoryManager : MonoBehaviour
         }
     }
 
-    // find the value of a given story variable
-    public void GetStoryVariable(string variableName) {
-        foreach (GameObject interactiveObject in InteractiveObjectsScript.InteractiveObjects) {
-            Story objectStory = interactiveObject.GetComponent<ObjectStoryManager>().story;
+    // start is called before the first frame update
+    void Start()
+    {
+        memoryBank = new List<string>();
+    }
 
-            Debug.Log(objectStory.variablesState[variableName]);
-        }
+    // called during story instantiation to bind the 'essential' functions to the story
+    public void BindEssentialFunctions(Story inkStory) {
+        inkStory.BindExternalFunction("addMemory", (string memoryName) => {
+            AddMemory(memoryName);
+        });
+
+        inkStory.BindExternalFunction("checkMemory", (string memoryName) => {
+            return CheckMemory(memoryName);
+        });
+    }
+
+    // accessed as an 'external' function from our Ink stories
+    public void AddMemory(string memoryName) {
+        memoryBank.Add(memoryName);
+    }
+
+    // ink 'external' function
+    public bool CheckMemory(string memoryName) {
+        return memoryBank.Contains(memoryName);
     }
 }
