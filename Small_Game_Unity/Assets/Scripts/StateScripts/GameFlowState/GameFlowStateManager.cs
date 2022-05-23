@@ -12,6 +12,9 @@ public class GameFlowStateManager : MonoBehaviour
     GameFlowDecisionState DecisionState = new GameFlowDecisionState();
     GameFlowInteractionState InteractionState = new GameFlowInteractionState();
 
+    GameFlowCutsceneState CutsceneState = new GameFlowCutsceneState();
+    GameFlowLoadingState LoadingState = new GameFlowLoadingState();
+
     // data-control between states
     public GameObject targetInteractiveObject;
 
@@ -33,7 +36,7 @@ public class GameFlowStateManager : MonoBehaviour
     void Start()
     {
         // default state for the state machine
-        currentState = DecisionState;
+        currentState = LoadingState;
 
         currentState.EnterState(this);
     }
@@ -64,5 +67,9 @@ public class GameFlowStateManager : MonoBehaviour
     public void FinishedStorySession(GameObject selectedObject) {
         targetInteractiveObject = null;
         SwitchState(DecisionState); // switch back to the decision state
+    }
+
+    public void FinishedLoading() {
+        SwitchState(CutsceneState);
     }
 }

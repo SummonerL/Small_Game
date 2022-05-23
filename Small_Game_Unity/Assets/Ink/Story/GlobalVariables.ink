@@ -2,3 +2,5 @@
 
 EXTERNAL addMemory(memoryName)
 EXTERNAL checkMemory(memoryName)
+EXTERNAL getDate()
+EXTERNAL getTime()

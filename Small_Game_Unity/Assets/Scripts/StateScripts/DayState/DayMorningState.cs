@@ -15,7 +15,7 @@ public class DayMorningState : DayBaseState
         PostFXSingleton.Instance.GetComponent<PostProcessVolume>().profile = dayState.MorningProfile;
 
         // set the time!
-        AlarmClockScript.Instance.changeClockText(Constants.MORNING_TIME);
+        AlarmClockScript.Instance.ChangeClockText(Constants.MORNING_TIME);
     }
 
     public override void UpdateState(DayStateManager dayState) {

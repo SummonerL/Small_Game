@@ -23,7 +23,11 @@ public class AlarmClockScript : MonoBehaviour
     }
 
 
-    public void changeClockText(string time) {
+    public void ChangeClockText(string time) {
         _clockText.text = time;
+    }
+
+    public string GetClockText() {
+        return _clockText.text;
     }
 }

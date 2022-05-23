@@ -63,6 +63,9 @@ public class PlayerStateManager : MonoBehaviour
         if (gameFlowState.GetType() == typeof(GameFlowInteractionState))
             SwitchState(StoppedState); // a transition to the 'interaction' game flow state will stop the player
 
+        if (gameFlowState.GetType() == typeof(GameFlowCutsceneState))
+            SwitchState(StoppedState); // a transition to the 'cutscene' game flow state will stop the player
+
         if (gameFlowState.GetType() == typeof(GameFlowDecisionState))
             SwitchState(ActiveState); // the player can begin 'deciding' again and is now active
     }

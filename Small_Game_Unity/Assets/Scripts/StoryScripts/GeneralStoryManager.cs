@@ -49,6 +49,14 @@ public class GeneralStoryManager : MonoBehaviour
         inkStory.BindExternalFunction("checkMemory", (string memoryName) => {
             return CheckMemory(memoryName);
         });
+
+        inkStory.BindExternalFunction("getDate", () => {
+            return DayStateManager.Instance.currentDay;
+        });
+
+        inkStory.BindExternalFunction("getTime", () => {
+            return AlarmClockScript.Instance.GetClockText();
+        });
     }
 
     // accessed as an 'external' function from our Ink stories

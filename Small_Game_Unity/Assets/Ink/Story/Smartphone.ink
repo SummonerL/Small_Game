@@ -1,7 +1,8 @@
 INCLUDE GlobalVariables.ink
 
-Who is calling me?
+-> mom_first_call
 
+=== mom_first_call ===
 $. #animation:PhonePickUp
 
 Oh, it's Mom.
@@ -12,7 +13,7 @@ Hello?
 
 $. #actor:external
 
-Lucas! I finally g... touch... you!
+Lucas! I finally g... to... you!
 
 $. #actor:lucas
 
@@ -21,6 +22,8 @@ I can't really hear you Mom.
 $. #actor:external
 
 W... ti... again?
+
+\*Static\*
 
 $. #actor:lucas
 
@@ -40,7 +43,7 @@ Hey, I can hear you now.
 
 $. #actor:external
 
-Sorry! I was in an elevator. Just left work.
+Sorry! I was in an elevator. Just got to the office.
 
 Can you remind me what your job title was again?
 
@@ -97,3 +100,9 @@ $. #dramaticpause:1
 ...fun stuff.
 
 $. #animation:PhonePutDown
+
+Well. I'm awake now.
+
+#endsession:true
+
+-> END
