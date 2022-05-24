@@ -53,7 +53,7 @@ public class Constants {
     public static float DIALOGUE_PROGRESSION_DOT_FADE_TIME = .5f;
 
     public static float SCREEN_FADE_OUT_TIME = 1.2f;
-    public static float SCREEN_FADE_IN_TIME = 1.2f;
+    public static float SCREEN_FADE_IN_TIME = 1.5f;
 
     // Day Constants
     public static string MORNING_TIME = "08:00";

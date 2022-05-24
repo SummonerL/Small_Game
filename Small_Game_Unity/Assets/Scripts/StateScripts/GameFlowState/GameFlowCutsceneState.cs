@@ -32,5 +32,8 @@ public class GameFlowCutsceneState : GameFlowBaseState
 
         // and re-check objects in the proximity
         PlayerInteractionScript.Instance.CheckInteractiveEligibleObjects();
+
+        // stop listening to the 'completed story session' event
+        GameEventsScript.Instance.onCompletedStorySession -= gameFlow.FinishedStorySession;
     }
 }

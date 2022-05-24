@@ -14,6 +14,7 @@ public class GameFlowStateManager : MonoBehaviour
 
     GameFlowCutsceneState CutsceneState = new GameFlowCutsceneState();
     GameFlowLoadingState LoadingState = new GameFlowLoadingState();
+    GameFlowIdleState IdleState = new GameFlowIdleState();
 
     // data-control between states
     public GameObject targetInteractiveObject;
@@ -66,10 +67,16 @@ public class GameFlowStateManager : MonoBehaviour
 
     public void FinishedStorySession(GameObject selectedObject) {
         targetInteractiveObject = null;
-        SwitchState(DecisionState); // switch back to the decision state
+        SwitchState(IdleState); // switch to the Idle state until an appropriate state is decided
     }
 
     public void FinishedLoading() {
+        // after the game has 'loaded', transition to the appropriate state
+        SwitchState(IdleState);
+    }
+
+    public void CutsceneReady() {
+        // called from an external class to indicate that we're ready to trigger a cutscene
         SwitchState(CutsceneState);
     }
 }
