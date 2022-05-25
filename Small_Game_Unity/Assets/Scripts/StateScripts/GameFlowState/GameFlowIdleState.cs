@@ -8,7 +8,11 @@ using UnityEngine;
 public class GameFlowIdleState : GameFlowBaseState
 {
     public override void EnterState(GameFlowStateManager gameFlow) {
-        
+        // since we're in a cutscene, there's no need to show interaction bubbles
+        PlayerInteractionScript.Instance.clearInteractionEligibleObjects();
+    
+        // we also want to lock the script, given that there will be no new interactions
+        PlayerInteractionScript.Instance.enabled = false;
     }
 
     public override void UpdateState(GameFlowStateManager gameFlow) {
@@ -22,6 +26,10 @@ public class GameFlowIdleState : GameFlowBaseState
     }
 
     public override void ExitState(GameFlowStateManager gameFlow) {
+        // reenable the interaction script
+        PlayerInteractionScript.Instance.enabled = true;
 
+        // and re-check objects in the proximity
+        PlayerInteractionScript.Instance.CheckInteractiveEligibleObjects();
     }
 }
