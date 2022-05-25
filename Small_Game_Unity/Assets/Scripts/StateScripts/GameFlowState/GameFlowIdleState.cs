@@ -12,7 +12,13 @@ public class GameFlowIdleState : GameFlowBaseState
     }
 
     public override void UpdateState(GameFlowStateManager gameFlow) {
-        // do nothing
+        // determine which state to move to next
+        if (CutsceneStoryManager.Instance.CheckForCutscenes()) {
+            gameFlow.MoveToCutscene();
+        } else {
+            // move to the decision state
+            gameFlow.MoveToDecision();
+        }
     }
 
     public override void ExitState(GameFlowStateManager gameFlow) {

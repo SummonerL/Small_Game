@@ -75,8 +75,13 @@ public class GameFlowStateManager : MonoBehaviour
         SwitchState(IdleState);
     }
 
-    public void CutsceneReady() {
+    public void MoveToCutscene() {
         // called from an external class to indicate that we're ready to trigger a cutscene
         SwitchState(CutsceneState);
+    }
+
+    public void MoveToDecision() {
+        // called from a sub-state to move to the Decision state
+        SwitchState(DecisionState);
     }
 }

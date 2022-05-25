@@ -20,14 +20,19 @@ VAR currentTime = ""
 	- (not eleventh_morning) && currentDay == 11 && currentTime == "08:00":
 	    ~ setCutscene("eleventh_morning")
 	    ->DONE
+
+	- (not eleventh_evening) && currentDay == 11 && currentTime == "21:00":
+	    ~ setCutscene("eleventh_evening")
+	    ->DONE
+
 	- else:
 	    ->DONE
 }
 ->DONE
 
 
-=== eleventh_morning ===
 
+=== eleventh_morning ===
 $. #animation:BedSleepingStill
 
 $. #fade:in
@@ -41,7 +46,15 @@ My head is killing me.
 Who is calling me? It's 8:00 in the morning.
 
 $. #animation:BedSleepingGetUp
+-> end_session
+->DONE
 
+
+
+=== eleventh_evening ===
+$. #dramaticpause:2
+
+I'm bored... I wonder what Nathan is up to?
 -> end_session
 ->DONE
 

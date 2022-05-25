@@ -37,8 +37,6 @@ public class CutsceneStoryManager : MonoBehaviour
             SetCutscene(cutsceneName);
         });
 
-        // we want to check for cutscenes on transition to the 'Decision' state
-        GameEventsScript.Instance.onGameFlowStateTransitioned += HandleGameFlowTransition;
     }
 
     public void StartStorySession() {
@@ -47,7 +45,7 @@ public class CutsceneStoryManager : MonoBehaviour
     }
 
     // determine if a cutscene needs to be triggered at this moment in time
-    public void CheckForCutscenes() {
+    public bool CheckForCutscenes() {
         story.SwitchFlow("cutscene_check");
         story.ChoosePathString("cutscene_check");
 
@@ -63,20 +61,15 @@ public class CutsceneStoryManager : MonoBehaviour
             story.RemoveFlow("cutscene_check");
             story.ChoosePathString(_cutscenePath);
             _cutscenePath = null;
-            GameFlowStateManager.Instance.CutsceneReady();
+            return true;
         } else {
             story.SwitchToDefaultFlow();
             story.RemoveFlow("cutscene_check");
+            return false;
         }
     }
 
     public void SetCutscene(string cutsceneName) {
         _cutscenePath = cutsceneName;
-    }
-
-    public void HandleGameFlowTransition(GameFlowBaseState gameFlowState) {
-        // when the game flow is idle, check for cutscenes
-        if (gameFlowState.GetType() == typeof(GameFlowIdleState))
-            CheckForCutscenes();
     }
 }
