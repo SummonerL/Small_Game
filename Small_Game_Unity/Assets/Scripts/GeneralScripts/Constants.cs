@@ -160,6 +160,14 @@ public class Constants {
             startingDirection = new Vector3(-1f, 0, -1.4f) // between left and backwards (slightly more to the back)
         },
 
+        ["GameConsolePickUp"] = new AnimationMetadata { 
+            animationParameter="console_pick_up",
+            animationParameterValue=true,
+            movementFirst=true,
+            startingPoint = new Vector3(1.08f, 0, 1.346f),
+            startingDirection = Vector3.right
+        },
+
         ["PhonePickUp"] = new AnimationMetadata { 
             animationParameter="phone_pick_up",
             animationParameterValue=true,

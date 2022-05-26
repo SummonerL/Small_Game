@@ -28,6 +28,9 @@ $. # ----------first Continue() consumes this line--
 *   Make sure to update the callback after each event.
 **/
 === first_event ===
+
+$. #animation:GameConsolePickUp
+
 I am interacting with the game console.
 ~ callback = -> end_story
 $. #endsession:true

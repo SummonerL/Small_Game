@@ -66,6 +66,12 @@ ModelImporter:
   - first:
       74: -3272816930269343306
     second: CharacterRig|BedSleepingGetUp
+  - first:
+      74: 679062097047331819
+    second: CharacterRig|Idle_SmallObject
+  - first:
+      74: -1380928439702351316
+    second: CharacterRig|PickUpGameConsole
   externalObjects: {}
   materials:
     materialImportMode: 2
