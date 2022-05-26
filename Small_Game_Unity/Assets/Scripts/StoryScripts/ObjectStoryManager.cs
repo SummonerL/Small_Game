@@ -24,6 +24,12 @@ public class ObjectStoryManager : MonoBehaviour
     *   The user will progress the story session with the primary controller button (indicated by the ... icon)
     **/
     public void StartStorySession() {
+        // check for exclusive events before moving back to the linear scripts
+        story.ChoosePathString("exclusive_events");
+        // continue will run through the external functions and evaluate any necessary conditions.
+        // the $. catches the continue and saves us a lot of pain down the road.
+        story.Continue();
+
         // use the General Story Manager to manage this active story
         GeneralStoryManager.Instance.StartStorySession(story);
     }
