@@ -31,7 +31,31 @@ $. # ----------first Continue() consumes this line--
 
 $. #animation:GameConsolePickUp
 
-I am interacting with the game console.
+Wait a second... wasn't the remastered edition of Detective Hirata coming out today? 
+
+I should download it to see if Yume no Tabi can successfully ruin my childhood.
+
+$. #fade:out
+
+$. #animation:GameConsoleSit
+
+$. #advancetime:1
+
+$. #fade:in
+
+What the hell? It's just finished downloading? 
+
+Since when is a visual novel 20GB?
+
+Regardless, my internet is absolute garbage. I'm going to have to upgrade soon.
+
+I'm not even sure if I want to play anymore. Maybe later.
+
+$. #fade:out
+
+$. #animation:GameConsoleStand
+
+$. #fade:in
 
 $. #animation:GameConsolePutDown
 

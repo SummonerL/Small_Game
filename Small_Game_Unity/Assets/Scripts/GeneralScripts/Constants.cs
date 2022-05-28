@@ -168,6 +168,21 @@ public class Constants {
             startingDirection = Vector3.right
         },
 
+        ["GameConsoleSit"] = new AnimationMetadata { 
+            animationParameter="console_sit",
+            animationParameterValue=true,
+            startingPoint = new Vector3(0.28f, 0, -0.24f),
+            startingDirection = Vector3.left
+        },
+
+        ["GameConsoleStand"] = new AnimationMetadata { 
+            animationParameter="console_sit",
+            animationParameterValue=false,
+            movementFirst=false,
+            startingPoint = new Vector3(1.08f, 0, 1.346f),
+            startingDirection = Vector3.right
+        },
+
         ["GameConsolePutDown"] = new AnimationMetadata { 
             animationParameter="console_pick_up",
             animationParameterValue=false,
