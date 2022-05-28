@@ -148,8 +148,13 @@ public class PlayerInteractionScript : MonoBehaviour
 
     // triggered from animation keyframe
     public void PutDownObject() {
+        GameObject heldObject = GameFlowStateManager.Instance.targetInteractiveObject;
+
         // unattach the object to the hand and move it back to 'interactive objects'
-        GameFlowStateManager.Instance.targetInteractiveObject.transform.SetParent(InteractiveObjectsScript.Instance.gameObject.transform, true);
+        heldObject.transform.SetParent(InteractiveObjectsScript.Instance.gameObject.transform, true);
+
+        // reset the loaction / rotation
+        heldObject.GetComponent<MoveableObjectScript>().ResetPositionRotation();
     }
 
 }

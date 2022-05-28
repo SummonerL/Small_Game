@@ -72,6 +72,12 @@ ModelImporter:
   - first:
       74: -1380928439702351316
     second: CharacterRig|PickUpGameConsole
+  - first:
+      74: 8494006388802448730
+    second: CharacterRig|BedSitWithConsole
+  - first:
+      74: -8207051818238032177
+    second: CharacterRig|PutDownGameConsole
   externalObjects: {}
   materials:
     materialImportMode: 2

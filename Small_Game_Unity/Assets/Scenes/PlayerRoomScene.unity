@@ -14899,6 +14899,7 @@ GameObject:
   - component: {fileID: 3469287837670715075}
   - component: {fileID: 1711813854949988873}
   - component: {fileID: 919132148002028509}
+  - component: {fileID: 919132148002028511}
   - component: {fileID: 919132148002028510}
   m_Layer: 7
   m_Name: GameConsole
@@ -14933,6 +14934,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.00042153156, y: 0.0004888375, z: 0.00017299107}
   m_Center: {x: 0.0004241028, y: 0.00096888526, z: 0.0000067885035}
+--- !u!114 &919132148002028511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148002028508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eac378423ce080341b6fc88270105201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &919132148240060490
 GameObject:
   m_ObjectHideFlags: 0
@@ -15055,6 +15068,7 @@ GameObject:
   - component: {fileID: 543450652329843765}
   - component: {fileID: 919132148410304145}
   - component: {fileID: 919132148410304144}
+  - component: {fileID: 919132148410304146}
   m_Layer: 0
   m_Name: Smartphone
   m_TagString: Untagged
@@ -15088,6 +15102,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.19038047, y: 0.14990902, z: 0.24543929}
   m_Center: {x: -0.26063454, y: 0.862111, z: -1.0874552}
+--- !u!114 &919132148410304146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148410304143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eac378423ce080341b6fc88270105201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &919132148768559131
 GameObject:
   m_ObjectHideFlags: 0

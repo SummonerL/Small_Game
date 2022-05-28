@@ -32,6 +32,9 @@ $. # ----------first Continue() consumes this line--
 $. #animation:GameConsolePickUp
 
 I am interacting with the game console.
+
+$. #animation:GameConsolePutDown
+
 ~ callback = -> end_story
 $. #endsession:true
 -> DONE
