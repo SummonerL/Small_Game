@@ -14,8 +14,28 @@ VAR callback = -> pyramid_scheme_email
 # 'canContinue' can't actually evaluate external methods, and will
 # always return true. As a result, we can't safely check canContinue until after
 # these have been evaluated.
+VAR mom_calling_first = 0
+~ mom_calling_first = checkMemory("mom_calling_first")
 
 $. # ----------first Continue() consumes this line--
+
+{
+	- (not exclusive_missed_call_mom_first && mom_calling_first):
+	    -> exclusive_missed_call_mom_first
+}
+
+-> callback
+-> DONE
+
+/**
+*   Here are all of the events that are 'exclusive', or conditional
+**/
+=== exclusive_missed_call_mom_first ===
+Whoever it is can call back later.
+
+Besides, this is the exact thing I should be doing with a splitting headache.
+
+~ removeMemory("mom_calling_first")
 
 -> callback
 -> DONE
@@ -29,12 +49,6 @@ $. # ----------first Continue() consumes this line--
 **/
 === pyramid_scheme_email ===
 $. #animation:ChairSit
-
-$. #dramaticpause:1
-
-Yep. This is the exact thing I should be doing with a splitting headache.
-
-$. #dramaticpause:2
 
 An email from Chloe... Goodman?
 

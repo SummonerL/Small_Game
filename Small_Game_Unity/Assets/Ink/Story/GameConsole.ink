@@ -14,9 +14,28 @@ VAR callback = -> first_event
 # 'canContinue' can't actually evaluate external methods, and will
 # always return true. As a result, we can't safely check canContinue until after
 # these have been evaluated.
+VAR mom_calling_first = 0
+~ mom_calling_first = checkMemory("mom_calling_first")
 
 $. # ----------first Continue() consumes this line--
 
+{
+	- (not exclusive_missed_call_mom_first && mom_calling_first):
+	    -> exclusive_missed_call_mom_first
+}
+
+-> callback
+-> DONE
+
+/**
+*   Here are all of the events that are 'exclusive', or conditional
+**/
+=== exclusive_missed_call_mom_first ===
+Whoever it is can call back later. It's time for games.
+
+~ removeMemory("mom_calling_first")
+
+$. #dramaticpause:1
 -> callback
 -> DONE
 
@@ -29,11 +48,15 @@ $. # ----------first Continue() consumes this line--
 **/
 === first_event ===
 
-$. #animation:GameConsolePickUp
-
 Wait a second... wasn't the remastered edition of Detective Hirata coming out today? 
 
-I should download it to see if Yume no Tabi can successfully ruin my childhood.
+$. #animation:GameConsolePickUp
+
+I should download it to see if Yumetenko can successfully ruin my childhood.
+
+$. #dramaticpause:1
+
+God, I hope they didn't give Hirata a voice.
 
 $. #fade:out
 
@@ -43,13 +66,15 @@ $. #advancetime:1
 
 $. #fade:in
 
-What the hell? It's just finished downloading? 
+...it just finished downloading? 
 
-Since when is a visual novel 20GB?
+Since when is a visual novel 20GB? I hope the $60 was worth it.
 
-Regardless, my internet is absolute garbage. I'm going to have to upgrade soon.
+Either way, my internet is horseshit. I'm going to have to upgrade soon.
 
-I'm not even sure if I want to play anymore. Maybe later.
+$. #dramaticpause:2
+
+I'm not even sure if I want to play anymore... Maybe later.
 
 $. #fade:out
 

@@ -14,8 +14,28 @@ VAR callback = -> generic_bed_event
 # 'canContinue' can't actually evaluate external methods, and will
 # always return true. As a result, we can't safely check canContinue until after
 # these have been evaluated.
+VAR mom_calling_first = 0
+~ mom_calling_first = checkMemory("mom_calling_first")
 
 $. # ----------first Continue() consumes this line--
+
+{
+	- (not exclusive_missed_call_mom_first && mom_calling_first):
+	    -> exclusive_missed_call_mom_first
+}
+
+-> callback
+-> DONE
+
+/**
+*   Here are all of the events that are 'exclusive', or conditional
+**/
+=== exclusive_missed_call_mom_first ===
+Whoever it is can call back later.
+
+I'm way too tired.
+
+~ removeMemory("mom_calling_first")
 
 -> callback
 -> DONE
@@ -58,21 +78,12 @@ God, I have a splitting headache.
 
 $. #animation:BedSleepingGetUp
 
-~ callback = -> second_generic_bed_event
+~ callback = -> end_story
 $. #endsession:true
 ->DONE
 
 
 
-=== second_generic_bed_event ===
-
-This is the second generic bed event
-
-~ callback = -> end_story
-$. #endsession:true
--> DONE
-
-
-
 === end_story ===
+I'm not tired at all.
 -> END

@@ -21,8 +21,8 @@ VAR currentTime = ""
 	    ~ setCutscene("eleventh_morning")
 	    ->DONE
 
-	- (not eleventh_evening) && currentDay == 11 && currentTime == "21:00":
-	    ~ setCutscene("eleventh_evening")
+	- (not twelfth_evening) && currentDay == 12 && currentTime == "21:00":
+	    ~ setCutscene("twelfth_evening")
 	    ->DONE
 
 	- else:
@@ -43,7 +43,11 @@ $. #dramaticpause:3
 
 My head is killing me.
 
+$. #dramaticpause:1
+
 Who is calling me? It's 8:00 in the morning.
+
+~ addMemory("mom_calling_first")
 
 $. #animation:BedSleepingGetUp
 -> end_session
@@ -51,13 +55,27 @@ $. #animation:BedSleepingGetUp
 
 
 
-=== eleventh_evening ===
-$. #dramaticpause:2
+=== twelfth_evening ===
+Well guys... that's the end of the demo!
 
-I'm bored... I wonder what Nathan is up to?
+I hope you're interested in seeing more.
+
+Elliot and Fatima put a lot of hard work into this, trust me.
+
+If you don't mind, please take a second to fill out the short survey.
+
+If you didn't get the link, tell Elliot that Lucas told him to do a better job.
+
+Anyway, it's getting late. I'm heading to bed.
+
+See you all soon!
+
+$. #fade:out
+
+$. #dramaticpause:600
+
 -> end_session
 ->DONE
-
 
 
 

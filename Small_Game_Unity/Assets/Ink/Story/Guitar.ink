@@ -44,14 +44,6 @@ I haven't played in so long...
 
 I wonder if I can even remember any of my songs?
 
-~ callback = -> generic_guitar_event2
-$. #endsession:true
--> DONE
-
-
-=== generic_guitar_event2 ===
-This is a test. Can I see this?
-
 ~ callback = -> end_story
 $. #endsession:true
 -> DONE
@@ -59,4 +51,5 @@ $. #endsession:true
 
 
 === end_story ===
+I don't really want to play right now.
 -> END

@@ -1,7 +1,7 @@
 INCLUDE GlobalVariables.ink
 
 
-VAR callback = -> mom_first_call
+VAR callback = -> end_story
 
 /***
 *   The exclusive_events knot is switched to at the beginning of every
@@ -14,18 +14,21 @@ VAR callback = -> mom_first_call
 # 'canContinue' can't actually evaluate external methods, and will
 # always return true. As a result, we can't safely check canContinue until after
 # these have been evaluated.
+VAR mom_calling_first = 0
+~ mom_calling_first = checkMemory("mom_calling_first")
 
 $. # ----------first Continue() consumes this line--
+
+{
+	- (not mom_first_call && mom_calling_first):
+	    -> mom_first_call
+}
 
 -> callback
 -> DONE
 
-
-
 /**
-*   The following knots makeup the main, non-conditional story, and progresses linearly.
-*   Exclusive events will occur first, and then automatically transition to this.
-*   Make sure to update the callback after each event.
+*   Here are all of the events that are 'exclusive', or conditional
 **/
 === mom_first_call ===
 $. #animation:PhonePickUp
@@ -128,9 +131,19 @@ $. #animation:PhonePutDown
 
 Well. I'm awake now.
 
-~ callback = -> end_story
-$. #endsession:true
+~ removeMemory("mom_calling_first")
+
+~ addMemory("talked_mom_first")
+
+-> callback
 -> DONE
+
+
+/**
+*   The following knots makeup the main, non-conditional story, and progresses linearly.
+*   Exclusive events will occur first, and then automatically transition to this.
+*   Make sure to update the callback after each event.
+**/
 
 
 

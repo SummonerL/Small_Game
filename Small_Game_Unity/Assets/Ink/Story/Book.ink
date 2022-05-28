@@ -41,4 +41,7 @@ $. #endsession:true
 
 
 === end_story ===
+Eh. Maybe later.
+
+My attention span is too short to read anyway.
 -> END

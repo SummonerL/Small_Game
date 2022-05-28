@@ -46,6 +46,10 @@ public class GeneralStoryManager : MonoBehaviour
             AddMemory(memoryName);
         });
 
+        inkStory.BindExternalFunction("removeMemory", (string memoryName) => {
+            RemoveMemory(memoryName);
+        });
+
         inkStory.BindExternalFunction("checkMemory", (string memoryName) => {
             return CheckMemory(memoryName);
         });
@@ -62,6 +66,10 @@ public class GeneralStoryManager : MonoBehaviour
     // accessed as an 'external' function from our Ink stories
     public void AddMemory(string memoryName) {
         memoryBank.Add(memoryName);
+    }
+
+    public void RemoveMemory(string memoryName) {
+        memoryBank.Remove(memoryName);
     }
 
     // ink 'external' function
