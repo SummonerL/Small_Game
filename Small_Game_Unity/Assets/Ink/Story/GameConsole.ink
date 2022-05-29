@@ -1,7 +1,7 @@
 INCLUDE GlobalVariables.ink
 
 
-VAR callback = -> first_event
+VAR callback = -> hirata_download
 
 /***
 *   The exclusive_events knot is switched to at the beginning of every
@@ -51,7 +51,7 @@ $. #dramaticpause:1
 *   Exclusive events will occur first, and then automatically transition to this.
 *   Make sure to update the callback after each event.
 **/
-=== first_event ===
+=== hirata_download ===
 
 Wait a second... wasn't the remastered edition of Detective Hirata coming out today? 
 
@@ -76,6 +76,8 @@ $. #fade:in
 Since when is a visual novel {~40|60|80}GB? I hope the $60 was worth it.
 
 Either way, my internet is horseshit. I'm going to have to upgrade soon.
+
+~ addMemory("hirata_download")
 
 $. #dramaticpause:2
 

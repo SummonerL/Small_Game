@@ -212,7 +212,7 @@ $. #fade:in
 
 $. #dramaticpause:1
 
-I know that was long-winded.
+I know that was long-winded. Didn't mean to talk your ear off.
 
 ...but in other words, she's thinking I should look for a job that gets me out of the house.
 
@@ -243,7 +243,7 @@ $. #endsession:true
 === call_harper_first ===
 $. #animation:PhonePickUp
 
-Whoops, Harper sent me a text {currentTime == "08:00":last night|earlier}.
+Whoops, Harper sent me a text {currentTime == "08:00":last night|this morning}.
 
 I'll just give her a call.
 
@@ -261,15 +261,114 @@ Hey Sis. How's it going?
 
 $. #actor:external
 
-Nothing much, just scrolling on my phone. Did you see {~Emilia got a new car|Alexis just got engaged to some rich dude}?
+Nothing much, just scrolling on my phone.
+
+I sent you a text earlier. Did you see {~Emilia got a new car? It looks freaking expensive.|Alexis just got engaged to some rich dude?}
 
 $. #actor:lucas
 
 Nah, I don't really keep up with her. 
 
+$. #actor:external
 
+Didn't you used to {~hang out with her family|have a crush on her|teach her guitar}?
 
 $. #actor:lucas
+
+Yeah, when I was like 5.
+
+$. #actor:external
+
+Well she's definitely doing well for herself.
+
+You need to land a girl like that.
+
+$. #actor:lucas
+
+I am literally not interested in the slightest.
+
+$. #actor:external
+
+Keep telling yourself that, Lucas.
+
+You could have it all. But all you do is sit on your ass in your room all day.
+
+When is the last time you even got out?
+
+$. #actor:lucas
+
+Why so aggressive? I get out, Harper.
+
+...from time to time.
+
+$. #dramaticpause:2
+
+{checkMemory("hirata_download"):
+    Anyway, did you see that Yumetenko remastered Detective Hirata?
+    We used to play it when we were kids.
+    $. #actor:external
+    Way to change the subject...
+    Yeah, I got the notification. I'm gonna download it {currentTime == "21:00":now|tonight}.
+    $. #actor:lucas
+    Don't expect to play it for a while, it took hours for me to download.
+    $. #actor:external
+    Dammit. I guess I'll keep scrolling in the meantime.
+}
+{ checkMemory("chloe_email_pitch"):
+    Oh, I forgot to tell you, I got an email from Chloe Goodman earlier. Remember her?
+    $. #actor:external
+    ...is that the girl from Sophomore year?
+    $. #actor:lucas
+    Yeah. I feel kind of bad for her. I think she's wrapped up in some pyramid scheme.
+    She was trying to sell me shampoo.
+    $. #actor:external
+    Haha, really? From riches to rags, I guess.
+    $. #actor:lucas
+    Jesus, Harper, that's kind of rude.
+    Anyway, if you're in the market for some beauty products, I'm sure it would help her out.
+    $. #actor:external
+    I'll think about it. I think I still have her number on my phone.
+}
+
+$. #fade:out
+
+$. #advancetime:1
+
+$. #dramaticpause:3
+
+$. #fade:in
+
+$. #dramaticpause:1
+
+...yeah, I'm really hoping the wedding goes well.
+
+That much family being in close proximity worries me. 
+
+Nate and Sarah deserve to not have their wedding ruined my some family drama.
+
+$. #dramaticpause:3
+
+Hey, Lucas. I'm sorry about what I said earlier.
+
+I don't know what got into me.
+
+...I just really want the best for you Lucas.
+
+$. #dramaticpause:2
+
+I know you're trying.
+
+$. #actor:lucas
+
+...thanks Sis.
+
+$. #dramaticpause:1
+
+Well, I gotta go. I'll talk to you later.
+
+$. #actor:external
+
+Same. Later bro. Take care of yourself!
 
 $. #animation:PhoneEarToFace
 
@@ -280,4 +379,5 @@ $. #endsession:true
 ->DONE
 
 === end_story ===
+I don't really want to talk to anyone right now.
 -> END
