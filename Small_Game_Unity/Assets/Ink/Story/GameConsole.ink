@@ -33,6 +33,8 @@ $. # ----------first Continue() consumes this line--
 === exclusive_missed_call_mom_first ===
 Whoever it is can call back later. It's time for games.
 
+$. #audiostop:phone
+
 ~ removeMemory("mom_calling_first")
 
 $. #dramaticpause:1

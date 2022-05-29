@@ -33,6 +33,8 @@ $. # ----------first Continue() consumes this line--
 === exclusive_missed_call_mom_first ===
 Whoever it is can call back later.
 
+$. #audiostop:phone
+
 Besides, this is the exact thing I should be doing with a splitting headache.
 
 ~ removeMemory("mom_calling_first")

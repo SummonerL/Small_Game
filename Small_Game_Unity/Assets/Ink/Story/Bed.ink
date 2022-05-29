@@ -33,6 +33,8 @@ $. # ----------first Continue() consumes this line--
 === exclusive_missed_call_mom_first ===
 Whoever it is can call back later.
 
+$. #audiostop:phone
+
 I'm way too tired.
 
 ~ removeMemory("mom_calling_first")

@@ -33,7 +33,9 @@ $. # ----------first Continue() consumes this line--
 === mom_first_call ===
 $. #animation:PhonePickUp
 
-Oh, it's Mom.
+Oh, it's Mom
+
+$. #audiostop:phone
 
 $. #animation:PhoneToEar
 

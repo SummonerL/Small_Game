@@ -216,6 +216,20 @@ public class GeneralStoryManager : MonoBehaviour
                 digression = true;
             }
 
+            // check for audio
+            string audioStart = Helpers.GetTagValue("audiostart", storyTags);
+            string audioStop = Helpers.GetTagValue("audiostop", storyTags);
+
+            if (audioStart.Length > 0) {
+                // for now, let's just assume we're starting the phone audio
+                AudioManager.Instance.PhoneAudio();
+            }
+
+            if (audioStop.Length > 0) {
+                // for now, let's just assume we're stopping the phone audio
+                AudioManager.Instance.PhoneAudio(true);
+            }
+
             // finally, check to see if we want to end this session
             string endSession = Helpers.GetTagValue("endsession", storyTags);
 

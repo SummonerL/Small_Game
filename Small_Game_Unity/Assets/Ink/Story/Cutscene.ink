@@ -43,13 +43,16 @@ $. #dramaticpause:3
 
 My head is killing me.
 
-$. #dramaticpause:1
+$. #audiostart:phone
+
+$. #dramaticpause:3
 
 Who is calling me? It's 8:00 in the morning.
 
 ~ addMemory("mom_calling_first")
 
 $. #animation:BedSleepingGetUp
+
 -> end_session
 ->DONE
 
