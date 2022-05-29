@@ -3,9 +3,6 @@ INCLUDE GlobalVariables.ink
 # unique methods bound to this story
 EXTERNAL setCutscene(cutscene)
 
-VAR currentDay = 0
-VAR currentTime = ""
-
 /***
 *   The cutscene check is accessed through a separate 'flow'.
 *   this will set the active cutscene knot (in the main flow), 

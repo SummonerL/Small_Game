@@ -16,6 +16,8 @@ VAR callback = -> generic_bed_event
 # these have been evaluated.
 VAR mom_calling_first = 0
 ~ mom_calling_first = checkMemory("mom_calling_first")
+~ currentDay = getDate()
+~ currentTime = getTime()
 
 $. # ----------first Continue() consumes this line--
 
@@ -35,10 +37,46 @@ Whoever it is can call back later.
 
 $. #audiostop:phone
 
+$. #animation:BedCollapse
+
 I'm way too tired.
 
 ~ removeMemory("mom_calling_first")
+~ addMemory("mom_missed_first")
 
+$. #dramaticpause:2
+
+It was probably Mom anyway.
+
+She's always manages to call as soon as I hit REM.
+
+I wonder if I'll start waking up at 4AM when I'm that age.
+
+$. #dramaticpause:2
+
+$. #fade:out
+
+$. #animationControl:reset_state
+
+$. #animation:BedSleepingStill
+
+$. #advancetime:1
+
+$. #dramaticpause:2
+
+$. #fade:in
+
+$. #dramaticpause:2
+
+I should probably get up.
+
+At least my headache is gone.
+
+$. #animation:BedSleepingGetUp
+
+\*sigh\* Should I call Mom back?
+
+$. #endsession:true
 -> callback
 -> DONE
 
@@ -52,7 +90,7 @@ I'm way too tired.
 === generic_bed_event ===
 $. #animation:BedCollapse
 
-$. #dramaticpause:3
+$. #dramaticpause:4
 
 I can't sleep...
 

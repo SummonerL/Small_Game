@@ -1,7 +1,7 @@
 INCLUDE GlobalVariables.ink
 
 
-VAR callback = -> end_story
+VAR callback = -> call_nathan_first
 
 /***
 *   The exclusive_events knot is switched to at the beginning of every
@@ -16,6 +16,8 @@ VAR callback = -> end_story
 # these have been evaluated.
 VAR mom_calling_first = 0
 ~ mom_calling_first = checkMemory("mom_calling_first")
+~ currentDay = getDate()
+~ currentTime = getTime()
 
 $. # ----------first Continue() consumes this line--
 
@@ -137,6 +139,7 @@ Well. I'm awake now.
 
 ~ addMemory("talked_mom_first")
 
+$. #endsession:true
 -> callback
 -> DONE
 
@@ -146,8 +149,135 @@ Well. I'm awake now.
 *   Exclusive events will occur first, and then automatically transition to this.
 *   Make sure to update the callback after each event.
 **/
+=== call_nathan_first ===
+$. #animation:PhonePickUp
+
+I wonder what Nathan's up to?
+
+$. #animation:PhoneToEar
+
+$. #dramaticpause:3
+
+$. #actor:external
+
+{currentTime == "08:00": Dude, you realize it's 8AM, right?|Hey man, what's up?}
+
+$. #actor:lucas
+
+Hey, Nathan. Just thought I'd give you a call and see what you're up to.
+
+$. #actor:external
+
+{currentTime == "08:00":
+    I'm sleeping.
+    ...well, I was sleeping.
+    $. #actor:lucas
+    Sorry bud. I just felt like catching up.
+- else:
+    Not much, trying to get some work done but went down this video rabbit hole.
+    Have you ever seen those videos of {~stuff getting smushed by hydraulic presses?|that guy who reviews instant noodles?}
+    $. #actor:lucas
+    I probably have at some point.
+}
+
+Anyway, how is Sarah?
+
+$. #actor:external
+
+She's doing fine. She's actually going to look for tuxes {currentTime == "21:00":tomorrow.|later today.}
+
+$. #actor:lucas
+
+Tuxes? For the wedding? Shouldn't you be going with her?
+
+$. #actor:external
+
+Nah, I've got some stuff I have to do.
+
+Anyway, I doubt my input would matter that much.
+
+$. #dramaticpause:2
+
+Actually, that reminds me.
+
+I have to tell you what we were talking about the other day.
+
+$. #fade:out
+
+$. #advancetime:1
+
+$. #dramaticpause:3
+
+$. #fade:in
+
+$. #dramaticpause:1
+
+I know that was long-winded.
+
+...but in other words, she's thinking I should look for a job that gets me out of the house.
+
+$. #actor:lucas
+
+Is that what you want?
+
+$. #actor:external
+
+I don't know, I kind of like the flexibility of working from home.
+
+$. #dramaticpause:2
+
+Oh shit, she's calling now actually. I gotta go.
+
+\*hangs up\*
+
+$. #actor:lucas
+
+$. #animation:PhoneEarToFace
+
+$. #animation:PhonePutDown
+
+~ callback = -> call_harper_first
+$. #endsession:true
+->DONE
+
+=== call_harper_first ===
+$. #animation:PhonePickUp
+
+Whoops, Harper sent me a text {currentTime == "08:00":last night|earlier}.
+
+I'll just give her a call.
+
+$. #animation:PhoneToEar
+
+$. #dramaticpause:3
+
+$. #actor:external
+
+Hey Bro!
+
+$. #actor:lucas
+
+Hey Sis. How's it going?
+
+$. #actor:external
+
+Nothing much, just scrolling on my phone. Did you see {~Emilia got a new car|Alexis just got engaged to some rich dude}?
+
+$. #actor:lucas
+
+Nah, I don't really keep up with her. 
 
 
+
+$. #actor:lucas
+
+$. #animation:PhoneEarToFace
+
+$. #animation:PhonePutDown
+
+~ callback = -> end_story
+$. #endsession:true
+->DONE
 
 === end_story ===
 -> END

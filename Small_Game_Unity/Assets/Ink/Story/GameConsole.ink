@@ -16,6 +16,8 @@ VAR callback = -> first_event
 # these have been evaluated.
 VAR mom_calling_first = 0
 ~ mom_calling_first = checkMemory("mom_calling_first")
+~ currentDay = getDate()
+~ currentTime = getTime()
 
 $. # ----------first Continue() consumes this line--
 
@@ -36,6 +38,7 @@ Whoever it is can call back later. It's time for games.
 $. #audiostop:phone
 
 ~ removeMemory("mom_calling_first")
+~ addMemory("mom_missed_first")
 
 $. #dramaticpause:1
 -> callback
@@ -70,7 +73,7 @@ $. #fade:in
 
 ...it just finished downloading? 
 
-Since when is a visual novel 20GB? I hope the $60 was worth it.
+Since when is a visual novel {~40|60|80}GB? I hope the $60 was worth it.
 
 Either way, my internet is horseshit. I'm going to have to upgrade soon.
 

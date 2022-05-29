@@ -16,6 +16,8 @@ VAR callback = -> generic_guitar_event
 # these have been evaluated.
 VAR book_1_memory = 0
 ~ book_1_memory = checkMemory("book_heard_about_1")
+~ currentDay = getDate()
+~ currentTime = getTime()
 
 $. # ----------first Continue() consumes this line--
 

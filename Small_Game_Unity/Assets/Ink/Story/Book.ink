@@ -14,6 +14,8 @@ VAR callback = -> book_heard_about_1
 # 'canContinue' can't actually evaluate external methods, and will
 # always return true. As a result, we can't safely check canContinue until after
 # these have been evaluated.
+~ currentDay = getDate()
+~ currentTime = getTime()
 
 $. # ----------first Continue() consumes this line--
 
