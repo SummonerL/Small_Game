@@ -230,6 +230,8 @@ Oh shit, she's calling now actually. I gotta go.
 
 \*hangs up\*
 
+~ addMemory("talked_nathan_first")
+
 $. #actor:lucas
 
 $. #animation:PhoneEarToFace
@@ -263,7 +265,7 @@ $. #actor:external
 
 Nothing much, just scrolling on my phone.
 
-I sent you a text earlier. Did you see {~Emilia got a new car? It looks freaking expensive.|Alexis just got engaged to some rich dude?}
+I sent you a text {currentTime == "08:00":last night|earlier}. Did you see {~Emilia got a new car? It looks freaking expensive.|Alexis just got engaged to some rich dude?}
 
 $. #actor:lucas
 
@@ -315,11 +317,12 @@ $. #dramaticpause:2
     Dammit. I guess I'll keep scrolling in the meantime.
 }
 { checkMemory("chloe_email_pitch"):
-    Oh, I forgot to tell you, I got an email from Chloe Goodman earlier. Remember her?
+    $. #actor:lucas
+    Oh, I forgot to tell you, I got an email from Chloe Goodman. Remember her?
     $. #actor:external
     ...is that the girl from Sophomore year?
     $. #actor:lucas
-    Yeah. I feel kind of bad for her. I think she's wrapped up in some pyramid scheme.
+    Yeah. I feel kind of bad for her. I think she's wrapped up in a pyramid scheme or something.
     She was trying to sell me shampoo.
     $. #actor:external
     Haha, really? From riches to rags, I guess.
@@ -352,13 +355,15 @@ Hey, Lucas. I'm sorry about what I said earlier.
 
 I don't know what got into me.
 
-...I just really want the best for you Lucas.
+...I just really want the best for you.
 
 $. #dramaticpause:2
 
 I know you're trying.
 
 $. #actor:lucas
+
+$. #dramaticpause:2
 
 ...thanks Sis.
 
@@ -369,6 +374,8 @@ Well, I gotta go. I'll talk to you later.
 $. #actor:external
 
 Same. Later bro. Take care of yourself!
+
+~ addMemory("talked_harper_first")
 
 $. #animation:PhoneEarToFace
 

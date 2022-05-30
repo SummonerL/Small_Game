@@ -89,7 +89,7 @@ $. #fade:out
 
 $. #dramaticpause:2
 
-$. #advancetime:2
+$. #advancetime:1
 
 $. #fade:in
 
@@ -103,6 +103,136 @@ I should probably pick up some freelance again.
 
 $. #animation:ChairStand
 
+~ callback = -> social_media_first
+$. #endsession:true
+-> DONE
+
+
+
+=== social_media_first ===
+
+$. #animation:ChairSit
+
+$. #dramaticpause:2
+
+Let's see what's going on in the world.
+
+$. #dramaticpause:2
+
+...Dad just posted a picture of a donut.
+
+"Found this AMAZING donut joint in town the other day!!!"
+
+"I admit that I indulged in a few... dozen!!"
+
+"LOL!!!"
+
+"Laugh emoji 4 times."
+
+$. #dramaticpause:1
+
+...bacon and maple syrup?
+
+That's a bit much for me.
+
+$. #dramaticpause:3
+
+{checkMemory("talked_nathan_first"):
+    Sarah posted a picture of the tuxes she picked out.
+    
+    Neon blue? That looks attrocious.
+    
+    Poor Nate...
+    
+    $. #dramaticpause:2
+    
+    Wait a second... don't the groomsmen have to wear the same tuxes?
+    
+    ...Shit.
+}
+
+$. #dramaticpause:3
+
+Who is this random girl in Isaac's profile picture?
+
+"Jada, I know we just met a week ago, but I feel like I've known you forever."
+
+"Can't wait for all of the memories we're going to make together!"
+
+"Heart sign. Hashtag, ISwipedRight."
+
+$. #dramaticpause:2
+
+Good for him I guess.
+
+$. #dramaticpause:2
+
+He just sent me a message...
+
+"Dude, did you see the absolute 10 in my profile picture?"
+
+"She's incredible, man!"
+
+"We went to Twisted Sip and had some drinks."
+
+"And in case you were wondering, I didn't spend the night alone. Wink face."
+
+$. #dramaticpause:1
+
+I wasn't wondering.
+
+$. #dramaticpause:1
+
+"Anyway, she has a Sister. Don't tell Jada I said this, but she's easily a 10 as well."
+
+"We should all get drinks sometime. I think you two could hit it off. Wink face again."
+
+$. #dramaticpause:2
+
+...I think I'm good, Isaac.
+
+Best of luck to you.
+
+$. #dramaticpause:4
+
+I wonder...
+
+\*typing\* C. H. L. O. E.
+
+$. #dramaticpause:2
+
+Oh, she's on here.
+
+"Mom to two beautiful fur babies. DivineShine rep. "
+
+"DM me if you're looking for some new hair or skin products! Heart sign."
+
+$. #dramaticpause:2
+
+Who is that guy in her profile picture?
+
+$. #dramaticpause:2
+
+Probably her brother...
+
+$. #fade:out
+
+$. #dramaticpause:2
+
+$. #advancetime:1
+
+$. #fade:in
+
+$. #dramaticpause:2
+
+...bank account is still at $400.
+
+I should probably try and fix that. 
+
+At least I haven't been charged for this month's internet yet.
+
+$. #animation:ChairStand
+
 ~ callback = -> end_story
 $. #endsession:true
 -> DONE
@@ -110,4 +240,5 @@ $. #endsession:true
 
 
 === end_story ===
+I don't really want to stare at a screen right now.
 -> END

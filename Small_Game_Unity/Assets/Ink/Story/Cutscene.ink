@@ -56,6 +56,11 @@ $. #animation:BedSleepingGetUp
 
 
 === twelfth_evening ===
+$. #actor:lucas
+
+$. #dramaticpause:2
+
+
 Well guys... that's the end of the demo!
 
 I hope you're interested in seeing more.
