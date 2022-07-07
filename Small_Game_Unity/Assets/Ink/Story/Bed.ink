@@ -104,7 +104,7 @@ $. #dramaticpause:4
         Harper is right, all I do is sit on my ass all day.
     }
     I haven't written any music in years.
-    I Haven't done any work in a while.
+    I haven't done any work in a while.
     I'm struggling to pay rent.
     I'm afraid to leave the house.
     $. #dramaticpause:2
